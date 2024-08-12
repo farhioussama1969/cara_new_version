@@ -18,33 +18,31 @@ class UserController extends GetxController {
   UserModel? user;
 
   initialize({bool? skipUpdateChecker}) async {
-    String currentAppVersion = Get.find<ConfigController>().appVersion ?? '1.0.0';
-    String lastRequiredAppVersion = Platform.isAndroid
-        ? Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.required ?? '1.0.0'
-        : Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.required ?? '1.0.0';
-    String lastOptionalAppVersion = Platform.isAndroid
-        ? Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.optional ?? '1.0.0'
-        : Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.optional ?? '1.0.0';
-    if ((AppVersionInfoService.getExtendedVersionNumber(currentAppVersion) <
-                AppVersionInfoService.getExtendedVersionNumber(lastRequiredAppVersion) ||
-            AppVersionInfoService.getExtendedVersionNumber(currentAppVersion) <
-                AppVersionInfoService.getExtendedVersionNumber(lastOptionalAppVersion)) &&
-        skipUpdateChecker != true) {
-      Get.offAllNamed(Routes.NEW_UPDATE);
+    // String currentAppVersion = Get.find<ConfigController>().appVersion ?? '1.0.0';
+    // String lastRequiredAppVersion = Platform.isAndroid
+    //     ? Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.required ?? '1.0.0'
+    //     : Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.required ?? '1.0.0';
+    // String lastOptionalAppVersion = Platform.isAndroid
+    //     ? Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.optional ?? '1.0.0'
+    //     : Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.optional ?? '1.0.0';
+    // if ((AppVersionInfoService.getExtendedVersionNumber(currentAppVersion) <
+    //             AppVersionInfoService.getExtendedVersionNumber(lastRequiredAppVersion) ||
+    //         AppVersionInfoService.getExtendedVersionNumber(currentAppVersion) <
+    //             AppVersionInfoService.getExtendedVersionNumber(lastOptionalAppVersion)) &&
+    //     skipUpdateChecker != true) {
+    //   Get.offAllNamed(Routes.NEW_UPDATE);
+    // } else {
+    if (await LocalStorageService.loadData(
+            key: StorageKeysConstants.serverApiToken, type: DataTypes.string) !=
+        null) {
+      log(await LocalStorageService.loadData(
+          key: StorageKeysConstants.serverApiToken, type: DataTypes.string));
+      await getUserData();
+      // });
     } else {
-      if (await LocalStorageService.loadData(key: StorageKeysConstants.serverApiToken, type: DataTypes.string) != null) {
-        log(await LocalStorageService.loadData(key: StorageKeysConstants.serverApiToken, type: DataTypes.string));
-        // await AuthProvider().getUserData().then((user) {
-        //   if (user != null) {
-        //     setUser(user);
-        //     if (user.status == 'Banned') return;
-        //     Get.offAllNamed(Routes.HOME);
-        //   }
-        // });
-      } else {
-        //Get.offAllNamed(Routes.GET_STARTED);
-      }
+      Get.offAllNamed(Routes.GET_STARTED);
     }
+    //}
   }
 
   Future<void> setUser(UserModel user) async {
@@ -60,6 +58,11 @@ class UserController extends GetxController {
       Get.offAllNamed(Routes.BANNED);
       return;
     }
+  }
+
+  Future<void> getUserData() async {
+    user = UserModel.fromJson(jsonDecode(await LocalStorageService.loadData(
+        key: StorageKeysConstants.userData, type: DataTypes.map)));
   }
 
   void refreshUserData() {
@@ -84,16 +87,23 @@ class UserController extends GetxController {
       // );
     }
     await LocalStorageService.deleteData(key: StorageKeysConstants.userData);
-    await LocalStorageService.deleteData(key: StorageKeysConstants.serverApiToken);
+    await LocalStorageService.deleteData(
+        key: StorageKeysConstants.serverApiToken);
     await LocalStorageService.deleteData(key: StorageKeysConstants.fcmToken);
-    FirebaseMessaging.instance.unsubscribeFromTopic(FirebaseMessagingTobicsConstants.clientsRegistered);
+    FirebaseMessaging.instance.unsubscribeFromTopic(
+        FirebaseMessagingTobicsConstants.clientsRegistered);
 
     await FirebaseMessaging.instance.deleteToken();
     user = null;
     FirebaseMessaging.instance.getToken().then((token) async {
-      LocalStorageService.saveData(key: StorageKeysConstants.fcmToken, type: DataTypes.string, value: token);
-      FirebaseMessaging.instance.subscribeToTopic(FirebaseMessagingTobicsConstants.clientsNotRegistered);
-      FirebaseMessaging.instance.subscribeToTopic(FirebaseMessagingTobicsConstants.allClients);
+      LocalStorageService.saveData(
+          key: StorageKeysConstants.fcmToken,
+          type: DataTypes.string,
+          value: token);
+      FirebaseMessaging.instance.subscribeToTopic(
+          FirebaseMessagingTobicsConstants.clientsNotRegistered);
+      FirebaseMessaging.instance
+          .subscribeToTopic(FirebaseMessagingTobicsConstants.allClients);
     });
   }
 }

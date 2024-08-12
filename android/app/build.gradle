@@ -1,8 +1,15 @@
 plugins {
     id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    // END: FlutterFire Configuration
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
+
+apply plugin: 'com.google.gms.google-services'
+
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -29,6 +36,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    ndkVersion = "25.1.8937393"
     namespace "com.hoskadev.cara"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
@@ -49,8 +57,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         applicationId "com.hoskadev.cara"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -80,4 +86,10 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.1'
+    implementation 'com.google.firebase:firebase-perf:19.0.5'
+}

@@ -3,8 +3,6 @@ import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_co
 import 'package:solvodev_mobile_structure/app/core/services/app_version_info_service.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/translation_util.dart';
 import 'package:solvodev_mobile_structure/app/data/models/general_settings_model.dart';
-import 'package:solvodev_mobile_structure/app/data/providers/taxili_api/config_provider.dart';
-
 class ConfigController extends GetxController {
   String? appVersion;
 
@@ -16,11 +14,7 @@ class ConfigController extends GetxController {
   GeneralSettingsModel? generalSettingsData;
 
   Future<void> getGeneralSettingsData() async {
-    await ConfigProvider().generalSettings(onLoading: () {}, onFinal: () {}).then((value) {
-      if (value != null) {
-        generalSettingsData = value;
-      }
-    });
+
   }
 
   initialize() async {

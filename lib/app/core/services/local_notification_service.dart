@@ -7,7 +7,7 @@ class LocalNotificationService {
   static void initialize() {
     localNotification.initialize(
       const InitializationSettings(
-        android: AndroidInitializationSettings('notification_icon'),
+        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: DarwinInitializationSettings(
           requestAlertPermission: true,
           requestBadgePermission: true,
@@ -17,19 +17,20 @@ class LocalNotificationService {
     );
   }
 
-  static void showNotification({required String? title, required String? body}) {
+  static void showNotification(
+      {required String? title, required String? body}) {
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-      'taxili_channel',
-      'taxili_channel',
-      channelDescription: 'Taxili channel',
+      'cara_channel',
+      'cara_channel',
+      channelDescription: 'cara channel',
       importance: Importance.max,
       priority: Priority.max,
       playSound: true,
-      sound: RawResourceAndroidNotificationSound('taxi_horn_audio'),
       enableVibration: true,
       color: MainColors.primaryColor,
     );
-    DarwinNotificationDetails iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
+    DarwinNotificationDetails iOSPlatformChannelSpecifics =
+        const DarwinNotificationDetails();
     NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,
