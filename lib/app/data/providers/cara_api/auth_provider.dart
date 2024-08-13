@@ -7,8 +7,7 @@ import 'package:solvodev_mobile_structure/app/core/services/local_storage_servic
 import 'package:solvodev_mobile_structure/app/data/models/api_response.dart';
 import 'package:solvodev_mobile_structure/app/data/models/user_model.dart';
 
-class AuthProvider{
-
+class AuthProvider {
   Future<UserModel?> signIn({
     required String phone,
     required String password,
@@ -21,13 +20,17 @@ class AuthProvider{
       data: {
         "phone": phone,
         "password": password,
-        "device_name": Platform.isAndroid ? 'Android': 'IOS',
-        "token_device":(await LocalStorageService.loadData(key: StorageKeysConstants.fcmToken, type: DataTypes.string)) ?? 'no Token',
+        "device_name": Platform.isAndroid ? 'Android' : 'IOS',
+        "token_device": (await LocalStorageService.loadData(
+                key: StorageKeysConstants.fcmToken, type: DataTypes.string)) ??
+            'no Token',
       },
       onSuccess: (response) async {
         if (response.body['token'] != null) {
           await LocalStorageService.saveData(
-              key: StorageKeysConstants.serverApiToken, value: response.body['token'], type: DataTypes.string);
+              key: StorageKeysConstants.serverApiToken,
+              value: response.body['token'],
+              type: DataTypes.string);
         }
       },
       onLoading: () => onLoading(),
@@ -38,8 +41,6 @@ class AuthProvider{
     }
     return null;
   }
-
-
 
   Future<UserModel?> signUp({
     required String username,
@@ -56,13 +57,17 @@ class AuthProvider{
         "phone": phone,
         "password": password,
         "password_confirmation": password,
-        "device_name": Platform.isAndroid ? 'Android': 'IOS',
-        "token_device":(await LocalStorageService.loadData(key: StorageKeysConstants.fcmToken, type: DataTypes.string)) ?? 'no Token',
+        "device_name": Platform.isAndroid ? 'Android' : 'IOS',
+        "token_device": (await LocalStorageService.loadData(
+                key: StorageKeysConstants.fcmToken, type: DataTypes.string)) ??
+            'no Token',
       },
       onSuccess: (response) async {
         if (response.body['token'] != null) {
           await LocalStorageService.saveData(
-              key: StorageKeysConstants.serverApiToken, value: response.body['token'], type: DataTypes.string);
+              key: StorageKeysConstants.serverApiToken,
+              value: response.body['token'],
+              type: DataTypes.string);
         }
       },
       onLoading: () => onLoading(),
@@ -74,7 +79,6 @@ class AuthProvider{
     return null;
   }
 
-
   Future<bool?> checkPhone({
     required String phone,
     required Function onLoading,
@@ -82,7 +86,7 @@ class AuthProvider{
   }) async {
     ApiResponse? response = await HttpClientService.sendRequest(
       endPoint: EndPointsConstants.checkUser,
-      requestType: HttpRequestTypes.post,
+      requestType: HttpRequestTypes.get,
       data: {
         "phone": phone,
       },
@@ -95,7 +99,6 @@ class AuthProvider{
     return null;
   }
 
-
   Future<bool?> resetPassword({
     required String otp,
     required String phone,
@@ -107,7 +110,10 @@ class AuthProvider{
       endPoint: EndPointsConstants.resetPassword,
       requestType: HttpRequestTypes.post,
       data: {
-        "code_reset": otp, "phone": phone, "password": password, "password_confirmation": password,
+        "code_reset": otp,
+        "phone": phone,
+        "password": password,
+        "password_confirmation": password,
       },
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),
@@ -117,7 +123,6 @@ class AuthProvider{
     }
     return null;
   }
-
 
   Future<bool?> remindPassword({
     required String phone,
@@ -138,9 +143,4 @@ class AuthProvider{
     }
     return null;
   }
-
-
-
-
-
 }

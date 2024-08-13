@@ -52,4 +52,14 @@ static String get changeLanguage{return "change language".tr;}
 static String get deleteAccount{return "delete account".tr;}
 static String get darkMode{return "dark mode".tr;}
 static String get pleaseWait{return "please wait".tr;}
+static String get appTitle{return "app title".tr;}
+static String get signIn{return "sign in".tr;}
+static String get signUp{return "sign up".tr;}
+static String get welcome{return "welcome".tr;}
+static String get signInDescription{return "sign in description".tr;}
+static String get signUpDescription{return "sign up description".tr;}
+static String get phoneNumber{return "phone number".tr;}
+static String get password{return "password".tr;}
+static String get forgotPassword{return "forgot password".tr;}
+static String get phoneNumberExist{return "phone number exist".tr;}
 }

@@ -7,17 +7,23 @@ import 'package:solvodev_mobile_structure/app/core/constants/storage_keys_consta
 import 'package:solvodev_mobile_structure/app/core/services/local_storage_service.dart';
 
 class TranslationUtil {
-  static Locale? currentLang = const Locale('en');
+  static Locale? currentLang = const Locale('ar');
 
   static void changeLang({required String lang}) {
-    LocalStorageService.saveData(key: StorageKeysConstants.localeLang, value: lang, type: DataTypes.string);
+    LocalStorageService.saveData(
+        key: StorageKeysConstants.localeLang,
+        value: lang,
+        type: DataTypes.string);
     Get.updateLocale(Locale(lang));
     currentLang = Locale(lang);
   }
 
   static Future<void> initialize() async {
-    if (await LocalStorageService.loadData(key: StorageKeysConstants.localeLang, type: DataTypes.string) != null) {
-      currentLang = Locale(await LocalStorageService.loadData(key: StorageKeysConstants.localeLang, type: DataTypes.string));
+    if (await LocalStorageService.loadData(
+            key: StorageKeysConstants.localeLang, type: DataTypes.string) !=
+        null) {
+      currentLang = Locale(await LocalStorageService.loadData(
+          key: StorageKeysConstants.localeLang, type: DataTypes.string));
     }
     await initializeIntlDateFormatTranslation();
   }

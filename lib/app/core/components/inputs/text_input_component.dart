@@ -69,126 +69,128 @@ class TextInputComponent extends StatelessWidget {
       this.border});
   @override
   Widget build(BuildContext context) {
-    return AnimatorComponent(
-      time: const Duration(milliseconds: 300),
-      child: Column(
-        children: [
-          (isLabelOutside != null && isLabelOutside == true)
-              ? SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.only(bottom: 5.h, start: 14.w),
-                        child: Text(
-                          label == null ? "" : label!,
-                          style: TextStyles.mediumBodyTextStyle(context),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              : Container(),
-          SizedBox(
-            width: double.infinity,
-            child: TextFormField(
-              textAlign: ltrDirection == true ? TextAlign.end : TextAlign.start,
-              maxLength: maxLength,
-              validator: (value) => validate!(value!),
-              maxLines: maxLines ?? 1,
-              onTap: onTap == null ? null : () => onTap!(context),
-              readOnly: readOnly ?? false,
-              obscureText: obscureText ?? false,
-              style: TextStyles.mediumBodyTextStyle(context),
-              focusNode: focusNode,
-              controller: controller,
-              keyboardType: textInputType ?? TextInputType.text,
-              textInputAction: textInputAction ?? TextInputAction.next,
-              cursorColor: MainColors.primaryColor,
-              inputFormatters: textInputFormatter != null ? [textInputFormatter!] : null,
-              decoration: InputDecoration(
-                counterText: '',
-                hintStyle: TextStyles.mediumBodyTextStyle(context).copyWith(
-                  color: MainColors.disableColor(context),
-                ),
-                contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
-                errorStyle: TextStyles.smallBodyTextStyle(context).copyWith(
-                  color: MainColors.errorColor(context),
-                  fontSize: 13.sp,
-                  overflow: TextOverflow.fade,
-                ),
-                errorMaxLines: 2,
-                fillColor: MainColors.inputColor(context),
-                filled: filled ?? true,
-                hintText: hint ?? "",
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
-                  borderSide: BorderSide(
-                    color: MainColors.errorColor(context)!,
-                    width: 1,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
-                  borderSide: border ??
-                      BorderSide(
-                        color: MainColors.transparentColor,
-                        width: 1,
+    return Column(
+      children: [
+        (isLabelOutside != null && isLabelOutside == true)
+            ? SizedBox(
+                width: double.infinity,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.only(bottom: 5.h, start: 14.w),
+                      child: Text(
+                        label == null ? "" : label!,
+                        style: TextStyles.mediumBodyTextStyle(context),
                       ),
+                    )
+                  ],
                 ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
-                  borderSide: border ??
-                      BorderSide(
-                        color: MainColors.disableColor(context)!.withOpacity(0.2),
-                        width: 1,
-                      ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
-                  borderSide: BorderSide(
-                    color: MainColors.primaryColor,
-                    width: 1,
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
-                  borderSide: border ??
-                      BorderSide(
-                        color: MainColors.transparentColor,
-                        width: 1,
-                      ),
-                ),
-                suffixIconConstraints: BoxConstraints(
-                  minWidth: 25.w,
-                  minHeight: 25.w,
-                ),
-                prefixIcon: prefix != null
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          prefix ?? Container(),
-                        ],
-                      )
-                    : null,
-                suffixIcon: suffix != null
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          suffix ?? Container(),
-                        ],
-                      )
-                    : null,
+              )
+            : Container(),
+        SizedBox(
+          width: double.infinity,
+          child: TextFormField(
+            textAlign: ltrDirection == true ? TextAlign.end : TextAlign.start,
+            maxLength: maxLength,
+            validator: (value) => validate!(value!),
+            maxLines: maxLines ?? 1,
+            onTap: onTap == null ? null : () => onTap!(context),
+            readOnly: readOnly ?? false,
+            obscureText: obscureText ?? false,
+            style: TextStyles.mediumBodyTextStyle(context),
+            focusNode: focusNode,
+            controller: controller,
+            keyboardType: textInputType ?? TextInputType.text,
+            textInputAction: textInputAction ?? TextInputAction.next,
+            cursorColor: MainColors.primaryColor,
+            inputFormatters:
+                textInputFormatter != null ? [textInputFormatter!] : null,
+            decoration: InputDecoration(
+              counterText: '',
+              hintStyle: TextStyles.mediumBodyTextStyle(context).copyWith(
+                color: MainColors.disableColor(context),
               ),
-              onFieldSubmitted: (value) {
-                if (onSubmit != null) onSubmit!(value);
-                nextNode == null ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(nextNode);
-              },
-              onChanged: onChange ?? null,
+              contentPadding: contentPadding ??
+                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
+              errorStyle: TextStyles.smallBodyTextStyle(context).copyWith(
+                color: MainColors.errorColor(context),
+                fontSize: 13.sp,
+                overflow: TextOverflow.fade,
+              ),
+              errorMaxLines: 2,
+              fillColor: MainColors.inputColor(context),
+              filled: filled ?? true,
+              hintText: hint ?? "",
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(borderRadius ?? 1000.r),
+                borderSide: BorderSide(
+                  color: MainColors.errorColor(context)!,
+                  width: 1,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(borderRadius ?? 1000.r),
+                borderSide: border ??
+                    BorderSide(
+                      color: MainColors.primaryColor,
+                      width: 1,
+                    ),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(borderRadius ?? 1000.r),
+                borderSide: border ??
+                    BorderSide(
+                      color: MainColors.disableColor(context)!.withOpacity(0.2),
+                      width: 1,
+                    ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(borderRadius ?? 1000.r),
+                borderSide: BorderSide(
+                  color: MainColors.primaryColor,
+                  width: 1,
+                ),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(borderRadius ?? 1000.r),
+                borderSide: border ??
+                    BorderSide(
+                      color: MainColors.transparentColor,
+                      width: 1,
+                    ),
+              ),
+              suffixIconConstraints: BoxConstraints(
+                minWidth: 25.w,
+                minHeight: 25.w,
+              ),
+              prefixIcon: prefix != null
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        prefix ?? Container(),
+                      ],
+                    )
+                  : null,
+              suffixIcon: suffix != null
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        suffix ?? Container(),
+                      ],
+                    )
+                  : null,
             ),
+            onFieldSubmitted: (value) {
+              if (onSubmit != null) onSubmit!(value);
+              nextNode == null
+                  ? FocusScope.of(context).unfocus()
+                  : FocusScope.of(context).requestFocus(nextNode);
+            },
+            onChanged: onChange ?? null,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

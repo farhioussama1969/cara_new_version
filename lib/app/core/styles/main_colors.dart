@@ -2,24 +2,33 @@ import 'package:flutter/material.dart' as materialColors;
 import 'package:flutter/material.dart';
 
 class MainColors {
-  static Color? backgroundColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.backgroundColor;
-  static Color? shadowColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.shadowColor;
-  static Color? textColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.textColor;
-  static Color? inputColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.inputColor;
-  static Color? disableColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.disableColor;
-  static Color? infoColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.infoColor;
-  static Color? errorColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.errorColor;
-  static Color? successColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.successColor;
-  static Color? warningColor(BuildContext context) => Theme.of(context).extension<ColorsStyles>()?.warningColor;
+  static Color? backgroundColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.backgroundColor;
+  static Color? shadowColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.shadowColor;
+  static Color? textColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.textColor;
+  static Color? inputColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.inputColor;
+  static Color? disableColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.disableColor;
+  static Color? infoColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.infoColor;
+  static Color? errorColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.errorColor;
+  static Color? successColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.successColor;
+  static Color? warningColor(BuildContext context) =>
+      Theme.of(context).extension<ColorsStyles>()?.warningColor;
 
-  static const Color primaryColor = materialColors.Color(0xFFE1AD01);
+  static const Color primaryColor = materialColors.Color(0xFF42A5F5);
   static const Color secondColor = materialColors.Color(0xFF5A4500);
   static const Color whiteColor = materialColors.Colors.white;
   static const Color blackColor = materialColors.Color(0xFF333232);
   static const Color transparentColor = materialColors.Colors.transparent;
 
   static const primaryGradientColor = LinearGradient(
-    colors: [primaryColor, Color(0xFFE1AC00)],
+    colors: [primaryColor, primaryColor],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );

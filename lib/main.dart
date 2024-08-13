@@ -110,7 +110,7 @@ Future<void> main() async {
             getPages: AppPages.routes,
             translations: Translation(),
             locale: TranslationUtil.currentLang,
-            fallbackLocale: const Locale('en'),
+            fallbackLocale: const Locale('ar'),
             themeMode: ThemeUtil.currentTheme,
             theme: ThemeStyles.lightTheme,
             darkTheme: ThemeStyles.darkTheme,

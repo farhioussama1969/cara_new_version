@@ -56,11 +56,13 @@ class PrimaryButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget button = Container(
-      height: height ?? 58.h,
+      height: height ?? 55.h,
       width: width,
       padding: EdgeInsets.symmetric(vertical: 4.h),
       decoration: BoxDecoration(
-        gradient: backgroundColor == null ? gradient ?? MainColors.primaryGradientColor : null,
+        gradient: backgroundColor == null
+            ? gradient ?? MainColors.primaryGradientColor
+            : null,
         color: backgroundColor,
         border: Border.all(
           color: borderColor ?? Colors.transparent,
@@ -81,7 +83,8 @@ class PrimaryButtonComponent extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           foregroundColor: MainColors.primaryColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000.r)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(1000.r)),
           backgroundColor: MainColors.transparentColor,
           padding: EdgeInsets.symmetric(vertical: 10.h),
         ),
@@ -112,7 +115,8 @@ class PrimaryButtonComponent extends StatelessWidget {
                             width: iconSize ?? 25.r,
                             color: iconColor ?? MainColors.textColor(context),
                           ),
-                        if (iconPath != null && text != '') SizedBox(width: 6.w),
+                        if (iconPath != null && text != '')
+                          SizedBox(width: 6.w),
                         if (text != '')
                           Text(
                             text,
@@ -129,11 +133,6 @@ class PrimaryButtonComponent extends StatelessWidget {
       ),
     );
 
-    return disableAnimation != true
-        ? AnimatorComponent(
-            time: animationDuration ?? const Duration(milliseconds: 0),
-            child: button,
-          )
-        : button;
+    return disableAnimation != true ? button : button;
   }
 }

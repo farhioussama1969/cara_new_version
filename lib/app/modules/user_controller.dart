@@ -62,7 +62,8 @@ class UserController extends GetxController {
 
   Future<void> getUserData() async {
     user = UserModel.fromJson(jsonDecode(await LocalStorageService.loadData(
-        key: StorageKeysConstants.userData, type: DataTypes.map)));
+        key: StorageKeysConstants.userData, type: DataTypes.string)));
+    Get.offAllNamed(Routes.MAIN);
   }
 
   void refreshUserData() {

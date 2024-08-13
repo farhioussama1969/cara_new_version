@@ -16,7 +16,7 @@ def buildStringsAssetsConstants():
     # create new strings.dart file
     newFile = open("lib/app/core/constants/strings_assets_constants.dart", "a+")
     # open connection with the english json file
-    english_strings_file = open("assets/translations/en.json", "r")
+    english_strings_file = open("assets/translations/ar.json", "r")
 
     # start writing imports and class name
     newFile.write("import 'package:get/get.dart';" + "\n")
