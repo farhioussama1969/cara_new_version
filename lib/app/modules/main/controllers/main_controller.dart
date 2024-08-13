@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 
 class MainController extends GetxController {
-  //TODO: Implement MainController
+  int selectedBottomNavIndex = 0;
+  void changeSelectedBottomNavIndex(int index) {
+    selectedBottomNavIndex = index;
+    update([GetBuildersIdsConstants.bottomNavigationBar]);
+  }
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +22,4 @@ class MainController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

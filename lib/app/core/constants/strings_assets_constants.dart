@@ -62,4 +62,9 @@ static String get phoneNumber{return "phone number".tr;}
 static String get password{return "password".tr;}
 static String get forgotPassword{return "forgot password".tr;}
 static String get phoneNumberExist{return "phone number exist".tr;}
+static String get home{return "home".tr;}
+static String get myCars{return "my cars".tr;}
+static String get gifts{return "gifts".tr;}
+static String get myReservations{return "my reservations".tr;}
+static String get myAccount{return "my account".tr;}
 }

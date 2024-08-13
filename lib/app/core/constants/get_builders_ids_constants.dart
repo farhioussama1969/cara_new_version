@@ -11,4 +11,5 @@ class GetBuildersIdsConstants {
   static const String signInPasswordInput = "sing_in_password_input";
   static const String signInButton = "sing_in_button";
   static const String checkingUserButton = "checking_user_button";
+  static const String bottomNavigationBar = "bottom_navigation_bar";
 }

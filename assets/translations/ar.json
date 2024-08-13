@@ -64,7 +64,13 @@
   "password": "كلمة السر",
 
   "forgot password": "نسيت كلمة السر",
-  "phone number exist": "رقم الهاتف مرتبط بحساب بالفعل، يرجى تسجيل الدخول"
+  "phone number exist": "رقم الهاتف مرتبط بحساب بالفعل، يرجى تسجيل الدخول",
+
+  "home": "الرئيسية",
+  "my cars": "سياراتي",
+  "gifts": "الهدايا",
+  "my reservations": "حجوزاتي",
+  "my account": "حسابي"
 
 
 }
