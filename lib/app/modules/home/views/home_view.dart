@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
@@ -34,36 +36,34 @@ class HomeView extends GetView<HomeController> {
             borderRadius: BorderRadius.circular(1000.r),
             child: FloatingActionButton(
               backgroundColor: MainColors.primaryColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    IconsAssetsConstants.caraIcon,
-                    width: 38.r,
-                    height: 38.r,
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  GetBuilder<HomeController>(
-                      id: GetBuildersIdsConstants.homeFloatingButton,
-                      builder: (logic) {
-                        return Center(
-                          child: !logic.checkingServiceAvailabilityLoading
-                              ? Text(
-                                  StringsAssetsConstants.orderWash,
-                                  style: TextStyles.smallBodyTextStyle(context)
-                                      .copyWith(
-                                    color: MainColors.whiteColor,
-                                  ),
-                                )
-                              : LoadingComponent(
+              child: GetBuilder<HomeController>(
+                  id: GetBuildersIdsConstants.homeFloatingButton,
+                  builder: (logic) {
+                    return !logic.checkingServiceAvailabilityLoading
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                IconsAssetsConstants.caraIcon,
+                                width: 38.r,
+                                height: 38.r,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Text(
+                                StringsAssetsConstants.orderWash,
+                                style: TextStyles.smallBodyTextStyle(context)
+                                    .copyWith(
                                   color: MainColors.whiteColor,
                                 ),
-                        );
-                      }),
-                ],
-              ),
+                              )
+                            ],
+                          )
+                        : LoadingComponent(
+                            color: MainColors.whiteColor,
+                          );
+                  }),
               onPressed: () {
                 //controller.washingOrder();
               },
@@ -112,8 +112,8 @@ class HomeView extends GetView<HomeController> {
                     curve: Curves.easeInOutCubic,
                     child: Image.asset(
                       ImagesAssetsConstants.locationPinImage,
-                      width: 74.r,
-                      height: 74.r,
+                      width: 75.r,
+                      height: 75.r,
                     ),
                   );
                 },
@@ -121,100 +121,145 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.all(10.r),
-                  child: Row(
-                    children: [
-                      GetBuilder<HomeController>(
-                          id: GetBuildersIdsConstants.pickCurrentLocationButton,
-                          builder: (logic) {
-                            return IconButtonComponent(
-                              iconLink: IconsAssetsConstants.locationIcon,
-                              onTap: () => logic
-                                  .enableAndGetStartingPositionFromGeolocator(),
-                              iconColor: MainColors.textColor(context),
-                              child: logic.getCurrentPositionLoading
-                                  ? const LoadingComponent()
-                                  : null,
-                            );
-                          }),
-                    ],
-                  ),
-                ),
+              SizedBox(
+                child: GetBuilder<HomeController>(
+                    id: GetBuildersIdsConstants.homeFloatingButton,
+                    builder: (logic) {
+                      return logic.checkServiceAvailabilityResponse
+                                  ?.availability ==
+                              false
+                          ? SafeArea(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 10.h),
+                                child: TagComponent(
+                                  title: StringsAssetsConstants
+                                      .serviceNotAvailable,
+                                  backgroundColor:
+                                      MainColors.errorColor(context),
+                                  textStyle:
+                                      TextStyles.largeBodyTextStyle(context)
+                                          .copyWith(
+                                    color: MainColors.whiteColor,
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 20.w,
+                                  ),
+                                  height: 50.h,
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, -200),
+                                      duration: 500.ms,
+                                    ),
+                              ),
+                            )
+                          : const SizedBox.shrink();
+                    }),
               ),
-              Stack(
+              Column(
                 children: [
-                  BottomAppBar(
-                    color: MainColors.backgroundColor(context),
-                    elevation: 0,
-                    shape: const CircularNotchedRectangle(),
-                    notchMargin: 5.r,
-                    height: 40.h,
-                    child: Container(),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // controller.setWishType();
-                          },
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                IconsAssetsConstants.carWashIcon,
-                                // controller.finalWishTyeId.value == ''
-                                //     ? 'assets/icons/car_wash_icon.svg'
-                                //     : 'assets/icons/checked.svg',
-                                width: 25.r,
-                                height: 25.r,
-                              ),
-                              SizedBox(width: 8.w),
-                              Text(
-                                StringsAssetsConstants.washingType,
-                                style: TextStyles.largeBodyTextStyle(context)
-                                    .copyWith(
-                                  fontFamily: FontsFamilyAssetsConstants.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // controller.fetchOrdersPerHourList();
-                            // setDateWindow();
-                            // controller.setDate();
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                StringsAssetsConstants.setDate,
-                                style: TextStyles.largeBodyTextStyle(context)
-                                    .copyWith(
-                                  fontFamily: FontsFamilyAssetsConstants.bold,
-                                ),
-                              ),
-                              SizedBox(width: 8.w),
-                              SvgPicture.asset(
-                                IconsAssetsConstants.calendarIcon,
-                                // controller.finalSelectedTime.value == ''
-                                //     ? 'assets/icons/calendar_icon.svg'
-                                //     : 'assets/icons/checked.svg',
-                                width: 25.r,
-                                height: 25.r,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                  SafeArea(
+                    child: Padding(
+                      padding: EdgeInsets.all(10.r),
+                      child: Row(
+                        children: [
+                          GetBuilder<HomeController>(
+                              id: GetBuildersIdsConstants
+                                  .pickCurrentLocationButton,
+                              builder: (logic) {
+                                return IconButtonComponent(
+                                  iconLink: IconsAssetsConstants.locationIcon,
+                                  onTap: () => logic
+                                      .enableAndGetStartingPositionFromGeoLocator(),
+                                  iconColor: MainColors.textColor(context),
+                                  child: logic.getCurrentPositionLoading
+                                      ? const LoadingComponent()
+                                      : null,
+                                );
+                              }),
+                        ],
+                      ),
                     ),
+                  ),
+                  Stack(
+                    children: [
+                      BottomAppBar(
+                        color: MainColors.backgroundColor(context),
+                        elevation: 0,
+                        shape: const CircularNotchedRectangle(),
+                        notchMargin: 5.r,
+                        height: 40.h,
+                        child: Container(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 15.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                // controller.setWishType();
+                              },
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    IconsAssetsConstants.carWashIcon,
+                                    // controller.finalWishTyeId.value == ''
+                                    //     ? 'assets/icons/car_wash_icon.svg'
+                                    //     : 'assets/icons/checked.svg',
+                                    width: 25.r,
+                                    height: 25.r,
+                                  ),
+                                  SizedBox(width: 8.w),
+                                  Text(
+                                    StringsAssetsConstants.washingType,
+                                    style:
+                                        TextStyles.largeBodyTextStyle(context)
+                                            .copyWith(
+                                      fontFamily:
+                                          FontsFamilyAssetsConstants.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                // controller.fetchOrdersPerHourList();
+                                // setDateWindow();
+                                // controller.setDate();
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    StringsAssetsConstants.setDate,
+                                    style:
+                                        TextStyles.largeBodyTextStyle(context)
+                                            .copyWith(
+                                      fontFamily:
+                                          FontsFamilyAssetsConstants.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 8.w),
+                                  SvgPicture.asset(
+                                    IconsAssetsConstants.calendarIcon,
+                                    // controller.finalSelectedTime.value == ''
+                                    //     ? 'assets/icons/calendar_icon.svg'
+                                    //     : 'assets/icons/checked.svg',
+                                    width: 25.r,
+                                    height: 25.r,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

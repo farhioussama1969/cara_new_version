@@ -1,14 +1,49 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
+import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
 
 class HomeController extends GetxController {
   bool checkingServiceAvailabilityLoading = false;
   void changeCheckingServiceAvailabilityLoading(bool value) {
     checkingServiceAvailabilityLoading = value;
     update([GetBuildersIdsConstants.homeFloatingButton]);
+  }
+
+  CheckServiceAvailabilityModel? checkServiceAvailabilityResponse;
+
+  void changeCheckServiceAvailabilityResponse(
+      CheckServiceAvailabilityModel? checkServiceAvailabilityResponse) {
+    this.checkServiceAvailabilityResponse = checkServiceAvailabilityResponse;
+    update([GetBuildersIdsConstants.homeFloatingButton]);
+  }
+
+  Future<void> checkServiceAvailability() async {
+    changeCheckServiceAvailabilityResponse(null);
+    if (checkingServiceAvailabilityLoading) return;
+    await ConfigProvider()
+        .checkServiceAvailability(
+      lat: currentLatitude,
+      lng: currentLongitude,
+      onLoading: () => changeCheckingServiceAvailabilityLoading(true),
+      onFinal: () => changeCheckingServiceAvailabilityLoading(false),
+    )
+        .then(
+      (value) {
+        if (value?.availability == true) {
+          changeCheckServiceAvailabilityResponse(value);
+        } else {
+          changeCheckServiceAvailabilityResponse(value);
+          ToastComponent.showErrorToast(Get.context!,
+              text: StringsAssetsConstants.serviceNotAvailable);
+        }
+      },
+    );
   }
 
   //maps
@@ -19,7 +54,6 @@ class HomeController extends GetxController {
     if (Get.arguments != null) {
       if (Get.arguments['latitude'] != null &&
           Get.arguments['longitude'] != null) {
-        print('ok');
         changeStartingPosition(
           Position(
             latitude: Get.arguments['latitude'],
@@ -77,7 +111,7 @@ class HomeController extends GetxController {
       currentLatitude = null;
       currentLongitude = null;
     } else if (!isMapCameraMoving) {
-      //  await getAddressFromCoordinates(currentLatitude!, currentLongitude!);
+      // checkServiceAvailability();
     }
     update([
       GetBuildersIdsConstants.homeMapMarker,
@@ -91,7 +125,7 @@ class HomeController extends GetxController {
     update([GetBuildersIdsConstants.pickCurrentLocationButton]);
   }
 
-  Future<void> enableAndGetStartingPositionFromGeolocator() async {
+  Future<void> enableAndGetStartingPositionFromGeoLocator() async {
     Position? newPosition = await GeolocatorLocationService.getCurrentLocation(
       onLoading: () {
         changeGetCurrentPositionLoading(true);
@@ -104,6 +138,8 @@ class HomeController extends GetxController {
       changeStartingPosition(newPosition);
     }
   }
+
+  //
 
   @override
   void onInit() {
