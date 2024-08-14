@@ -70,7 +70,12 @@
   "my cars": "سياراتي",
   "gifts": "الهدايا",
   "my reservations": "حجوزاتي",
-  "my account": "حسابي"
+  "my account": "حسابي",
+
+  "order wash": "طلب الغسيل",
+
+  "washing type": "نوع الغسيل",
+  "set date": "تحديد موعد"
 
 
 }

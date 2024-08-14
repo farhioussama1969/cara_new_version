@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  bool checkingServiceAvailabilityLoading = false;
+  void changeCheckingServiceAvailabilityLoading(bool value) {
+    checkingServiceAvailabilityLoading = value;
+    update([GetBuildersIdsConstants.honeFloatingButton]);
+  }
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +22,4 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

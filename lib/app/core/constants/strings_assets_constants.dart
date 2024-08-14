@@ -67,4 +67,7 @@ static String get myCars{return "my cars".tr;}
 static String get gifts{return "gifts".tr;}
 static String get myReservations{return "my reservations".tr;}
 static String get myAccount{return "my account".tr;}
+static String get orderWash{return "order wash".tr;}
+static String get washingType{return "washing type".tr;}
+static String get setDate{return "set date".tr;}
 }
