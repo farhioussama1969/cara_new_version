@@ -3,10 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/images_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
@@ -43,7 +46,7 @@ class HomeView extends GetView<HomeController> {
                     height: 5.h,
                   ),
                   GetBuilder<HomeController>(
-                      id: GetBuildersIdsConstants.honeFloatingButton,
+                      id: GetBuildersIdsConstants.homeFloatingButton,
                       builder: (logic) {
                         return Center(
                           child: !logic.checkingServiceAvailabilityLoading
@@ -73,11 +76,75 @@ class HomeView extends GetView<HomeController> {
       body: Stack(
         children: [
           Container(
-            color: MainColors.errorColor(context),
+            color: MainColors.backgroundColor(context),
+            child: GoogleMap(
+              initialCameraPosition:
+                  controller.initialGoogleMapsCameraPosition ??
+                      const CameraPosition(
+                        target: LatLng(25.851747, 43.522231),
+                        zoom: 15,
+                      ),
+              onMapCreated: (googleMapsController) =>
+                  controller.updateGoogleMapsController(googleMapsController),
+              mapToolbarEnabled: false,
+              zoomControlsEnabled: false,
+              rotateGesturesEnabled: false,
+              myLocationEnabled: false,
+              myLocationButtonEnabled: false,
+              onCameraMove: (cameraPosition) {
+                controller.changeIsMapCameraMoving(true);
+                controller.currentLatitude = cameraPosition.target.latitude;
+                controller.currentLongitude = cameraPosition.target.longitude;
+              },
+              onCameraIdle: () {
+                controller.changeIsMapCameraMoving(false);
+              },
+            ),
+          ),
+          IgnorePointer(
+            child: Center(
+              child: GetBuilder<HomeController>(
+                id: GetBuildersIdsConstants.homeMapMarker,
+                builder: (logic) {
+                  return AnimatedScale(
+                    duration: const Duration(milliseconds: 300),
+                    scale: logic.isMapCameraMoving ? 2.5 : 1.5,
+                    curve: Curves.easeInOutCubic,
+                    child: Image.asset(
+                      ImagesAssetsConstants.locationPinImage,
+                      width: 74.r,
+                      height: 74.r,
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(10.r),
+                  child: Row(
+                    children: [
+                      GetBuilder<HomeController>(
+                          id: GetBuildersIdsConstants.pickCurrentLocationButton,
+                          builder: (logic) {
+                            return IconButtonComponent(
+                              iconLink: IconsAssetsConstants.locationIcon,
+                              onTap: () => logic
+                                  .enableAndGetStartingPositionFromGeolocator(),
+                              iconColor: MainColors.textColor(context),
+                              child: logic.getCurrentPositionLoading
+                                  ? const LoadingComponent()
+                                  : null,
+                            );
+                          }),
+                    ],
+                  ),
+                ),
+              ),
               Stack(
                 children: [
                   BottomAppBar(
