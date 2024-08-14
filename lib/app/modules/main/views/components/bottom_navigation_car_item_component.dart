@@ -1,3 +1,4 @@
+import 'package:animated_switcher_plus/animated_switcher_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,30 +22,43 @@ class BottomNavigationCarItemComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SvgPicture.asset(
-          isEnabled ? enabledIconPath : disabledIconPath,
-          width: 24.r,
-          height: 24.r,
-          color: isEnabled
-              ? MainColors.primaryColor
-              : MainColors.textColor(context)!.withOpacity(0.6),
-        ),
-        SizedBox(height: 5.h),
-        Center(
-          child: Text(
-            title,
-            style: TextStyles.mediumBodyTextStyle(context).copyWith(
-              color: isEnabled
-                  ? MainColors.primaryColor
-                  : MainColors.textColor(context)!.withOpacity(0.6),
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AnimatedSwitcherPlus.translationTop(
+            duration: const Duration(milliseconds: 300),
+            child: isEnabled
+                ? SvgPicture.asset(
+                    key: const ValueKey(0),
+                    enabledIconPath,
+                    width: 24.r,
+                    height: 24.r,
+                    color: MainColors.primaryColor,
+                  )
+                : SvgPicture.asset(
+                    key: const ValueKey(1),
+                    disabledIconPath,
+                    width: 24.r,
+                    height: 24.r,
+                    color: MainColors.textColor(context)!.withOpacity(0.5),
+                  ),
+          ),
+          SizedBox(height: 5.h),
+          Center(
+            child: Text(
+              title,
+              style: TextStyles.mediumBodyTextStyle(context).copyWith(
+                color: isEnabled
+                    ? MainColors.primaryColor
+                    : MainColors.textColor(context)!.withOpacity(0.6),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

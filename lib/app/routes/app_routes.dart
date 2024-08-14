@@ -12,6 +12,11 @@ abstract class Routes {
   static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
   static const REMIND_PASSWORD = _Paths.REMIND_PASSWORD;
   static const MAIN = _Paths.MAIN;
+  static const HOME = _Paths.HOME;
+  static const MY_CARS = _Paths.MY_CARS;
+  static const GIFTS = _Paths.GIFTS;
+  static const MY_ACCOUNT = _Paths.MY_ACCOUNT;
+  static const MY_RESERVATIONS = _Paths.MY_RESERVATIONS;
 }
 
 abstract class _Paths {
@@ -25,4 +30,9 @@ abstract class _Paths {
   static const RESET_PASSWORD = '/reset-password';
   static const REMIND_PASSWORD = '/remind-password';
   static const MAIN = '/main';
+  static const HOME = '/home';
+  static const MY_CARS = '/my-cars';
+  static const GIFTS = '/gifts';
+  static const MY_ACCOUNT = '/my-account';
+  static const MY_RESERVATIONS = '/my-reservations';
 }

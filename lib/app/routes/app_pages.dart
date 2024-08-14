@@ -4,8 +4,18 @@ import '../modules/banned/bindings/banned_binding.dart';
 import '../modules/banned/views/banned_view.dart';
 import '../modules/get_started/bindings/get_started_binding.dart';
 import '../modules/get_started/views/get_started_view.dart';
+import '../modules/gifts/bindings/gifts_binding.dart';
+import '../modules/gifts/views/gifts_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
 import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
+import '../modules/my_account/bindings/my_account_binding.dart';
+import '../modules/my_account/views/my_account_view.dart';
+import '../modules/my_cars/bindings/my_cars_binding.dart';
+import '../modules/my_cars/views/my_cars_view.dart';
+import '../modules/my_reservations/bindings/my_reservations_binding.dart';
+import '../modules/my_reservations/views/my_reservations_view.dart';
 import '../modules/new_update/bindings/new_update_binding.dart';
 import '../modules/new_update/views/new_update_view.dart';
 import '../modules/remind_password/bindings/remind_password_binding.dart';
@@ -71,6 +81,31 @@ class AppPages {
       name: _Paths.MAIN,
       page: () => const MainView(),
       binding: MainBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_CARS,
+      page: () => const MyCarsView(),
+      binding: MyCarsBinding(),
+    ),
+    GetPage(
+      name: _Paths.GIFTS,
+      page: () => const GiftsView(),
+      binding: GiftsBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_ACCOUNT,
+      page: () => const MyAccountView(),
+      binding: MyAccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_RESERVATIONS,
+      page: () => const MyReservationsView(),
+      binding: MyReservationsBinding(),
     ),
   ];
 }
