@@ -15,4 +15,5 @@ class EndPointsConstants {
   static const String orderHours = 'orders/ordersPerHour';
   static const String washingTypes = 'washingTypes';
   static const String wallet = 'users/wallet/';
+  static const String orders = 'orders';
 }
