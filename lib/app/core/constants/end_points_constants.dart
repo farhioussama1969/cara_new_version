@@ -11,4 +11,8 @@ class EndPointsConstants {
   static const String checkCityService = 'orders/checkCityService';
   static const String resetPassword = 'password/reset';
   static const String cars = 'cars';
+  static const String carBrands = 'carBrands';
+  static const String orderHours = 'orders/ordersPerHour';
+  static const String washingTypes = 'washingTypes';
+  static const String wallet = 'users/wallet/';
 }
