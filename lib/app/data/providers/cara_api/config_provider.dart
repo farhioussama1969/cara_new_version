@@ -2,6 +2,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/end_points_constant
 import 'package:solvodev_mobile_structure/app/core/services/http_client_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/api_response.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/free_washing_config_model.dart';
 
 class ConfigProvider {
   Future<CheckServiceAvailabilityModel?> checkServiceAvailability({
@@ -22,6 +23,26 @@ class ConfigProvider {
     );
     if (response?.body != null) {
       return CheckServiceAvailabilityModel.fromJson(response?.body);
+    }
+    return null;
+  }
+
+  Future<FreeWashingConfigModel?> freeWashingConfig({
+    required int? branchId,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.freeWashingConfig,
+      requestType: HttpRequestTypes.get,
+      data: {
+        'branch_id': branchId,
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return FreeWashingConfigModel.fromJson(response?.body['data']);
     }
     return null;
   }

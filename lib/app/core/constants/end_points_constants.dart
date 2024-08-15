@@ -26,4 +26,6 @@ class EndPointsConstants {
   static const String giftCoupons = 'gifts/coupons';
   static const String buyGiftWithApplePay = 'gifts/payment/applePay';
   static const String subscriptions = 'subscriptions';
+  static const String mySubscriptions = 'user-subscriptions';
+  static const String freeWashingConfig = 'free-order';
 }
