@@ -1,9 +1,13 @@
+import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/end_points_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/http_client_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/api_response.dart';
+import 'package:solvodev_mobile_structure/app/data/models/coupon_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/order_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/pagination_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/washing_type_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/working_time_model.dart';
+import 'package:solvodev_mobile_structure/app/modules/user_controller.dart';
 
 class OrderProvider {
   Future<List<WorkingTimesModel>?> getOrderHours({
@@ -82,6 +86,92 @@ class OrderProvider {
     );
     if (response?.body != null) {
       return OrderModel.fromJson(response?.body['data']);
+    }
+    return null;
+  }
+
+  Future<OrderModel?> ratingOrder({
+    required int? orderId,
+    required int rating,
+    required String? note,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: '${EndPointsConstants.orders}/$orderId',
+      requestType: HttpRequestTypes.put,
+      data: {
+        "rate": rating,
+        "note": note ?? '/',
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return OrderModel.fromJson(response?.body['data']);
+    }
+    return null;
+  }
+
+  Future<OrderModel?> getLastNotRatedOrder({
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.getLastNotRatedOrder,
+      requestType: HttpRequestTypes.get,
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return OrderModel.fromJson(response?.body['data']);
+    }
+    return null;
+  }
+
+  Future<CouponModel?> applyCoupon({
+    required int? branchId,
+    required String couponCode,
+    required int? washingTypeId,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.applyCoupon,
+      requestType: HttpRequestTypes.post,
+      data: {
+        "coupon_code": couponCode,
+        "washing_type_id": washingTypeId,
+        'branch_id': branchId,
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return CouponModel.fromJson(response?.body);
+    }
+    return null;
+  }
+
+  Future<PaginationModel<OrderModel>?> getOrdersHistoryList({
+    required int page,
+    required String type,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.orders,
+      requestType: HttpRequestTypes.get,
+      queryParameters: {
+        "page": page,
+        "filter[user_id]": Get.find<UserController>().user?.id,
+        "filter[$type]": true,
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return PaginationModel.fromJson(response?.body, OrderModel.fromJson);
     }
     return null;
   }

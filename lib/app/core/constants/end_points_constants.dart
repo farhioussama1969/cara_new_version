@@ -16,4 +16,8 @@ class EndPointsConstants {
   static const String washingTypes = 'washingTypes';
   static const String wallet = 'users/wallet/';
   static const String orders = 'orders';
+  static const String applyCoupon = 'orders/apply-coupon';
+  static const String checkingUnreadNotifications = 'notifications/readable';
+  static const String getLastNotRatedOrder = 'orders/latest';
+  static const String notifications = 'notifications';
 }
