@@ -46,4 +46,56 @@ class ConfigProvider {
     }
     return null;
   }
+
+  Future<String?> policyAndPrivacy({
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.policyAndPrivacy,
+      requestType: HttpRequestTypes.get,
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return response?.body['privacy_policy'];
+    }
+    return null;
+  }
+
+  Future<String?> about({
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.about,
+      requestType: HttpRequestTypes.get,
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return response?.body['about_app'];
+    }
+    return null;
+  }
+
+  Future<String?> whatsapp({
+    required int? branchId,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.whatsapp,
+      requestType: HttpRequestTypes.get,
+      queryParameters: {
+        'branch_id': branchId,
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return response?.body['whats_number'];
+    }
+    return null;
+  }
 }

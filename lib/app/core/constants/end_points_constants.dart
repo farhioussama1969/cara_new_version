@@ -28,4 +28,7 @@ class EndPointsConstants {
   static const String subscriptions = 'subscriptions';
   static const String mySubscriptions = 'user-subscriptions';
   static const String freeWashingConfig = 'free-order';
+  static const String policyAndPrivacy = 'caraWash/privacyPolicy';
+  static const String about = 'caraWash/about';
+  static const String whatsapp = 'whatsapp';
 }
