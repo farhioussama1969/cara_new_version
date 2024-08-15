@@ -2,75 +2,81 @@ import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/end_points_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/http_client_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/api_response.dart';
-import 'package:solvodev_mobile_structure/app/data/models/notification_model.dart';
-import 'package:solvodev_mobile_structure/app/data/models/pagination_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/gift_model.dart';
 import 'package:solvodev_mobile_structure/app/modules/user_controller.dart';
 
-class NotificationProvider {
-  Future<bool?> checkingUnreadNotifications({
-    required Function onLoading,
-    required Function onFinal,
-  }) async {
-    ApiResponse? response = await HttpClientService.sendRequest(
-      endPoint: EndPointsConstants.checkingUnreadNotifications,
-      requestType: HttpRequestTypes.get,
-      onLoading: () => onLoading(),
-      onFinal: () => onFinal(),
-    );
-    if (response?.body != null) {
-      return response?.body['message'];
-    }
-    return null;
-  }
+import '../../models/pagination_model.dart';
 
-  Future<PaginationModel<NotificationModel>?> getNotificationsList({
+class GiftProvider {
+  Future<PaginationModel<GiftModel>?> getGiftsList({
     required int page,
+    required int? branchId,
     required Function onLoading,
     required Function onFinal,
   }) async {
     ApiResponse? response = await HttpClientService.sendRequest(
-      endPoint: EndPointsConstants.notifications,
+      endPoint: EndPointsConstants.gifts,
       queryParameters: {
-        'filter[user_id]': Get.find<UserController>().user?.id,
         'page': page,
+        'branch_id': branchId,
       },
       requestType: HttpRequestTypes.get,
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),
     );
     if (response?.body != null) {
-      return PaginationModel.fromJson(
-          response?.body, NotificationModel.fromJson);
+      return PaginationModel.fromJson(response?.body, GiftModel.fromJson);
     }
     return null;
   }
 
-  Future<bool?> readAllNotifications({
+  Future<PaginationModel<GiftCouponModel>?> getGiftCouponsList({
+    required int page,
+    required int? branchId,
     required Function onLoading,
     required Function onFinal,
   }) async {
     ApiResponse? response = await HttpClientService.sendRequest(
-      endPoint: EndPointsConstants.readAllNotifications,
-      requestType: HttpRequestTypes.post,
-      onLoading: () => onLoading(),
-      onFinal: () => onFinal(),
-    );
-    return response?.statusCode == 200;
-  }
-
-  Future<bool?> deleteNotification({
-    required int? notificationId,
-    required Function onLoading,
-    required Function onFinal,
-  }) async {
-    ApiResponse? response = await HttpClientService.sendRequest(
-      endPoint: '${EndPointsConstants.notifications}/$notificationId',
-      requestType: HttpRequestTypes.delete,
+      endPoint: EndPointsConstants.giftCoupons,
+      queryParameters: {
+        'page': page,
+        'branch_id': branchId,
+      },
+      requestType: HttpRequestTypes.get,
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),
     );
     if (response?.body != null) {
-      return response?.body['message'];
+      return PaginationModel.fromJson(response?.body, GiftCouponModel.fromJson);
+    }
+    return null;
+  }
+
+  Future<GiftCouponModel?> buyGift({
+    bool? isWithApplePay,
+    required int? giftId,
+    required String? title,
+    required String? paymentId,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: isWithApplePay == true
+          ? EndPointsConstants.buyGiftWithApplePay
+          : EndPointsConstants.giftCoupons,
+      queryParameters: {
+        "gift_id": giftId,
+        "title": title,
+        "payment_method": isWithApplePay == true ? "Apple pay" : "Wallet",
+        "payment_id": paymentId,
+      },
+      requestType: HttpRequestTypes.post,
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return GiftCouponModel.fromJson(response?.body['data']);
     }
     return null;
   }

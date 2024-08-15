@@ -20,4 +20,10 @@ class EndPointsConstants {
   static const String checkingUnreadNotifications = 'notifications/readable';
   static const String getLastNotRatedOrder = 'orders/latest';
   static const String notifications = 'notifications';
+  static const String readAllNotifications = 'notifications/readAll';
+  static const String deleteAccount = 'banUser';
+  static const String gifts = 'gifts';
+  static const String giftCoupons = 'gifts/coupons';
+  static const String buyGiftWithApplePay = 'gifts/payment/applePay';
+  static const String subscriptions = 'subscriptions';
 }

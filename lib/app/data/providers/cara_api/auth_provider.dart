@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/end_points_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/storage_keys_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/http_client_service.dart';
 import 'package:solvodev_mobile_structure/app/core/services/local_storage_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/api_response.dart';
 import 'package:solvodev_mobile_structure/app/data/models/user_model.dart';
+import 'package:solvodev_mobile_structure/app/modules/user_controller.dart';
 
 class AuthProvider {
   Future<UserModel?> signIn({
@@ -140,6 +142,43 @@ class AuthProvider {
     );
     if (response?.body != null) {
       return response?.body['success'];
+    }
+    return null;
+  }
+
+  Future<bool?> deleteAccount({
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.deleteAccount,
+      requestType: HttpRequestTypes.post,
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return response?.body['success'];
+    }
+    return null;
+  }
+
+  Future<UserModel?> updateProfile({
+    required String username,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint:
+          '${EndPointsConstants.updateProfile}/${Get.find<UserController>().user?.id}',
+      requestType: HttpRequestTypes.post,
+      data: {
+        "username": username,
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return UserModel.fromJson(response?.body['data']);
     }
     return null;
   }
