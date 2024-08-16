@@ -6,7 +6,9 @@ import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_co
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/washing_type_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
 
 class HomeController extends GetxController {
   bool checkingServiceAvailabilityLoading = false;
@@ -139,7 +141,38 @@ class HomeController extends GetxController {
     }
   }
 
-  //
+  //washing types
+  List<WashingTypeModel> washingTypes = [];
+  void changeWashingTypes(List<WashingTypeModel> newWashingTypes) {
+    washingTypes = newWashingTypes;
+    update([GetBuildersIdsConstants.homeWashingTypes]);
+  }
+
+  bool getWashingTypesLoading = false;
+  void changeGetWashingTypesLoading(bool newGetWashingTypesLoading) {
+    getWashingTypesLoading = newGetWashingTypesLoading;
+    update([GetBuildersIdsConstants.homeWashingTypes]);
+  }
+
+  void getWashingTypes() {
+    changeWashingTypes([]);
+    OrderProvider()
+        .getWashingTypes(
+      onLoading: () => changeGetWashingTypesLoading(true),
+      onFinal: () => changeGetWashingTypesLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        changeWashingTypes(value);
+      }
+    });
+  }
+
+  int? selectedWashingTypeId;
+  void changeSelectedWashingTypeId(int? newSelectedWashingTypeId) {
+    selectedWashingTypeId = newSelectedWashingTypeId;
+    update([GetBuildersIdsConstants.homeWashingTypes]);
+  }
 
   @override
   void onInit() {

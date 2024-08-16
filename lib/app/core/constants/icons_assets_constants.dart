@@ -14,6 +14,7 @@ static const String errorIcon = "assets/icons/error_icon.svg";
 static const String languageIcon = "assets/icons/language_icon.svg";
 static const String myCarsEnabledIcon = "assets/icons/my_cars_enabled_icon.svg";
 static const String historyIcon = "assets/icons/history_icon.svg";
+static const String washingTypeIcon = "assets/icons/washing_type_icon.svg";
 static const String historyLocationIcon = "assets/icons/history_location_icon.svg";
 static const String clockBoldIcon = "assets/icons/clock_bold_icon.svg";
 static const String sunBoldIcon = "assets/icons/sun_bold_icon.svg";

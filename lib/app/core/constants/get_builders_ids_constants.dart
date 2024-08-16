@@ -16,4 +16,5 @@ class GetBuildersIdsConstants {
   static const String homeMapMarker = 'home_map_marker';
   static const String pickCurrentLocationButton =
       'pick_current_location_button';
+  static const String homeWashingTypes = 'home_washing_types';
 }

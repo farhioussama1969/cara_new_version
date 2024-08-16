@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
@@ -15,6 +16,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/images_assets_const
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
+import 'package:solvodev_mobile_structure/app/modules/home/views/components/washing_types_window_component.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -202,6 +204,8 @@ class HomeView extends GetView<HomeController> {
                           children: [
                             GestureDetector(
                               onTap: () {
+                                controller.getWashingTypes();
+                                showWashingTypesWindow();
                                 // controller.setWishType();
                               },
                               child: Row(
@@ -266,6 +270,26 @@ class HomeView extends GetView<HomeController> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  void showWashingTypesWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<HomeController>(
+        autoRemove: false,
+        id: GetBuildersIdsConstants.homeWashingTypes,
+        builder: (logic) {
+          return WashingTypesWindowComponent(
+            loading: logic.getWashingTypesLoading,
+            washingTypes: logic.washingTypes,
+            selectedWashingTypeId: logic.selectedWashingTypeId,
+            onWashingTypeSelected: (washingType) =>
+                logic.changeSelectedWashingTypeId(washingType.id),
+            onConfirm: () {},
+          );
+        },
       ),
     );
   }
