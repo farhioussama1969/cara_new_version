@@ -1,5 +1,6 @@
 class ImagesAssetsConstants {
 static const String clientLocationImage = "assets/images/client_location_image.png";
+static const String subscriptionImage = "assets/images/subscription_image.png";
 static const String authenticationBackgroundImage = "assets/images/authentication_background_image.png";
 static const String locationPinImage = "assets/images/location_pin_image.png";
 static const String galleryImage = "assets/images/gallery_image.png";

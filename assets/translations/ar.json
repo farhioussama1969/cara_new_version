@@ -77,7 +77,10 @@
   "washing type": "نوع الغسيل",
   "set date": "تحديد موعد",
 
-  "service not available": "خدمة كـارا غير متوفرة بهذه المنطقة"
+  "service not available": "خدمة كـارا غير متوفرة بهذه المنطقة",
+
+  "home subscription title": "الباقات الشهرية",
+  "home subscription description": "اشترك بأحد الباقات الشهرية بأسعار منافسة وخدمة احترافية لضمان لمعان سيارتك دائمًا "
 
 
 }

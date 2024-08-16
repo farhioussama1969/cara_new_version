@@ -206,18 +206,22 @@ class HomeView extends GetView<HomeController> {
                               onTap: () {
                                 controller.getWashingTypes();
                                 showWashingTypesWindow();
-                                // controller.setWishType();
                               },
                               child: Row(
                                 children: [
-                                  SvgPicture.asset(
-                                    IconsAssetsConstants.carWashIcon,
-                                    // controller.finalWishTyeId.value == ''
-                                    //     ? 'assets/icons/car_wash_icon.svg'
-                                    //     : 'assets/icons/checked.svg',
-                                    width: 25.r,
-                                    height: 25.r,
-                                  ),
+                                  GetBuilder<HomeController>(
+                                      id: GetBuildersIdsConstants
+                                          .homeWashingTypesButton,
+                                      builder: (logic) {
+                                        return SvgPicture.asset(
+                                          logic.selectedWashingTypeId == null
+                                              ? IconsAssetsConstants.carWashIcon
+                                              : IconsAssetsConstants
+                                                  .checked3Icon,
+                                          width: 25.r,
+                                          height: 25.r,
+                                        );
+                                      }),
                                   SizedBox(width: 8.w),
                                   Text(
                                     StringsAssetsConstants.washingType,
@@ -287,7 +291,9 @@ class HomeView extends GetView<HomeController> {
             selectedWashingTypeId: logic.selectedWashingTypeId,
             onWashingTypeSelected: (washingType) =>
                 logic.changeSelectedWashingTypeId(washingType.id),
-            onConfirm: () {},
+            onConfirm: () {
+              Get.back();
+            },
           );
         },
       ),

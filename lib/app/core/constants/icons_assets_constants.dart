@@ -33,6 +33,7 @@ static const String deleteIcon = "assets/icons/delete_icon.svg";
 static const String logoutIcon = "assets/icons/logout_icon.svg";
 static const String giftEnabledIcon = "assets/icons/gift_enabled_icon.svg";
 static const String arrowRightIcon = "assets/icons/arrow_right_icon.svg";
+static const String checked3Icon = "assets/icons/checked_3_icon.svg";
 static const String policyIcon = "assets/icons/policy_icon.svg";
 static const String starIcon = "assets/icons/star_icon.svg";
 static const String lockIcon = "assets/icons/lock_icon.svg";

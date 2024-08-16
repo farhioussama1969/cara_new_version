@@ -171,7 +171,10 @@ class HomeController extends GetxController {
   int? selectedWashingTypeId;
   void changeSelectedWashingTypeId(int? newSelectedWashingTypeId) {
     selectedWashingTypeId = newSelectedWashingTypeId;
-    update([GetBuildersIdsConstants.homeWashingTypes]);
+    update([
+      GetBuildersIdsConstants.homeWashingTypes,
+      GetBuildersIdsConstants.homeWashingTypesButton,
+    ]);
   }
 
   @override

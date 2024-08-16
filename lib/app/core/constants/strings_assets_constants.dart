@@ -71,4 +71,6 @@ static String get orderWash{return "order wash".tr;}
 static String get washingType{return "washing type".tr;}
 static String get setDate{return "set date".tr;}
 static String get serviceNotAvailable{return "service not available".tr;}
+static String get homeSubscriptionTitle{return "home subscription title".tr;}
+static String get homeSubscriptionDescription{return "home subscription description".tr;}
 }
