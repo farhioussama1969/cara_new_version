@@ -73,4 +73,27 @@ static String get setDate{return "set date".tr;}
 static String get serviceNotAvailable{return "service not available".tr;}
 static String get homeSubscriptionTitle{return "home subscription title".tr;}
 static String get homeSubscriptionDescription{return "home subscription description".tr;}
+static String get monday{return "monday".tr;}
+static String get tuesday{return "tuesday".tr;}
+static String get wednesday{return "wednesday".tr;}
+static String get thursday{return "thursday".tr;}
+static String get friday{return "friday".tr;}
+static String get saturday{return "saturday".tr;}
+static String get sunday{return "sunday".tr;}
+static String get today{return "today".tr;}
+static String get tomorrow{return "tomorrow".tr;}
+static String get theDate{return "the date".tr;}
+static String get theTime{return "the time".tr;}
+static String get january{return "january".tr;}
+static String get february{return "february".tr;}
+static String get march{return "march".tr;}
+static String get april{return "april".tr;}
+static String get may{return "may".tr;}
+static String get june{return "june".tr;}
+static String get july{return "july".tr;}
+static String get august{return "august".tr;}
+static String get september{return "september".tr;}
+static String get october{return "october".tr;}
+static String get november{return "november".tr;}
+static String get december{return "december".tr;}
 }

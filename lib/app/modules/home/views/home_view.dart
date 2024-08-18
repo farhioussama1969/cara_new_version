@@ -17,6 +17,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_cons
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/washing_types_window_component.dart';
+import 'package:solvodev_mobile_structure/app/modules/home/views/components/working_hours_window_component.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -237,9 +238,8 @@ class HomeView extends GetView<HomeController> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                // controller.fetchOrdersPerHourList();
-                                // setDateWindow();
-                                // controller.setDate();
+                                controller.getWorkingHours();
+                                showWorkingHoursWindow();
                               },
                               child: Row(
                                 children: [
@@ -294,6 +294,26 @@ class HomeView extends GetView<HomeController> {
             onConfirm: () {
               Get.back();
             },
+          );
+        },
+      ),
+    );
+  }
+
+  void showWorkingHoursWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<HomeController>(
+        id: GetBuildersIdsConstants.homeSetDateWindow,
+        builder: (logic) {
+          return WorkingHoursWindowComponent(
+            loading: logic.getWorkingHoursLoading,
+            daysList: logic.daysList,
+            timesList: logic.timesList,
+            selectedDay: logic.selectedDay ?? '',
+            selectedTime: logic.selectedTime,
+            onDaySelected: (day) => logic.changeSelectedDay(day),
+            onTimeSelected: (time) => logic.changeSelectedTime(time.value),
           );
         },
       ),

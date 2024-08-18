@@ -7,6 +7,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_cons
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/washing_type_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/working_time_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
 
@@ -84,7 +85,7 @@ class HomeController extends GetxController {
   Position? selectedPosition;
 
   Future<void> changeStartingPosition(Position? newPosition,
-      {bool? withoutGetPlace}) async {
+      {bool? checkTheServiceAvailability}) async {
     selectedPosition = newPosition;
     if (newPosition != null) {
       changeInitialGoogleMapsCameraPosition(CameraPosition(
@@ -95,8 +96,12 @@ class HomeController extends GetxController {
       googleMapsController?.animateCamera(CameraUpdate.newLatLngZoom(
           LatLng(selectedPosition!.latitude!, selectedPosition!.longitude!),
           14));
-      if (withoutGetPlace == null || !withoutGetPlace) {
-      } else {}
+      if (checkTheServiceAvailability == true) {
+        checkServiceAvailability();
+      } else {
+        print(
+            'latitude: ${selectedPosition!.latitude} | longitude: ${selectedPosition!.longitude}');
+      }
     }
   }
 
@@ -113,7 +118,7 @@ class HomeController extends GetxController {
       currentLatitude = null;
       currentLongitude = null;
     } else if (!isMapCameraMoving) {
-      // checkServiceAvailability();
+      //checkServiceAvailability();
     }
     update([
       GetBuildersIdsConstants.homeMapMarker,
@@ -137,7 +142,7 @@ class HomeController extends GetxController {
       },
     );
     if (newPosition != null) {
-      changeStartingPosition(newPosition);
+      changeStartingPosition(newPosition, checkTheServiceAvailability: true);
     }
   }
 
@@ -175,6 +180,70 @@ class HomeController extends GetxController {
       GetBuildersIdsConstants.homeWashingTypes,
       GetBuildersIdsConstants.homeWashingTypesButton,
     ]);
+  }
+
+  //working hours
+  bool getWorkingHoursLoading = false;
+  void changeGetWorkingHoursLoading(bool newGetWorkingHoursLoading) {
+    getWorkingHoursLoading = newGetWorkingHoursLoading;
+    update([GetBuildersIdsConstants.homeSetDateWindow]);
+  }
+
+  List<WorkingTimesModel> workingHours = [];
+
+  List<String> daysList = [];
+  List<TimeModel> timesList = [];
+
+  void changeTimesList(String selectedDay) {
+    workingHours.forEach((element) {
+      if (element.day == selectedDay) {
+        timesList.add(element.times!);
+      }
+    });
+    update([GetBuildersIdsConstants.homeSetDateWindow]);
+  }
+
+  void changeWorkingHours(List<WorkingTimesModel> newWorkingHours) {
+    workingHours = newWorkingHours;
+    if (workingHours.isNotEmpty) {
+      workingHours.forEach((element) {
+        if (!daysList.contains(element.day!)) {
+          daysList.add(element.day!);
+        }
+      });
+      changeTimesList(daysList[0]);
+    }
+
+    update([GetBuildersIdsConstants.homeSetDateWindow]);
+  }
+
+  void getWorkingHours() {
+    changeWorkingHours([]);
+    OrderProvider()
+        .getOrderHours(
+      branchId: checkServiceAvailabilityResponse?.branch?.id,
+      onLoading: () => changeGetWorkingHoursLoading(true),
+      onFinal: () => changeGetWorkingHoursLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        changeWorkingHours(value);
+      }
+    });
+  }
+
+  String? selectedDay;
+  void changeSelectedDay(String? newSelectedDay) {
+    selectedDay = newSelectedDay;
+    changeSelectedTime(null);
+    changeTimesList(selectedDay!);
+    update([GetBuildersIdsConstants.homeSetDateWindow]);
+  }
+
+  String? selectedTime;
+  void changeSelectedTime(String? newSelectedTime) {
+    selectedTime = newSelectedTime;
+    update([GetBuildersIdsConstants.homeSetDateWindow]);
   }
 
   @override

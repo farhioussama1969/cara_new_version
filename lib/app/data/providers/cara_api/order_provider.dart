@@ -26,6 +26,21 @@ class OrderProvider {
     );
     if (response?.body != null) {
       List<WorkingTimesModel> workingTimes = [];
+      //
+      // List<String> days = [];
+      // List<List<String>> times = [];
+      // response?.body['data'].forEach((workingTime) {
+      //   if (days.contains(workingTime['day']) == false) {
+      //     days.add(workingTime['day']);
+      //   }
+      // });
+      //
+      // response?.body['data'].forEach((workingTime) {
+      //   if (days.contains(workingTime['day']) == false) {
+      //     days.add(workingTime['day']);
+      //   }
+      // });
+
       response?.body['data'].forEach((workingTime) {
         workingTimes.add(WorkingTimesModel.fromJson(workingTime));
       });
