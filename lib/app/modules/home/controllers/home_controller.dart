@@ -23,6 +23,9 @@ class HomeController extends GetxController {
   void changeCheckServiceAvailabilityResponse(
       CheckServiceAvailabilityModel? checkServiceAvailabilityResponse) {
     this.checkServiceAvailabilityResponse = checkServiceAvailabilityResponse;
+    changeWorkingHours([]);
+    timesList.clear();
+
     update([GetBuildersIdsConstants.homeFloatingButton]);
   }
 

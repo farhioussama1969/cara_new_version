@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/working_hour_day_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/working_hour_time_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
@@ -22,7 +24,8 @@ class WorkingHoursWindowComponent extends StatelessWidget {
       required this.selectedDay,
       this.selectedTime,
       required this.onDaySelected,
-      required this.onTimeSelected});
+      required this.onTimeSelected,
+      required this.onConfirm});
 
   final List<String> daysList;
   final List<TimeModel> timesList;
@@ -30,6 +33,7 @@ class WorkingHoursWindowComponent extends StatelessWidget {
   final String? selectedTime;
   final Function(String) onDaySelected;
   final Function(TimeModel) onTimeSelected;
+  final Function onConfirm;
   final bool loading;
 
   @override
@@ -112,7 +116,14 @@ class WorkingHoursWindowComponent extends StatelessWidget {
                                         day: daysList[index],
                                         isSelected:
                                             selectedDay == daysList[index],
-                                      ),
+                                      )
+                                          .animate(delay: (index * 100).ms)
+                                          .fadeIn(
+                                              duration: 900.ms, delay: 300.ms)
+                                          .move(
+                                            begin: const Offset(100, 0),
+                                            duration: 500.ms,
+                                          ),
                                     );
                                   },
                                   separatorBuilder: (context, index) {
@@ -147,14 +158,23 @@ class WorkingHoursWindowComponent extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        onDaySelected(daysList[index]);
+                                        if ((timesList[index].status ==
+                                            'Libre')) {
+                                          onTimeSelected(timesList[index]);
+                                        }
                                       },
                                       child: WorkingHourTimeCardComponent(
                                         time: timesList[index],
                                         isSelected: selectedTime ==
                                             timesList[index].value,
                                       ),
-                                    );
+                                    )
+                                        .animate(delay: (index * 100).ms)
+                                        .fadeIn(duration: 900.ms, delay: 300.ms)
+                                        .move(
+                                          begin: const Offset(100, 0),
+                                          duration: 500.ms,
+                                        );
                                   },
                                   separatorBuilder: (context, index) {
                                     return SizedBox(
@@ -164,6 +184,25 @@ class WorkingHoursWindowComponent extends StatelessWidget {
                                   itemCount: daysList.length,
                                 ),
                               ),
+                              if (selectedTime != null)
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    SizedBox(height: 15.h),
+                                    PrimaryButtonComponent(
+                                      onTap: () => onConfirm(),
+                                      text: StringsAssetsConstants.confirm,
+                                      width: 0.7.sw,
+                                    )
+                                        .animate(delay: (150).ms)
+                                        .fadeIn(duration: 900.ms, delay: 300.ms)
+                                        .move(
+                                          begin: const Offset(200, 0),
+                                          duration: 500.ms,
+                                        ),
+                                    SizedBox(height: 15.h),
+                                  ],
+                                ),
                               SizedBox(height: 10.h),
                             ],
                           ),

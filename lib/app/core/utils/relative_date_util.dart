@@ -226,10 +226,21 @@ class RelativeDateUtil {
   }
 
   static String changeHourFormat(String? timeStr) {
-    var str = timeStr.toString().substring(0, 5);
-    DateTime time = DateFormat('hh:mm').parse(str);
-    var format12 = DateFormat.jm().format(time);
-    return '${format12}';
+    List<String>? parts = timeStr?.split(':');
+    int hour = int.parse(parts?[0] ?? '00');
+    hour = hour % 12;
+    if (hour == 0) hour = 12;
+    return '$hour:${parts?[1]}';
+  }
+
+  static String getAmPmFromTime(String? timeStr) {
+    List<String>? parts = timeStr?.split(':');
+    int hour = int.parse(parts?[0] ?? '00');
+    if (hour > 12) {
+      return StringsAssetsConstants.evening;
+    } else {
+      return StringsAssetsConstants.morning;
+    }
   }
 
 // static String? getDurationFromDaysNumber(int? days) {

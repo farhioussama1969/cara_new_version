@@ -68,7 +68,7 @@ class HomeView extends GetView<HomeController> {
                           );
                   }),
               onPressed: () {
-                //controller.washingOrder();
+                controller.checkServiceAvailability();
               },
             ),
           ),
@@ -314,6 +314,7 @@ class HomeView extends GetView<HomeController> {
             selectedTime: logic.selectedTime,
             onDaySelected: (day) => logic.changeSelectedDay(day),
             onTimeSelected: (time) => logic.changeSelectedTime(time.value),
+            onConfirm: () {},
           );
         },
       ),

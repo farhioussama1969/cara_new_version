@@ -24,11 +24,12 @@ class WorkingHourTimeCardComponent extends StatelessWidget {
             ? MainColors.primaryColor
             : MainColors.backgroundColor(context),
         boxShadow: [
-          BoxShadow(
-            color: MainColors.shadowColor(context)!.withOpacity(0.7),
-            blurRadius: 10,
-            offset: const Offset(0, 0),
-          ),
+          if (time.status == 'Libre')
+            BoxShadow(
+              color: MainColors.shadowColor(context)!.withOpacity(0.7),
+              blurRadius: 10,
+              offset: const Offset(0, 0),
+            ),
         ],
         borderRadius: BorderRadius.circular(10.r),
       ),
@@ -36,25 +37,31 @@ class WorkingHourTimeCardComponent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            '${time?.value}',
-            style: TextStyles.mediumBodyTextStyle(context).copyWith(
+            RelativeDateUtil.changeHourFormat(time.value?.replaceAll('H', '')),
+            style: TextStyles.largeBodyTextStyle(context).copyWith(
               fontFamily: FontsFamilyAssetsConstants.bold,
-              color: isSelected
-                  ? MainColors.whiteColor
-                  : MainColors.textColor(context),
+              color: (time.status != 'Libre')
+                  ? MainColors.textColor(context)!.withOpacity(0.4)
+                  : isSelected
+                      ? MainColors.whiteColor
+                      : MainColors.textColor(context),
             ),
           ),
           Divider(
-            color: isSelected
-                ? MainColors.whiteColor
-                : MainColors.textColor(context)!.withOpacity(0.2),
+            color: (time.status != 'Libre')
+                ? MainColors.textColor(context)!.withOpacity(0.1)
+                : isSelected
+                    ? MainColors.whiteColor
+                    : MainColors.textColor(context)!.withOpacity(0.2),
           ),
           Text(
-            '${RelativeDateUtil.changeHourFormat(time.value).substring(0, 5)}',
-            style: TextStyles.largeBodyTextStyle(context).copyWith(
-              color: isSelected
-                  ? MainColors.whiteColor
-                  : MainColors.textColor(context),
+            '${RelativeDateUtil.getAmPmFromTime(time.value).substring(0, 5)}',
+            style: TextStyles.mediumBodyTextStyle(context).copyWith(
+              color: (time.status != 'Libre')
+                  ? MainColors.textColor(context)!.withOpacity(0.4)
+                  : isSelected
+                      ? MainColors.whiteColor
+                      : MainColors.textColor(context),
             ),
           ),
         ],

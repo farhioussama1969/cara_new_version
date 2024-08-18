@@ -96,4 +96,6 @@ static String get september{return "september".tr;}
 static String get october{return "october".tr;}
 static String get november{return "november".tr;}
 static String get december{return "december".tr;}
+static String get morning{return "morning".tr;}
+static String get evening{return "evening".tr;}
 }
