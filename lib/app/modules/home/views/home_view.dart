@@ -16,6 +16,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/images_assets_const
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
+import 'package:solvodev_mobile_structure/app/modules/home/views/components/my_cars_window_component.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/washing_types_window_component.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/working_hours_window_component.dart';
 
@@ -238,8 +239,13 @@ class HomeView extends GetView<HomeController> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                controller.getWorkingHours();
-                                showWorkingHoursWindow();
+                                // controller.getWorkingHours();
+                                // showWorkingHoursWindow();
+
+                                controller.changeMyCarsList(null,
+                                    refresh: true);
+                                controller.getMyCars();
+                                showMyCarsWindow();
                               },
                               child: Row(
                                 children: [
@@ -253,14 +259,20 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                   ),
                                   SizedBox(width: 8.w),
-                                  SvgPicture.asset(
-                                    IconsAssetsConstants.calendarIcon,
-                                    // controller.finalSelectedTime.value == ''
-                                    //     ? 'assets/icons/calendar_icon.svg'
-                                    //     : 'assets/icons/checked.svg',
-                                    width: 25.r,
-                                    height: 25.r,
-                                  ),
+                                  GetBuilder<HomeController>(
+                                      id: GetBuildersIdsConstants
+                                          .homeSetDateButton,
+                                      builder: (logic) {
+                                        return SvgPicture.asset(
+                                          logic.selectedTime == null
+                                              ? IconsAssetsConstants
+                                                  .calendarIcon
+                                              : IconsAssetsConstants
+                                                  .checked3Icon,
+                                          width: 25.r,
+                                          height: 25.r,
+                                        );
+                                      }),
                                 ],
                               ),
                             ),
@@ -314,6 +326,27 @@ class HomeView extends GetView<HomeController> {
             selectedTime: logic.selectedTime,
             onDaySelected: (day) => logic.changeSelectedDay(day),
             onTimeSelected: (time) => logic.changeSelectedTime(time.value),
+            onConfirm: () {},
+          );
+        },
+      ),
+    );
+  }
+
+  void showMyCarsWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<HomeController>(
+        id: GetBuildersIdsConstants.homeMyCarsWindow,
+        builder: (logic) {
+          return MyCarsWindowComponent(
+            scrollController: logic.myCarsListScrollController,
+            loading: logic.getMyCarsListLoading,
+            carsList: logic.myCarsList?.data ?? [],
+            onCarSelected: (car) {
+              logic.changeSelectedCarId(car.id);
+            },
+            selectedCardId: logic.selectedCarId,
             onConfirm: () {},
           );
         },

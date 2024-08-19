@@ -112,7 +112,14 @@
     "december":"ديسمبر",
 
     "morning":"صباحًا",
-    "evening":"مساءً"
+    "evening":"مساءً",
+
+  "select your car": "تحديد السيارة",
+  "add car": "إضافة سيارة",
+
+  "car name": "اسم السيارة",
+  "plate number": "رقم اللوحة",
+  "color": "اللون"
 
 
 

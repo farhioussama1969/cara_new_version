@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -5,9 +6,12 @@ import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_comp
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
+import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/pagination_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/washing_type_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/working_time_model.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/car_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
 
@@ -24,8 +28,9 @@ class HomeController extends GetxController {
       CheckServiceAvailabilityModel? checkServiceAvailabilityResponse) {
     this.checkServiceAvailabilityResponse = checkServiceAvailabilityResponse;
     changeWorkingHours([]);
+    daysList.clear();
     timesList.clear();
-
+    changeSelectedTime(null);
     update([GetBuildersIdsConstants.homeFloatingButton]);
   }
 
@@ -216,7 +221,6 @@ class HomeController extends GetxController {
       });
       changeTimesList(daysList[0]);
     }
-
     update([GetBuildersIdsConstants.homeSetDateWindow]);
   }
 
@@ -246,7 +250,72 @@ class HomeController extends GetxController {
   String? selectedTime;
   void changeSelectedTime(String? newSelectedTime) {
     selectedTime = newSelectedTime;
-    update([GetBuildersIdsConstants.homeSetDateWindow]);
+    update([
+      GetBuildersIdsConstants.homeSetDateWindow,
+      GetBuildersIdsConstants.homeSetDateButton
+    ]);
+  }
+
+  //my cars
+
+  final ScrollController myCarsListScrollController = ScrollController();
+
+  bool getMyCarsListLoading = false;
+  void changeGetMyCarsListLoading(bool newGetMyCarsListLoading) {
+    getMyCarsListLoading = newGetMyCarsListLoading;
+    update([GetBuildersIdsConstants.homeMyCarsWindow]);
+  }
+
+  PaginationModel<CarModel>? myCarsList;
+  void changeMyCarsList(PaginationModel<CarModel>? newData, {bool? refresh}) {
+    if (refresh == true) {
+      myCarsList = null;
+    } else {
+      if (myCarsList?.data?.isNotEmpty == true) {
+        myCarsList?.data?.addAll(newData?.data ?? []);
+        myCarsList?.meta = newData?.meta;
+      } else {
+        myCarsList = newData;
+      }
+    }
+    update([GetBuildersIdsConstants.homeMyCarsWindow]);
+  }
+
+  int myCarsCurrentPage = 1;
+  void getMyCars() {
+    CarProvider()
+        .getCarsList(
+      page: myCarsCurrentPage,
+      onLoading: () => changeGetMyCarsListLoading(true),
+      onFinal: () => changeGetMyCarsListLoading(false),
+    )
+        .then(
+      (value) {
+        if (value != null) {
+          changeMyCarsList(value);
+        }
+      },
+    );
+  }
+
+  void recentLocationsScrollEvent() {
+    myCarsListScrollController.addListener(() {
+      double maxScroll = myCarsListScrollController.position.maxScrollExtent;
+      if (myCarsListScrollController.offset > maxScroll * 0.8) {
+        if (!getMyCarsListLoading) {
+          if (myCarsCurrentPage < (myCarsList?.meta?.lastPage ?? 0)) {
+            myCarsCurrentPage++;
+            getMyCars();
+          }
+        }
+      }
+    });
+  }
+
+  int? selectedCarId;
+  void changeSelectedCarId(int? newSelectedCarId) {
+    selectedCarId = newSelectedCarId;
+    update([GetBuildersIdsConstants.homeMyCarsWindow]);
   }
 
   @override
@@ -256,6 +325,7 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
+    recentLocationsScrollEvent();
     super.onReady();
   }
 

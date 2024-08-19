@@ -98,4 +98,9 @@ static String get november{return "november".tr;}
 static String get december{return "december".tr;}
 static String get morning{return "morning".tr;}
 static String get evening{return "evening".tr;}
+static String get selectYourCar{return "select your car".tr;}
+static String get addCar{return "add car".tr;}
+static String get carName{return "car name".tr;}
+static String get plateNumber{return "plate number".tr;}
+static String get color{return "color".tr;}
 }
