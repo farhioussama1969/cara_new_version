@@ -60,25 +60,26 @@ class WashingTypeCardComponent extends StatelessWidget {
             ],
           ),
         ),
-        Positioned.fill(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.only(end: 10.w),
-                child: AnimatorComponent(
-                  time: const Duration(microseconds: 100),
-                  child: SvgPicture.asset(
-                    IconsAssetsConstants.checkedIcon,
-                    width: 22.r,
-                    height: 22.r,
-                    color: MainColors.primaryColor,
+        if (isSelected)
+          Positioned.fill(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.only(end: 10.w),
+                  child: AnimatorComponent(
+                    time: const Duration(microseconds: 100),
+                    child: SvgPicture.asset(
+                      IconsAssetsConstants.checkedIcon,
+                      width: 22.r,
+                      height: 22.r,
+                      color: MainColors.primaryColor,
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
       ],
     );
   }

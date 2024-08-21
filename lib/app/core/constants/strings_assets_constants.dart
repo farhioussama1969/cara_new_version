@@ -103,4 +103,7 @@ static String get addCar{return "add car".tr;}
 static String get carName{return "car name".tr;}
 static String get plateNumber{return "plate number".tr;}
 static String get color{return "color".tr;}
+static String get confirmWashingOrder{return "confirm washing order".tr;}
+static String get washingDate{return "washing date".tr;}
+static String get carBrand{return "car brand".tr;}
 }

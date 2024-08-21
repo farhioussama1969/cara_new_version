@@ -21,6 +21,7 @@ import 'package:solvodev_mobile_structure/app/modules/home/views/components/wash
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/working_hours_window_component.dart';
 
 import '../controllers/home_controller.dart';
+import 'components/confirm_window_component.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -242,10 +243,12 @@ class HomeView extends GetView<HomeController> {
                                 // controller.getWorkingHours();
                                 // showWorkingHoursWindow();
 
-                                controller.changeMyCarsList(null,
-                                    refresh: true);
-                                controller.getMyCars();
-                                showMyCarsWindow();
+                                // controller.changeMyCarsList(null,
+                                //     refresh: true);
+                                // controller.getMyCars();
+                                // showMyCarsWindow();
+
+                                showConfirmWindow();
                               },
                               child: Row(
                                 children: [
@@ -349,6 +352,25 @@ class HomeView extends GetView<HomeController> {
             selectedCardId: logic.selectedCarId,
             onConfirm: () {},
           );
+        },
+      ),
+    );
+  }
+
+  void showConfirmWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: ConfirmWindowComponent(
+        selectedDate: controller.selectedDay,
+        selectedTime: controller.selectedTime,
+        selectedCar: controller.myCarsList?.data
+            ?.where((e) => e.id == controller.selectedCarId)
+            .first,
+        selectedWashingType: controller.washingTypes
+            ?.where((e) => e.id == controller.selectedWashingTypeId)
+            .first,
+        onConfirm: () {
+          Get.back();
         },
       ),
     );

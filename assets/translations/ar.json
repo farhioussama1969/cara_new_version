@@ -119,7 +119,11 @@
 
   "car name": "اسم السيارة",
   "plate number": "رقم اللوحة",
-  "color": "اللون"
+  "color": "اللون",
+
+  "confirm washing order": "تأكيد طلب الغسيل",
+  "washing date": "موعد الغسيل",
+  "car brand": "ماركة السيارة"
 
 
 
