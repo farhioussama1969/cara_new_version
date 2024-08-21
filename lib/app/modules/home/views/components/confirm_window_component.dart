@@ -21,13 +21,19 @@ class ConfirmWindowComponent extends StatelessWidget {
       this.selectedTime,
       this.selectedCar,
       this.selectedWashingType,
-      required this.onConfirm});
+      required this.onConfirm,
+      required this.onChangeDate,
+      required this.onChangeWashingType,
+      required this.onChangeCar});
 
   final CarModel? selectedCar;
   final WashingTypeModel? selectedWashingType;
   final String? selectedDate;
   final String? selectedTime;
   final void Function() onConfirm;
+  final Function onChangeDate;
+  final Function onChangeWashingType;
+  final Function onChangeCar;
 
   @override
   Widget build(BuildContext context) {
@@ -54,220 +60,247 @@ class ConfirmWindowComponent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30.h),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: MainColors.backgroundColor(context),
-                    boxShadow: [
-                      BoxShadow(
-                        color: MainColors.shadowColor(context)!,
-                        blurRadius: 15.r,
-                        offset: Offset(0, 0),
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(15.r),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            IconsAssetsConstants.calendarIcon,
-                            width: 25.r,
-                            height: 25.r,
-                          ),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: Text(
-                              StringsAssetsConstants.washingDate,
-                              style: TextStyles.mediumLabelTextStyle(context),
+                GestureDetector(
+                  onTap: () => onChangeDate(),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: MainColors.backgroundColor(context),
+                      boxShadow: [
+                        BoxShadow(
+                          color: MainColors.shadowColor(context)!,
+                          blurRadius: 15.r,
+                          offset: Offset(0, 0),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              IconsAssetsConstants.calendarIcon,
+                              width: 25.r,
+                              height: 25.r,
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10.h),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: RichText(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
-                                text:
-                                    '${RelativeDateUtil.numToDay(RelativeDateUtil.stringToDate(selectedDate).weekday)} ',
-                                style: TextStyles.largeBodyTextStyle(context),
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        '${RelativeDateUtil.stringToDate(selectedDate).day} ',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context)
-                                            .copyWith(
-                                      color: MainColors.primaryColor,
-                                      fontFamily:
-                                          FontsFamilyAssetsConstants.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${RelativeDateUtil.numToMonth(RelativeDateUtil.stringToDate(selectedDate).month)} ',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${RelativeDateUtil.stringToDate(selectedDate).year} ',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context)
-                                            .copyWith(
-                                      color: MainColors.primaryColor,
-                                      fontFamily:
-                                          FontsFamilyAssetsConstants.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' | ',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${RelativeDateUtil.changeHourFormat(selectedTime?.replaceAll('H', ''))} ',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context)
-                                            .copyWith(
-                                      color: MainColors.primaryColor,
-                                      fontFamily:
-                                          FontsFamilyAssetsConstants.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${RelativeDateUtil.getAmPmFromTime(selectedTime).substring(0, 5)} ',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context),
-                                  ),
-                                ],
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child: Text(
+                                StringsAssetsConstants.washingDate,
+                                style: TextStyles.mediumLabelTextStyle(context),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                        SizedBox(height: 10.h),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: RichText(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  text:
+                                      '${RelativeDateUtil.numToDay(RelativeDateUtil.stringToDate(selectedDate).weekday)} ',
+                                  style: TextStyles.largeBodyTextStyle(context),
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          '${RelativeDateUtil.stringToDate(selectedDate).day} ',
+                                      style:
+                                          TextStyles.largeBodyTextStyle(context)
+                                              .copyWith(
+                                        color: MainColors.primaryColor,
+                                        fontFamily:
+                                            FontsFamilyAssetsConstants.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${RelativeDateUtil.numToMonth(RelativeDateUtil.stringToDate(selectedDate).month)} ',
+                                      style: TextStyles.largeBodyTextStyle(
+                                          context),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${RelativeDateUtil.stringToDate(selectedDate).year} ',
+                                      style:
+                                          TextStyles.largeBodyTextStyle(context)
+                                              .copyWith(
+                                        color: MainColors.primaryColor,
+                                        fontFamily:
+                                            FontsFamilyAssetsConstants.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' | ',
+                                      style: TextStyles.largeBodyTextStyle(
+                                          context),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${RelativeDateUtil.changeHourFormat(selectedTime?.replaceAll('H', ''))} ',
+                                      style:
+                                          TextStyles.largeBodyTextStyle(context)
+                                              .copyWith(
+                                        color: MainColors.primaryColor,
+                                        fontFamily:
+                                            FontsFamilyAssetsConstants.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${RelativeDateUtil.getAmPmFromTime(selectedTime).substring(0, 5)} ',
+                                      style: TextStyles.largeBodyTextStyle(
+                                          context),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                )
+                    .animate(delay: (150).ms)
+                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                    .move(
+                      begin: const Offset(0, -200),
+                      duration: 500.ms,
+                    ),
                 SizedBox(height: 10.r),
                 Row(
                   children: [
                     Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: MainColors.backgroundColor(context),
-                          boxShadow: [
-                            BoxShadow(
-                              color: MainColors.shadowColor(context)!,
-                              blurRadius: 15.r,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.w, vertical: 15.h),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  IconsAssetsConstants.carWashIcon,
-                                  width: 25.r,
-                                  height: 25.r,
-                                ),
-                                SizedBox(width: 10.w),
-                                Expanded(
-                                  child: Text(
-                                    StringsAssetsConstants.washingType,
-                                    style: TextStyles.mediumLabelTextStyle(
-                                        context),
+                      child: GestureDetector(
+                        onTap: () => onChangeWashingType(),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: MainColors.backgroundColor(context),
+                            boxShadow: [
+                              BoxShadow(
+                                color: MainColors.shadowColor(context)!,
+                                blurRadius: 15.r,
+                                offset: Offset(0, 0),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(15.r),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 15.h),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    IconsAssetsConstants.carWashIcon,
+                                    width: 25.r,
+                                    height: 25.r,
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    '${selectedWashingType?.name}',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  SizedBox(width: 10.w),
+                                  Expanded(
+                                    child: Text(
+                                      StringsAssetsConstants.washingType,
+                                      style: TextStyles.mediumLabelTextStyle(
+                                          context),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                              SizedBox(height: 10.h),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      '${selectedWashingType?.name}',
+                                      style: TextStyles.largeBodyTextStyle(
+                                          context),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    )
+                        .animate(delay: (150).ms)
+                        .fadeIn(duration: 900.ms, delay: 300.ms)
+                        .move(
+                          begin: const Offset(200, 0),
+                          duration: 500.ms,
+                        ),
                     SizedBox(width: 10.r),
                     Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: MainColors.backgroundColor(context),
-                          boxShadow: [
-                            BoxShadow(
-                              color: MainColors.shadowColor(context)!,
-                              blurRadius: 15.r,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.w, vertical: 15.h),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  IconsAssetsConstants.myCarsEnabledIcon,
-                                  width: 22.r,
-                                  height: 22.r,
-                                ),
-                                SizedBox(width: 10.w),
-                                Expanded(
-                                  child: Text(
-                                    StringsAssetsConstants.carBrand,
-                                    style: TextStyles.mediumLabelTextStyle(
-                                        context),
+                      child: GestureDetector(
+                        onTap: () => onChangeCar(),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: MainColors.backgroundColor(context),
+                            boxShadow: [
+                              BoxShadow(
+                                color: MainColors.shadowColor(context)!,
+                                blurRadius: 15.r,
+                                offset: Offset(0, 0),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(15.r),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 15.h),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    IconsAssetsConstants.myCarsEnabledIcon,
+                                    width: 22.r,
+                                    height: 22.r,
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    '${selectedCar?.brand?.name}',
-                                    style:
-                                        TextStyles.largeBodyTextStyle(context),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  SizedBox(width: 10.w),
+                                  Expanded(
+                                    child: Text(
+                                      StringsAssetsConstants.carBrand,
+                                      style: TextStyles.mediumLabelTextStyle(
+                                          context),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                              SizedBox(height: 10.h),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      '${selectedCar?.brand?.name}',
+                                      style: TextStyles.largeBodyTextStyle(
+                                          context),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    )
+                        .animate(delay: (150).ms)
+                        .fadeIn(duration: 900.ms, delay: 300.ms)
+                        .move(
+                          begin: const Offset(-200, 0),
+                          duration: 500.ms,
+                        ),
                   ],
                 ),
                 SizedBox(height: 30.h),
@@ -279,7 +312,7 @@ class ConfirmWindowComponent extends StatelessWidget {
                     .animate(delay: (150).ms)
                     .fadeIn(duration: 900.ms, delay: 300.ms)
                     .move(
-                      begin: const Offset(200, 0),
+                      begin: const Offset(0, 200),
                       duration: 500.ms,
                     ),
                 SizedBox(height: 30.h),

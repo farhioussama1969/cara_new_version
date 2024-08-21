@@ -70,7 +70,7 @@ class HomeView extends GetView<HomeController> {
                           );
                   }),
               onPressed: () {
-                controller.checkServiceAvailability();
+                controller.createOrderSteps();
               },
             ),
           ),
@@ -240,15 +240,13 @@ class HomeView extends GetView<HomeController> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                // controller.getWorkingHours();
-                                // showWorkingHoursWindow();
+                                controller.getWorkingHours();
+                                showWorkingHoursWindow();
 
                                 // controller.changeMyCarsList(null,
                                 //     refresh: true);
                                 // controller.getMyCars();
                                 // showMyCarsWindow();
-
-                                showConfirmWindow();
                               },
                               child: Row(
                                 children: [
@@ -308,6 +306,7 @@ class HomeView extends GetView<HomeController> {
                 logic.changeSelectedWashingTypeId(washingType.id),
             onConfirm: () {
               Get.back();
+              controller.createOrderSteps();
             },
           );
         },
@@ -329,7 +328,10 @@ class HomeView extends GetView<HomeController> {
             selectedTime: logic.selectedTime,
             onDaySelected: (day) => logic.changeSelectedDay(day),
             onTimeSelected: (time) => logic.changeSelectedTime(time.value),
-            onConfirm: () {},
+            onConfirm: () {
+              Get.back();
+              controller.createOrderSteps();
+            },
           );
         },
       ),
@@ -350,7 +352,10 @@ class HomeView extends GetView<HomeController> {
               logic.changeSelectedCarId(car.id);
             },
             selectedCardId: logic.selectedCarId,
-            onConfirm: () {},
+            onConfirm: () {
+              Get.back();
+              controller.createOrderSteps();
+            },
           );
         },
       ),
@@ -371,6 +376,21 @@ class HomeView extends GetView<HomeController> {
             .first,
         onConfirm: () {
           Get.back();
+        },
+        onChangeCar: () {
+          Get.back();
+          controller.getMyCars();
+          showMyCarsWindow();
+        },
+        onChangeDate: () {
+          Get.back();
+          controller.getWorkingHours();
+          showWorkingHoursWindow();
+        },
+        onChangeWashingType: () {
+          Get.back();
+          controller.getWashingTypes();
+          showWashingTypesWindow();
         },
       ),
     );

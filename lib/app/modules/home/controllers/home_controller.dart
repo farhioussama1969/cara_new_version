@@ -14,6 +14,7 @@ import 'package:solvodev_mobile_structure/app/data/models/working_time_model.dar
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/car_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
+import 'package:solvodev_mobile_structure/app/modules/home/views/home_view.dart';
 
 class HomeController extends GetxController {
   bool checkingServiceAvailabilityLoading = false;
@@ -31,6 +32,8 @@ class HomeController extends GetxController {
     daysList.clear();
     timesList.clear();
     changeSelectedTime(null);
+    changeSelectedCarId(null);
+    changeSelectedWashingTypeId(null);
     update([GetBuildersIdsConstants.homeFloatingButton]);
   }
 
@@ -46,6 +49,7 @@ class HomeController extends GetxController {
     )
         .then(
       (value) {
+        isPositionChanged = false;
         if (value?.availability == true) {
           changeCheckServiceAvailabilityResponse(value);
         } else {
@@ -92,6 +96,8 @@ class HomeController extends GetxController {
 
   Position? selectedPosition;
 
+  bool isPositionChanged = true;
+
   Future<void> changeStartingPosition(Position? newPosition,
       {bool? checkTheServiceAvailability}) async {
     selectedPosition = newPosition;
@@ -126,6 +132,7 @@ class HomeController extends GetxController {
       currentLatitude = null;
       currentLongitude = null;
     } else if (!isMapCameraMoving) {
+      isPositionChanged = true;
       //checkServiceAvailability();
     }
     update([
@@ -316,6 +323,30 @@ class HomeController extends GetxController {
   void changeSelectedCarId(int? newSelectedCarId) {
     selectedCarId = newSelectedCarId;
     update([GetBuildersIdsConstants.homeMyCarsWindow]);
+  }
+
+  Future<void> createOrderSteps() async {
+    if (isPositionChanged) {
+      await checkServiceAvailability();
+    }
+    if (checkServiceAvailabilityResponse?.availability == true) {
+      if (selectedDay == null || selectedTime == null) {
+        getWorkingHours();
+        const HomeView().showWorkingHoursWindow();
+        return;
+      }
+      if (selectedWashingTypeId == null) {
+        getWashingTypes();
+        const HomeView().showWashingTypesWindow();
+        return;
+      }
+      if (selectedCarId == null) {
+        getMyCars();
+        const HomeView().showMyCarsWindow();
+        return;
+      }
+      const HomeView().showConfirmWindow();
+    }
   }
 
   @override
