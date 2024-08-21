@@ -17,6 +17,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_cons
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/my_cars_window_component.dart';
+import 'package:solvodev_mobile_structure/app/modules/home/views/components/payment_window_component.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/washing_types_window_component.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/working_hours_window_component.dart';
 
@@ -376,6 +377,7 @@ class HomeView extends GetView<HomeController> {
             .first,
         onConfirm: () {
           Get.back();
+          showPaymentWindow();
         },
         onChangeCar: () {
           Get.back();
@@ -393,6 +395,21 @@ class HomeView extends GetView<HomeController> {
           showWashingTypesWindow();
         },
       ),
+    );
+  }
+
+  void showPaymentWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<HomeController>(
+          id: GetBuildersIdsConstants.homePaymentWindow,
+          builder: (logic) {
+            return PaymentWindowComponent(
+              selectedPaymentMethod: logic.selectedPaymentMethod,
+              onPaymentMethodSelected: (paymentMethod) =>
+                  logic.changeSelectedPaymentMethod(paymentMethod),
+            );
+          }),
     );
   }
 }

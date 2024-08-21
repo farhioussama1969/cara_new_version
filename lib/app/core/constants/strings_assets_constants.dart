@@ -106,4 +106,9 @@ static String get color{return "color".tr;}
 static String get confirmWashingOrder{return "confirm washing order".tr;}
 static String get washingDate{return "washing date".tr;}
 static String get carBrand{return "car brand".tr;}
+static String get paymentMethod{return "payment method".tr;}
+static String get paymentByWallet{return "payment by wallet".tr;}
+static String get totalPrice{return "total price".tr;}
+static String get couponCode{return "coupon code".tr;}
+static String get apply{return "apply".tr;}
 }

@@ -14,6 +14,7 @@ import 'package:solvodev_mobile_structure/app/data/models/working_time_model.dar
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/car_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/wallet_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/home_view.dart';
 
 class HomeController extends GetxController {
@@ -347,6 +348,39 @@ class HomeController extends GetxController {
       }
       const HomeView().showConfirmWindow();
     }
+  }
+
+  //payment
+
+  int selectedPaymentMethod = 0;
+  void changeSelectedPaymentMethod(int newSelectedPaymentMethod) {
+    selectedPaymentMethod = newSelectedPaymentMethod;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  bool getWalletAmountLoading = false;
+  void changeGetWalletAmountLoading(bool value) {
+    getWalletAmountLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  double walletAmount = 0;
+  void changeWallet(double? walletAmount) {
+    this.walletAmount = walletAmount ?? 0;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void getWalletAmount() {
+    WalletProvider()
+        .getWalletAmount(
+      onLoading: () => changeGetWalletAmountLoading(true),
+      onFinal: () => changeGetWalletAmountLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        changeWallet(value);
+      }
+    });
   }
 
   @override

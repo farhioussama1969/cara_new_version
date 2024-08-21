@@ -123,7 +123,13 @@
 
   "confirm washing order": "تأكيد طلب الغسيل",
   "washing date": "موعد الغسيل",
-  "car brand": "ماركة السيارة"
+  "car brand": "ماركة السيارة",
+
+  "payment method": "طريقة الدفع",
+  "payment by wallet": "الدفع عن طريق المحفظة",
+  "total price": "السعر الإجمالي",
+  "coupon code": "كود الخصم",
+    "apply": "تطبيق"
 
 
 

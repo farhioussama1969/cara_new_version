@@ -21,4 +21,5 @@ class GetBuildersIdsConstants {
   static const String homeSetDateButton = 'home_set_date_button';
   static const String homeSetDateWindow = 'home_set_date_window';
   static const String homeMyCarsWindow = 'home_my_cars_window';
+  static const String homePaymentWindow = 'home_payment_window';
 }
