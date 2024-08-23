@@ -8,12 +8,17 @@ import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_cons
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/coupon_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/free_washing_config_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/pagination_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/subscription_plan_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/user_subscription_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/washing_type_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/working_time_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/car_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/subscription_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/wallet_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/home_view.dart';
 
@@ -350,7 +355,7 @@ class HomeController extends GetxController {
     }
   }
 
-  //payment
+  //payment config
 
   int selectedPaymentMethod = 0;
   void changeSelectedPaymentMethod(int newSelectedPaymentMethod) {
@@ -379,6 +384,122 @@ class HomeController extends GetxController {
         .then((value) {
       if (value != null) {
         changeWallet(value);
+      }
+    });
+  }
+
+  List<UserSubscriptionModel> subscriptionsList = [];
+  void changeSubscriptionsList(
+      List<UserSubscriptionModel> newSubscriptionsList) {
+    subscriptionsList = newSubscriptionsList;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  bool getSubscriptionsListLoading = false;
+  void changeGetSubscriptionsListLoading(bool value) {
+    getSubscriptionsListLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void getSubscriptionsList() {
+    SubscriptionProvider()
+        .getMySubscriptionsList(
+      branchId: checkServiceAvailabilityResponse?.branch?.id,
+      onLoading: () => changeGetSubscriptionsListLoading(true),
+      onFinal: () => changeGetSubscriptionsListLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        changeSubscriptionsList(value);
+      }
+    });
+  }
+
+  FreeWashingConfigModel? freeWashingConfig;
+
+  void changeFreeWashingConfig(FreeWashingConfigModel? value) {
+    freeWashingConfig = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  bool getFreeWashingConfigLoading = false;
+  void changeGetFreeWashingConfigLoading(bool value) {
+    getFreeWashingConfigLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void getFreeWashingConfig() {
+    ConfigProvider()
+        .freeWashingConfig(
+      branchId: checkServiceAvailabilityResponse?.branch?.id,
+      onLoading: () => changeGetFreeWashingConfigLoading(true),
+      onFinal: () => changeGetFreeWashingConfigLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        changeFreeWashingConfig(value);
+      }
+    });
+  }
+
+  //apple payment
+  bool applePaymentLoading = false;
+  void changeApplePaymentLoading(bool value) {
+    applePaymentLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void applePayment() {}
+
+  //wallet payment
+  bool walletPaymentLoading = false;
+  void changeWalletPaymentLoading(bool value) {
+    walletPaymentLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void walletPayment() {}
+
+  //subscription payment
+  bool subscriptionPaymentLoading = false;
+  void changeSubscriptionPaymentLoading(bool value) {
+    subscriptionPaymentLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void subscriptionPayment() {}
+
+  //coupon
+  final TextEditingController couponController = TextEditingController();
+
+  bool couponApplyLoading = false;
+  void changeCouponApplyLoading(bool value) {
+    couponApplyLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  CouponModel? coupon;
+  void changeCoupon(CouponModel? value) {
+    coupon = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void applyCoupon(String couponCode) {
+    if (couponApplyLoading) return;
+    OrderProvider()
+        .applyCoupon(
+      branchId: checkServiceAvailabilityResponse?.branch?.id,
+      couponCode: couponCode,
+      washingTypeId: selectedWashingTypeId,
+      onLoading: () => changeCouponApplyLoading(true),
+      onFinal: () => changeCouponApplyLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        changeCoupon(value);
+      } else {
+        ToastComponent.showErrorToast(Get.context!,
+            text: StringsAssetsConstants.couponNotValid);
       }
     });
   }

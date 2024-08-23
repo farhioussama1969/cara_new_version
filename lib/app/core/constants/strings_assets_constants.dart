@@ -111,4 +111,10 @@ static String get paymentByWallet{return "payment by wallet".tr;}
 static String get totalPrice{return "total price".tr;}
 static String get couponCode{return "coupon code".tr;}
 static String get apply{return "apply".tr;}
+static String get paymentByCreditCard{return "payment by credit card".tr;}
+static String get orPaymentDirectlyBy{return "or payment directly by".tr;}
+static String get orByUsingYourSubscription{return "or by using your subscription".tr;}
+static String get orByUsingYourFreeWashes{return "or by using your free washes".tr;}
+static String get payWithApplePay{return "pay with apple pay".tr;}
+static String get couponNotValid{return "coupon not valid".tr;}
 }

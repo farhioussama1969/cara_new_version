@@ -31,7 +31,7 @@
   "optional": "اختياري",
   "update": "تحديث",
   "second": "ثانية",
-  "currency": "DA",
+  "currency": "ر.س",
   "all rights reserved": "جميع الحقوق محفوظة",
   "min": "دقيقة",
   "meter unit": "م",
@@ -129,7 +129,14 @@
   "payment by wallet": "الدفع عن طريق المحفظة",
   "total price": "السعر الإجمالي",
   "coupon code": "كود الخصم",
-    "apply": "تطبيق"
+    "apply": "تطبيق",
+
+  "payment by credit card": "الدفع بواسطة بطاقة الائتمان",
+  "or payment directly by": "أو الدفع مباشرة بواسطة",
+  "or by using your subscription": "أو باستخدام اشتراكك",
+  "or by using your free washes": "أو باستخدام الغسيل المجاني",
+  "pay with apple pay": "الدفع بواسطة ابل باي",
+  "coupon not valid": "كود الخصم غير صالح"
 
 
 

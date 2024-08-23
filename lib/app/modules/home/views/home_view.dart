@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -377,6 +379,9 @@ class HomeView extends GetView<HomeController> {
             .first,
         onConfirm: () {
           Get.back();
+          controller.getFreeWashingConfig();
+          controller.getWalletAmount();
+          controller.getSubscriptionsList();
           showPaymentWindow();
         },
         onChangeCar: () {
@@ -408,6 +413,22 @@ class HomeView extends GetView<HomeController> {
               selectedPaymentMethod: logic.selectedPaymentMethod,
               onPaymentMethodSelected: (paymentMethod) =>
                   logic.changeSelectedPaymentMethod(paymentMethod),
+              getWalletAmountLoading: logic.getWalletAmountLoading,
+              walletAmount: logic.walletAmount,
+              couponController: logic.couponController,
+              onCouponApply: () =>
+                  logic.applyCoupon(logic.couponController.text),
+              coupon: logic.coupon,
+              freeWashesPaymentLoading: logic.getFreeWashingConfigLoading,
+              getMySubscriptionsLoading: logic.getSubscriptionsListLoading,
+              subscriptionsList: logic.subscriptionsList,
+              applePaymentLoading: logic.applePaymentLoading,
+              onApplePayment: () {},
+              subscriptionPaymentLoading: logic.subscriptionPaymentLoading,
+              walletPaymentLoading: logic.walletPaymentLoading,
+              getFreeWashesConfig: logic.getFreeWashingConfigLoading,
+              freeWashingConfig: logic.freeWashingConfig,
+              onConfirm: () {},
             );
           }),
     );
