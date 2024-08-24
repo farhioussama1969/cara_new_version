@@ -181,7 +181,7 @@ class WorkingHoursWindowComponent extends StatelessWidget {
                                       width: 10.w,
                                     );
                                   },
-                                  itemCount: daysList.length,
+                                  itemCount: timesList.length,
                                 ),
                               ),
                               if (selectedTime != null)

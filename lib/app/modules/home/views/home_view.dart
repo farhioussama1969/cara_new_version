@@ -428,6 +428,12 @@ class HomeView extends GetView<HomeController> {
               walletPaymentLoading: logic.walletPaymentLoading,
               getFreeWashesConfig: logic.getFreeWashingConfigLoading,
               freeWashingConfig: logic.freeWashingConfig,
+              selectedSubscription: logic.selectedSubscriptionId,
+              onSubscriptionSelected: (id) =>
+                  logic.changeSelectedSubscriptionId(id),
+              washingType: logic.washingTypes
+                  ?.where((e) => e.id == logic.selectedWashingTypeId)
+                  .first,
               onConfirm: () {},
             );
           }),

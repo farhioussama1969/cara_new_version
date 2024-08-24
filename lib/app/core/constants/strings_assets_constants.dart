@@ -117,4 +117,10 @@ static String get orByUsingYourSubscription{return "or by using your subscriptio
 static String get orByUsingYourFreeWashes{return "or by using your free washes".tr;}
 static String get payWithApplePay{return "pay with apple pay".tr;}
 static String get couponNotValid{return "coupon not valid".tr;}
+static String get subscription{return "subscription".tr;}
+static String get endOn{return "end on".tr;}
+static String get day{return "day".tr;}
+static String get remaining{return "remaining".tr;}
+static String get giftsOfFreeWashes{return "gifts of free washes".tr;}
+static String get washes{return "washes".tr;}
 }

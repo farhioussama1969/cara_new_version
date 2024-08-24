@@ -35,8 +35,9 @@ class HomeController extends GetxController {
       CheckServiceAvailabilityModel? checkServiceAvailabilityResponse) {
     this.checkServiceAvailabilityResponse = checkServiceAvailabilityResponse;
     changeWorkingHours([]);
-    daysList.clear();
-    timesList.clear();
+    print('okokokok');
+    daysList = [];
+    timesList = [];
     changeSelectedTime(null);
     changeSelectedCarId(null);
     changeSelectedWashingTypeId(null);
@@ -108,6 +109,8 @@ class HomeController extends GetxController {
       {bool? checkTheServiceAvailability}) async {
     selectedPosition = newPosition;
     if (newPosition != null) {
+      currentLongitude = newPosition.longitude;
+      currentLatitude = newPosition.latitude;
       changeInitialGoogleMapsCameraPosition(CameraPosition(
         target:
             LatLng(selectedPosition!.latitude!, selectedPosition!.longitude!),
@@ -162,7 +165,10 @@ class HomeController extends GetxController {
         changeGetCurrentPositionLoading(false);
       },
     );
+
     if (newPosition != null) {
+      print('position: $newPosition');
+
       changeStartingPosition(newPosition, checkTheServiceAvailability: true);
     }
   }
@@ -216,6 +222,7 @@ class HomeController extends GetxController {
   List<TimeModel> timesList = [];
 
   void changeTimesList(String selectedDay) {
+    timesList.clear();
     workingHours.forEach((element) {
       if (element.day == selectedDay) {
         timesList.add(element.times!);
@@ -239,6 +246,8 @@ class HomeController extends GetxController {
 
   void getWorkingHours() {
     changeWorkingHours([]);
+    daysList.clear();
+    timesList.clear();
     OrderProvider()
         .getOrderHours(
       branchId: checkServiceAvailabilityResponse?.branch?.id,
@@ -357,9 +366,18 @@ class HomeController extends GetxController {
 
   //payment config
 
-  int selectedPaymentMethod = 0;
-  void changeSelectedPaymentMethod(int newSelectedPaymentMethod) {
+  int? selectedPaymentMethod;
+  void changeSelectedPaymentMethod(int? newSelectedPaymentMethod) {
     selectedPaymentMethod = newSelectedPaymentMethod;
+    if (selectedPaymentMethod != 3) {
+      changeSelectedSubscriptionId(null);
+    }
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  int? selectedSubscriptionId;
+  void changeSelectedSubscriptionId(int? newSelectedSubscriptionId) {
+    selectedSubscriptionId = newSelectedSubscriptionId;
     update([GetBuildersIdsConstants.homePaymentWindow]);
   }
 

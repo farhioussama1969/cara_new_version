@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:solvodev_mobile_structure/app/core/components/animations/animato
 import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_button_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/cards/my_subscription_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
@@ -15,6 +18,7 @@ import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/coupon_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/free_washing_config_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/user_subscription_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/washing_type_model.dart';
 
 class PaymentWindowComponent extends StatelessWidget {
   const PaymentWindowComponent(
@@ -35,7 +39,10 @@ class PaymentWindowComponent extends StatelessWidget {
       required this.freeWashesPaymentLoading,
       required this.onConfirm,
       required this.getFreeWashesConfig,
-      this.freeWashingConfig});
+      this.freeWashingConfig,
+      this.selectedSubscription,
+      required this.onSubscriptionSelected,
+      this.washingType});
 
   final int? selectedPaymentMethod;
   final Function(int) onPaymentMethodSelected;
@@ -54,6 +61,9 @@ class PaymentWindowComponent extends StatelessWidget {
   final bool subscriptionPaymentLoading;
   final bool freeWashesPaymentLoading;
   final Function onConfirm;
+  final int? selectedSubscription;
+  final Function(int?) onSubscriptionSelected;
+  final WashingTypeModel? washingType;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +106,36 @@ class PaymentWindowComponent extends StatelessWidget {
                       )
                     : Column(
                         children: [
+                          SizedBox(height: 30.h),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '${StringsAssetsConstants.totalPrice}:',
+                                    style: TextStyles.mediumLabelTextStyle(
+                                        context),
+                                  ),
+                                ),
+                                if (coupon?.couponDiscount != null)
+                                  SizedBox(width: 10.w),
+                                Text(
+                                  '${(washingType?.price ?? 0).toStringAsFixed(0)} ${StringsAssetsConstants.currency}',
+                                  style:
+                                      TextStyles.mediumLabelTextStyle(context)
+                                          .copyWith(
+                                    decoration: (coupon?.couponDiscount != null)
+                                        ? TextDecoration.lineThrough
+                                        : null,
+                                    color: (coupon?.couponDiscount == null)
+                                        ? MainColors.primaryColor
+                                        : Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           SizedBox(height: 30.h),
                           if (walletAmount > 0 && coupon?.actualTotal != 0)
                             GestureDetector(
@@ -278,93 +318,232 @@ class PaymentWindowComponent extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          SizedBox(height: 15.h),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: MainColors.textColor(context)!
-                                      .withOpacity(0.2),
+                          if (subscriptionsList.isNotEmpty)
+                            SizedBox(height: 15.h),
+                          if (subscriptionsList.isNotEmpty)
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    color: MainColors.textColor(context)!
+                                        .withOpacity(0.2),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  child: Text(
+                                    StringsAssetsConstants
+                                        .orByUsingYourSubscription,
+                                    style:
+                                        TextStyles.mediumBodyTextStyle(context)
+                                            .copyWith(
+                                      color: selectedSubscription != null
+                                          ? MainColors.primaryColor
+                                          : MainColors.textColor(context),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    color: MainColors.textColor(context)!
+                                        .withOpacity(0.2),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if (subscriptionsList.isNotEmpty)
+                            Container(
+                              margin: EdgeInsetsDirectional.only(top: 10.h),
+                              height: 90.h,
+                              child: PageView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: subscriptionsList.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      onPaymentMethodSelected(3);
+                                      onSubscriptionSelected(
+                                          subscriptionsList[index].id);
+                                    },
+                                    child: MySubscriptionCardComponent(
+                                      subscription: subscriptionsList[index],
+                                      index: index + 1,
+                                      isSelected: subscriptionsList[index].id ==
+                                          selectedSubscription,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          if (subscriptionsList.isNotEmpty)
+                            SizedBox(height: 15.h),
+                          if ((freeWashingConfig?.freeOrder ?? 0) > 0)
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    color: MainColors.textColor(context)!
+                                        .withOpacity(0.2),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  child: Text(
+                                    StringsAssetsConstants
+                                        .orByUsingYourFreeWashes,
+                                    style:
+                                        TextStyles.mediumBodyTextStyle(context)
+                                            .copyWith(
+                                      color: selectedPaymentMethod == 4
+                                          ? MainColors.primaryColor
+                                          : MainColors.textColor(context),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    color: MainColors.textColor(context)!
+                                        .withOpacity(0.2),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if ((freeWashingConfig?.freeOrder ?? 0) > 0)
+                            SizedBox(height: 15.h),
+                          if ((freeWashingConfig?.freeOrder ?? 0) > 0)
+                            GestureDetector(
+                              onTap: () => onPaymentMethodSelected(4),
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20.w, vertical: 20.h),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: MainColors.shadowColor(context)!,
+                                      blurRadius: 10.r,
+                                      offset: const Offset(0, 0),
+                                    ),
+                                  ],
+                                  border: Border.all(
+                                    color: selectedPaymentMethod == 4
+                                        ? MainColors.primaryColor
+                                        : MainColors.transparentColor,
+                                    width: 2.r,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  color: MainColors.backgroundColor(context),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          IconsAssetsConstants.giftEnabledIcon,
+                                          width: 26.r,
+                                          height: 26.r,
+                                          color: MainColors.primaryColor,
+                                        ),
+                                        SizedBox(width: 10.w),
+                                        Expanded(
+                                          child: Text(
+                                            StringsAssetsConstants
+                                                .giftsOfFreeWashes,
+                                            style:
+                                                TextStyles.largeBodyTextStyle(
+                                                        context)
+                                                    .copyWith(
+                                              fontFamily:
+                                                  FontsFamilyAssetsConstants
+                                                      .bold,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            text:
+                                                '${freeWashingConfig?.freeOrder} ',
+                                            style:
+                                                TextStyles.largeBodyTextStyle(
+                                                        context)
+                                                    .copyWith(
+                                              color: MainColors.primaryColor,
+                                              fontFamily:
+                                                  FontsFamilyAssetsConstants
+                                                      .bold,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: StringsAssetsConstants
+                                                    .washes,
+                                                style: TextStyles
+                                                        .mediumBodyTextStyle(
+                                                            context)
+                                                    .copyWith(),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: Text(
-                                  StringsAssetsConstants.orPaymentDirectlyBy,
-                                  style:
-                                      TextStyles.mediumBodyTextStyle(context),
+                            ),
+                          if (Platform.isIOS) SizedBox(height: 15.h),
+                          if (Platform.isIOS)
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    color: MainColors.textColor(context)!
+                                        .withOpacity(0.2),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  color: MainColors.textColor(context)!
-                                      .withOpacity(0.2),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  child: Text(
+                                    StringsAssetsConstants.orPaymentDirectlyBy,
+                                    style:
+                                        TextStyles.mediumBodyTextStyle(context),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15.h),
-                          PrimaryButtonComponent(
-                            onTap: () {},
-                            text: StringsAssetsConstants.payWithApplePay,
-                            iconPath: IconsAssetsConstants.appleIcon,
-                            iconColor: MainColors.backgroundColor(context),
-                            backgroundColor: MainColors.textColor(context),
-                          ),
-                          SizedBox(height: 15.h),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: MainColors.textColor(context)!
-                                      .withOpacity(0.2),
+                                Expanded(
+                                  child: Divider(
+                                    color: MainColors.textColor(context)!
+                                        .withOpacity(0.2),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: Text(
-                                  StringsAssetsConstants
-                                      .orByUsingYourSubscription,
-                                  style:
-                                      TextStyles.mediumBodyTextStyle(context),
+                              ],
+                            ),
+                          if (Platform.isIOS) SizedBox(height: 15.h),
+                          if (Platform.isIOS)
+                            PrimaryButtonComponent(
+                              onTap: () {},
+                              text: StringsAssetsConstants.payWithApplePay,
+                              iconPath: IconsAssetsConstants.appleIcon,
+                              iconColor: MainColors.backgroundColor(context),
+                              backgroundColor: MainColors.textColor(context),
+                            ),
+                          SizedBox(height: 25.h),
+                          if (selectedPaymentMethod != null)
+                            PrimaryButtonComponent(
+                              onTap: () => onConfirm(),
+                              text: StringsAssetsConstants.confirm,
+                              width: 0.7.sw,
+                            )
+                                .animate(delay: (150).ms)
+                                .fadeIn(duration: 900.ms, delay: 300.ms)
+                                .move(
+                                  begin: const Offset(0, 200),
+                                  duration: 500.ms,
                                 ),
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  color: MainColors.textColor(context)!
-                                      .withOpacity(0.2),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15.h),
-                          SizedBox(height: 15.h),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: MainColors.textColor(context)!
-                                      .withOpacity(0.2),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: Text(
-                                  StringsAssetsConstants
-                                      .orByUsingYourFreeWashes,
-                                  style:
-                                      TextStyles.mediumBodyTextStyle(context),
-                                ),
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  color: MainColors.textColor(context)!
-                                      .withOpacity(0.2),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15.h),
                           SizedBox(height: 30.h),
                         ],
                       ),
