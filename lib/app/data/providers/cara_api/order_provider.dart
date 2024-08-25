@@ -163,7 +163,9 @@ class OrderProvider {
       onFinal: () => onFinal(),
     );
     if (response?.body != null) {
-      return CouponModel.fromJson(response?.body);
+      if (response?.body['coupon_id'] != null) {
+        return CouponModel.fromJson(response?.body);
+      }
     }
     return null;
   }

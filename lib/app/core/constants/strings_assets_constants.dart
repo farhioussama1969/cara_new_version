@@ -123,4 +123,9 @@ static String get day{return "day".tr;}
 static String get remaining{return "remaining".tr;}
 static String get giftsOfFreeWashes{return "gifts of free washes".tr;}
 static String get washes{return "washes".tr;}
+static String get couponLineText{return "coupon line text".tr;}
+static String get washPrice{return "wash price".tr;}
+static String get couponDiscount{return "coupon discount".tr;}
+static String get delete{return "delete".tr;}
+static String get orderNow{return "order now".tr;}
 }

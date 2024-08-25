@@ -427,6 +427,7 @@ class HomeController extends GetxController {
       onFinal: () => changeGetSubscriptionsListLoading(false),
     )
         .then((value) {
+      print('value: $value');
       if (value != null) {
         changeSubscriptionsList(value);
       }
@@ -488,6 +489,7 @@ class HomeController extends GetxController {
   void subscriptionPayment() {}
 
   //coupon
+  final GlobalKey<FormState> couponFormKey = GlobalKey<FormState>();
   final TextEditingController couponController = TextEditingController();
 
   bool couponApplyLoading = false;
@@ -504,6 +506,7 @@ class HomeController extends GetxController {
 
   void applyCoupon(String couponCode) {
     if (couponApplyLoading) return;
+    if (!couponFormKey.currentState!.validate()) return;
     OrderProvider()
         .applyCoupon(
       branchId: checkServiceAvailabilityResponse?.branch?.id,
@@ -518,6 +521,7 @@ class HomeController extends GetxController {
       } else {
         ToastComponent.showErrorToast(Get.context!,
             text: StringsAssetsConstants.couponNotValid);
+        changeCoupon(null);
       }
     });
   }

@@ -382,6 +382,7 @@ class HomeView extends GetView<HomeController> {
           controller.getFreeWashingConfig();
           controller.getWalletAmount();
           controller.getSubscriptionsList();
+          controller.changeCoupon(null);
           showPaymentWindow();
         },
         onChangeCar: () {
@@ -434,6 +435,12 @@ class HomeView extends GetView<HomeController> {
               washingType: logic.washingTypes
                   ?.where((e) => e.id == logic.selectedWashingTypeId)
                   .first,
+              couponFormKey: logic.couponFormKey,
+              applyCouponLoading: logic.couponApplyLoading,
+              onCouponDeleted: () {
+                logic.changeCoupon(null);
+                logic.couponController.clear();
+              },
               onConfirm: () {},
             );
           }),
