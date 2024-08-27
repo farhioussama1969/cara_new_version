@@ -91,7 +91,7 @@ class OrderProvider {
         "washing_type_id": washingTypeId,
         "car_id": cardId,
         "order_date": date,
-        "order_time": time,
+        "order_time": time.replaceAll('H', ''),
         "payment_method": paymentMethod,
         "coupon_id": couponId,
         "price": price ?? 0,
@@ -100,7 +100,9 @@ class OrderProvider {
       onFinal: () => onFinal(),
     );
     if (response?.body != null) {
-      return OrderModel.fromJson(response?.body['data']);
+      if (response?.body['data'] != null) {
+        return OrderModel.fromJson(response?.body['data']);
+      }
     }
     return null;
   }

@@ -128,4 +128,7 @@ static String get washPrice{return "wash price".tr;}
 static String get couponDiscount{return "coupon discount".tr;}
 static String get delete{return "delete".tr;}
 static String get orderNow{return "order now".tr;}
+static String get successOrder{return "success order".tr;}
+static String get successOrderDescription{return "success order description".tr;}
+static String get failedOrderDescription{return "failed order description".tr;}
 }

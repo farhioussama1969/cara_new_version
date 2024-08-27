@@ -153,7 +153,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                           ),
                                         ),
                                       ],
-                                    ),
+                                    )
+                                        .animate(delay: (100).ms)
+                                        .fadeIn(duration: 900.ms, delay: 300.ms)
+                                        .move(
+                                          begin: const Offset(-200, 0),
+                                          duration: 500.ms,
+                                        ),
                                     if (coupon?.couponDiscount != null)
                                       Row(
                                         children: [
@@ -177,7 +183,14 @@ class PaymentWindowComponent extends StatelessWidget {
                                                     context),
                                               )),
                                         ],
-                                      ),
+                                      )
+                                          .animate(delay: (100).ms)
+                                          .fadeIn(
+                                              duration: 900.ms, delay: 300.ms)
+                                          .move(
+                                            begin: const Offset(-200, 0),
+                                            duration: 500.ms,
+                                          ),
                                     Row(
                                       children: [
                                         Expanded(
@@ -199,7 +212,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                               color: MainColors.primaryColor,
                                             )),
                                       ],
-                                    ),
+                                    )
+                                        .animate(delay: (100).ms)
+                                        .fadeIn(duration: 900.ms, delay: 300.ms)
+                                        .move(
+                                          begin: const Offset(-200, 0),
+                                          duration: 500.ms,
+                                        ),
                                   ],
                                 ),
                               ),
@@ -300,7 +319,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (walletAmount > 0 && coupon?.actualTotal != 0)
                                 SizedBox(height: 15.h),
                               if (coupon?.actualTotal != 0)
@@ -387,7 +412,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (subscriptionsList.isNotEmpty &&
                                   coupon?.actualTotal != 0)
                                 SizedBox(height: 15.h),
@@ -423,7 +454,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       ),
                                     ),
                                   ],
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (subscriptionsList.isNotEmpty &&
                                   coupon?.actualTotal != 0)
                                 Container(
@@ -456,7 +493,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       );
                                     },
                                   ),
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (subscriptionsList.length > 1 &&
                                   coupon?.actualTotal != 0)
                                 Padding(
@@ -474,7 +517,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       dotHeight: 8.r,
                                     ),
                                   ),
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (((freeWashingConfig?.freeOrder ?? 0) > 0) &&
                                   coupon?.actualTotal != 0)
                                 Row(
@@ -507,7 +556,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       ),
                                     ),
                                   ],
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (((freeWashingConfig?.freeOrder ?? 0) > 0) &&
                                   coupon?.actualTotal != 0)
                                 SizedBox(height: 15.h),
@@ -597,7 +652,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (Platform.isIOS && coupon?.actualTotal != 0)
                                 SizedBox(height: 15.h),
                               if (Platform.isIOS && coupon?.actualTotal != 0)
@@ -626,7 +687,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       ),
                                     ),
                                   ],
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               if (Platform.isIOS && coupon?.actualTotal != 0)
                                 SizedBox(height: 15.h),
                               if (Platform.isIOS && coupon?.actualTotal != 0)
@@ -638,7 +705,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                       MainColors.backgroundColor(context),
                                   backgroundColor:
                                       MainColors.textColor(context),
-                                ),
+                                )
+                                    .animate(delay: (100).ms)
+                                    .fadeIn(duration: 900.ms, delay: 300.ms)
+                                    .move(
+                                      begin: const Offset(0, 100),
+                                      duration: 500.ms,
+                                    ),
                               SizedBox(height: 25.h),
                               Row(
                                 children: [
@@ -665,7 +738,13 @@ class PaymentWindowComponent extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              ),
+                              )
+                                  .animate(delay: (100).ms)
+                                  .fadeIn(duration: 900.ms, delay: 300.ms)
+                                  .move(
+                                    begin: const Offset(0, 100),
+                                    duration: 500.ms,
+                                  ),
                               SizedBox(height: 15.h),
                               Form(
                                 key: couponFormKey,
@@ -700,15 +779,23 @@ class PaymentWindowComponent extends StatelessWidget {
                                           customMessage:
                                               '${StringsAssetsConstants.check} ${StringsAssetsConstants.couponCode}'),
                                 ),
-                              ),
+                              )
+                                  .animate(delay: (100).ms)
+                                  .fadeIn(duration: 900.ms, delay: 300.ms)
+                                  .move(
+                                    begin: const Offset(0, 100),
+                                    duration: 500.ms,
+                                  ),
                               SizedBox(height: 30.h),
-                              if (selectedPaymentMethod != null)
+                              if (selectedPaymentMethod != null ||
+                                  coupon?.actualTotal == 0)
                                 PrimaryButtonComponent(
                                   onTap: () => onConfirm(),
                                   text: coupon?.actualTotal != 0
                                       ? StringsAssetsConstants.confirm
                                       : StringsAssetsConstants.orderNow,
                                   width: 0.7.sw,
+                                  isLoading: walletPaymentLoading,
                                 )
                                     .animate(delay: (150).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)

@@ -158,6 +158,7 @@ class HttpClientService {
       if (error.response == null) {
         return _errorNoResponse(error);
       } else {
+        log('response:: ${error.response}');
         return _buildOut(error.response!);
       }
     }

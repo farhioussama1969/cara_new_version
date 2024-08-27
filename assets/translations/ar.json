@@ -154,7 +154,10 @@
   "coupon discount": "خصم الكوبون",
   "delete": "حذف",
 
-  "order now": "اطلب الآن"
+  "order now": "اطلب الآن",
+  "success order": "تم الطلب بنجاح",
+  "success order description": "تم طلب الغسيل بنجاح، سيتم التواصل معك في أقرب وقت",
+  "failed order description": "خطأ في عملية طلب الغسيل، الرجاء المحاولة بعد قليل"
 
 
 

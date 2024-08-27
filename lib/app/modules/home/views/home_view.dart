@@ -11,6 +11,7 @@ import 'package:solvodev_mobile_structure/app/core/components/animations/loading
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
@@ -432,18 +433,47 @@ class HomeView extends GetView<HomeController> {
               selectedSubscription: logic.selectedSubscriptionId,
               onSubscriptionSelected: (id) =>
                   logic.changeSelectedSubscriptionId(id),
-              washingType: logic.washingTypes
-                  ?.where((e) => e.id == logic.selectedWashingTypeId)
-                  .first,
+              washingType: logic.selectedWashingTypeId != null
+                  ? logic.washingTypes
+                      ?.where((e) => e.id == logic.selectedWashingTypeId)
+                      .first
+                  : null,
               couponFormKey: logic.couponFormKey,
               applyCouponLoading: logic.couponApplyLoading,
               onCouponDeleted: () {
                 logic.changeCoupon(null);
                 logic.couponController.clear();
               },
-              onConfirm: () {},
+              onConfirm: () {
+                if (logic.selectedPaymentMethod == 1) {
+                  logic.walletPayment();
+                }
+              },
             );
           }),
     );
+  }
+
+  void showCreateOrderStatusWindow(bool status) {
+    BottomSheetComponent.show(Get.context!,
+        dismissible: false,
+        body: ProgressStatusWindowComponent(
+          success: status,
+          text: status
+              ? StringsAssetsConstants.successOrderDescription
+              : StringsAssetsConstants.failedOrderDescription,
+          onDone: () {
+            if (status) {
+              Get.back();
+              Get.back();
+              controller.resetData();
+            } else {
+              Get.back();
+              Get.back();
+              controller.changeSelectedTime(null);
+              controller.changeSelectedDay(null);
+            }
+          },
+        ));
   }
 }

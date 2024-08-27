@@ -265,7 +265,9 @@ class HomeController extends GetxController {
   void changeSelectedDay(String? newSelectedDay) {
     selectedDay = newSelectedDay;
     changeSelectedTime(null);
-    changeTimesList(selectedDay!);
+    if (selectedDay != null) {
+      changeTimesList(selectedDay!);
+    }
     update([GetBuildersIdsConstants.homeSetDateWindow]);
   }
 
@@ -477,7 +479,29 @@ class HomeController extends GetxController {
     update([GetBuildersIdsConstants.homePaymentWindow]);
   }
 
-  void walletPayment() {}
+  void walletPayment() {
+    OrderProvider()
+        .createNewOrder(
+      lat: currentLatitude,
+      lng: currentLongitude,
+      washingTypeId: selectedWashingTypeId,
+      cardId: selectedCarId,
+      date: selectedDay!,
+      time: selectedTime!,
+      paymentMethod: "Wallet",
+      couponId: coupon?.couponId,
+      price: coupon?.actualTotal ?? 0,
+      onLoading: () => changeWalletPaymentLoading(true),
+      onFinal: () => changeWalletPaymentLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        const HomeView().showCreateOrderStatusWindow(true);
+      } else {
+        const HomeView().showCreateOrderStatusWindow(false);
+      }
+    });
+  }
 
   //subscription payment
   bool subscriptionPaymentLoading = false;
@@ -524,6 +548,21 @@ class HomeController extends GetxController {
         changeCoupon(null);
       }
     });
+  }
+
+  //clear and reset all data
+  void resetData() {
+    changeSelectedCarId(null);
+    changeSelectedDay(null);
+    changeSelectedTime(null);
+    changeSelectedPaymentMethod(null);
+    changeSelectedSubscriptionId(null);
+    changeSelectedWashingTypeId(null);
+    changeCoupon(null);
+    changeWorkingHours([]);
+    daysList.clear();
+    timesList.clear();
+    enableAndGetStartingPositionFromGeoLocator();
   }
 
   @override
