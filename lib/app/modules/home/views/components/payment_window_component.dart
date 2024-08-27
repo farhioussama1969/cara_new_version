@@ -795,7 +795,9 @@ class PaymentWindowComponent extends StatelessWidget {
                                       ? StringsAssetsConstants.confirm
                                       : StringsAssetsConstants.orderNow,
                                   width: 0.7.sw,
-                                  isLoading: walletPaymentLoading,
+                                  isLoading: walletPaymentLoading ||
+                                      freeWashesPaymentLoading ||
+                                      subscriptionPaymentLoading,
                                 )
                                     .animate(delay: (150).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)

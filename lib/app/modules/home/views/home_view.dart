@@ -421,7 +421,7 @@ class HomeView extends GetView<HomeController> {
               onCouponApply: () =>
                   logic.applyCoupon(logic.couponController.text),
               coupon: logic.coupon,
-              freeWashesPaymentLoading: logic.getFreeWashingConfigLoading,
+              freeWashesPaymentLoading: logic.freePaymentLoading,
               getMySubscriptionsLoading: logic.getSubscriptionsListLoading,
               subscriptionsList: logic.subscriptionsList,
               applePaymentLoading: logic.applePaymentLoading,
@@ -435,7 +435,7 @@ class HomeView extends GetView<HomeController> {
                   logic.changeSelectedSubscriptionId(id),
               washingType: logic.selectedWashingTypeId != null
                   ? logic.washingTypes
-                      ?.where((e) => e.id == logic.selectedWashingTypeId)
+                      .where((e) => e.id == logic.selectedWashingTypeId)
                       .first
                   : null,
               couponFormKey: logic.couponFormKey,
@@ -447,6 +447,10 @@ class HomeView extends GetView<HomeController> {
               onConfirm: () {
                 if (logic.selectedPaymentMethod == 1) {
                   logic.walletPayment();
+                } else if (logic.selectedPaymentMethod == 4) {
+                  logic.freePayment(false);
+                } else if (logic.coupon?.actualTotal == 0) {
+                  logic.freePayment(true);
                 }
               },
             );

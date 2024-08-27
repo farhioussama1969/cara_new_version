@@ -503,6 +503,37 @@ class HomeController extends GetxController {
     });
   }
 
+  //gift order payment
+  bool freePaymentLoading = false;
+  void changeFreePaymentLoading(bool value) {
+    freePaymentLoading = value;
+    update([GetBuildersIdsConstants.homePaymentWindow]);
+  }
+
+  void freePayment(bool gift) {
+    OrderProvider()
+        .createNewOrder(
+      lat: currentLatitude,
+      lng: currentLongitude,
+      washingTypeId: selectedWashingTypeId,
+      cardId: selectedCarId,
+      date: selectedDay!,
+      time: selectedTime!,
+      paymentMethod: gift ? "Gift" : "Free",
+      couponId: coupon?.couponId,
+      price: coupon?.actualTotal ?? 0,
+      onLoading: () => changeFreePaymentLoading(true),
+      onFinal: () => changeFreePaymentLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        const HomeView().showCreateOrderStatusWindow(true);
+      } else {
+        const HomeView().showCreateOrderStatusWindow(false);
+      }
+    });
+  }
+
   //subscription payment
   bool subscriptionPaymentLoading = false;
   void changeSubscriptionPaymentLoading(bool value) {
