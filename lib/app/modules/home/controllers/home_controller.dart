@@ -470,7 +470,52 @@ class HomeController extends GetxController {
     update([GetBuildersIdsConstants.homePaymentWindow]);
   }
 
-  void applePayment() {}
+  void applePayment() {
+    var items = <String, double?>{
+      '${washingTypes.where((element) => element.id == selectedWashingTypeId).first.name}':
+          washingTypes
+              .where((element) => element.id == selectedWashingTypeId)
+              .first
+              .price,
+      '${StringsAssetsConstants.appName}': coupon?.actualTotal ??
+          washingTypes
+              .where((element) => element.id == selectedWashingTypeId)
+              .first
+              .price,
+    };
+    // PayModel res = await MoyasarPayment().applePay(
+    //     amount: coupon().actualTotal ?? price.value,
+    //     publishableKey: currentBranchData?.moyasarPublishableApiKey ??
+    //         MoyasarPaymentGateway.publishableApiKey,
+    //     applepayMerchantId: currentBranchData?.moyasarMerchantId ??
+    //         'merchant.com.hoskadev.carawash',
+    //     paymentItems: items,
+    //     currencyCode: 'SAR',
+    //     countryCode: 'SA',
+    //     description: 'wash order with apple pay');
+    OrderProvider()
+        .createNewOrder(
+      lat: currentLatitude,
+      lng: currentLongitude,
+      washingTypeId: selectedWashingTypeId,
+      cardId: selectedCarId,
+      date: selectedDay!,
+      time: selectedTime!,
+      paymentMethod: "Apple pay",
+      couponId: coupon?.couponId,
+      price: coupon?.actualTotal ?? 0,
+      paymentId: '',
+      onLoading: () => changeApplePaymentLoading(true),
+      onFinal: () => changeApplePaymentLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        const HomeView().showCreateOrderStatusWindow(true);
+      } else {
+        const HomeView().showCreateOrderStatusWindow(false);
+      }
+    });
+  }
 
   //wallet payment
   bool walletPaymentLoading = false;
