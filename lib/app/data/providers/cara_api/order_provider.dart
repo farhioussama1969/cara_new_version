@@ -79,6 +79,7 @@ class OrderProvider {
     required String paymentMethod,
     required int? couponId,
     required double? price,
+    int? subscriptionId,
     required Function onLoading,
     required Function onFinal,
   }) async {
@@ -95,6 +96,7 @@ class OrderProvider {
         "payment_method": paymentMethod,
         "coupon_id": couponId,
         "price": price ?? 0,
+        if (subscriptionId != null) "subscription_id": subscriptionId,
       },
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),

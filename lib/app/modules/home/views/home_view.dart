@@ -447,6 +447,8 @@ class HomeView extends GetView<HomeController> {
               onConfirm: () {
                 if (logic.selectedPaymentMethod == 1) {
                   logic.walletPayment();
+                } else if (logic.selectedPaymentMethod == 3) {
+                  logic.subscriptionPayment();
                 } else if (logic.selectedPaymentMethod == 4) {
                   logic.freePayment(false);
                 } else if (logic.coupon?.actualTotal == 0) {

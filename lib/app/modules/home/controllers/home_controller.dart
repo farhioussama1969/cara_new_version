@@ -541,7 +541,30 @@ class HomeController extends GetxController {
     update([GetBuildersIdsConstants.homePaymentWindow]);
   }
 
-  void subscriptionPayment() {}
+  void subscriptionPayment() {
+    OrderProvider()
+        .createNewOrder(
+      lat: currentLatitude,
+      lng: currentLongitude,
+      washingTypeId: selectedWashingTypeId,
+      cardId: selectedCarId,
+      date: selectedDay!,
+      time: selectedTime!,
+      paymentMethod: "Subscription",
+      couponId: coupon?.couponId,
+      price: coupon?.actualTotal ?? 0,
+      subscriptionId: selectedSubscriptionId,
+      onLoading: () => changeSubscriptionPaymentLoading(true),
+      onFinal: () => changeSubscriptionPaymentLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        const HomeView().showCreateOrderStatusWindow(true);
+      } else {
+        const HomeView().showCreateOrderStatusWindow(false);
+      }
+    });
+  }
 
   //coupon
   final GlobalKey<FormState> couponFormKey = GlobalKey<FormState>();
