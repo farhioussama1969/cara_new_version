@@ -81,7 +81,7 @@ class TextInputComponent extends StatelessWidget {
                           EdgeInsetsDirectional.only(bottom: 5.h, start: 14.w),
                       child: Text(
                         label == null ? "" : label!,
-                        style: TextStyles.mediumBodyTextStyle(context),
+                        style: TextStyles.mediumLabelTextStyle(context),
                       ),
                     )
                   ],

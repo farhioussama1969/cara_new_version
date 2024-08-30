@@ -17,6 +17,7 @@ abstract class Routes {
   static const GIFTS = _Paths.GIFTS;
   static const MY_ACCOUNT = _Paths.MY_ACCOUNT;
   static const MY_RESERVATIONS = _Paths.MY_RESERVATIONS;
+  static const ADD_NEW_CAR = _Paths.ADD_NEW_CAR;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const GIFTS = '/gifts';
   static const MY_ACCOUNT = '/my-account';
   static const MY_RESERVATIONS = '/my-reservations';
+  static const ADD_NEW_CAR = '/add-new-car';
 }

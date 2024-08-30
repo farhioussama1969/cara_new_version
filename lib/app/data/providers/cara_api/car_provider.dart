@@ -30,7 +30,7 @@ class CarProvider {
     return null;
   }
 
-  Future<PaginationModel<CarBrandModel>?> getCarsBrandsList({
+  Future<List<CarBrandModel>?> getCarsBrandsList({
     required Function onLoading,
     required Function onFinal,
   }) async {
@@ -44,7 +44,10 @@ class CarProvider {
       onFinal: () => onFinal(),
     );
     if (response?.body != null) {
-      return PaginationModel.fromJson(response?.body, CarBrandModel.fromJson);
+      List<CarBrandModel> brands = [];
+      response?.body['data'].forEach((brand) {
+        brands.add(CarBrandModel.fromJson(brand));
+      });
     }
     return null;
   }

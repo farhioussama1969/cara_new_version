@@ -159,8 +159,12 @@
   "success order description": "تم طلب الغسيل بنجاح، سيتم التواصل معك في أقرب وقت",
   "failed order description": "خطأ في عملية طلب الغسيل، الرجاء المحاولة بعد قليل",
 
-  "empty cars": "لا توجد أي سيارات مضافة"
+  "empty cars": "لا توجد أي سيارات مضافة",
 
+  "select car color validation text": "يرجى اختيار لون السيارة",
+  "search": "بحث",
+
+  "empty data text": "لم يتم العثور على أي بيانات"
 
 
 }

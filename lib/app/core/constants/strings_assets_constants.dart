@@ -132,4 +132,7 @@ static String get successOrder{return "success order".tr;}
 static String get successOrderDescription{return "success order description".tr;}
 static String get failedOrderDescription{return "failed order description".tr;}
 static String get emptyCars{return "empty cars".tr;}
+static String get selectCarColorValidationText{return "select car color validation text".tr;}
+static String get search{return "search".tr;}
+static String get emptyDataText{return "empty data text".tr;}
 }

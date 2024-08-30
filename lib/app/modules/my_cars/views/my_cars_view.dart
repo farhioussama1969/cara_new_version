@@ -12,6 +12,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_consta
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 import '../../../core/constants/get_builders_ids_constants.dart';
 import '../controllers/my_cars_controller.dart';
@@ -31,7 +32,7 @@ class MyCarsView extends GetView<MyCarsController> {
         actionWidget: IconButtonComponent(
           iconLink: IconsAssetsConstants.addIcon,
           iconColor: MainColors.primaryColor,
-          onTap: () {},
+          onTap: () => Get.toNamed(Routes.ADD_NEW_CAR),
         ),
       ),
       body: RefreshIndicator(

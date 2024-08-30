@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_new_car/bindings/add_new_car_binding.dart';
+import '../modules/add_new_car/views/add_new_car_view.dart';
 import '../modules/banned/bindings/banned_binding.dart';
 import '../modules/banned/views/banned_view.dart';
 import '../modules/get_started/bindings/get_started_binding.dart';
@@ -106,6 +108,11 @@ class AppPages {
       name: _Paths.MY_RESERVATIONS,
       page: () => const MyReservationsView(),
       binding: MyReservationsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_NEW_CAR,
+      page: () => const AddNewCarView(),
+      binding: AddNewCarBinding(),
     ),
   ];
 }

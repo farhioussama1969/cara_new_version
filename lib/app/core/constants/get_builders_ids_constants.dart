@@ -23,4 +23,7 @@ class GetBuildersIdsConstants {
   static const String homeMyCarsWindow = 'home_my_cars_window';
   static const String homePaymentWindow = 'home_payment_window';
   static const String myCarsList = 'my_cars_list';
+  static const String addNewCarBrandsList = 'add_new_car_brands_list';
+  static const String addNewCarColorsList = 'add_new_car_colors_list';
+  static const String addNewCarButton = 'add_new_car_button';
 }
