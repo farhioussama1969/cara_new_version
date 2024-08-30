@@ -135,4 +135,5 @@ static String get emptyCars{return "empty cars".tr;}
 static String get selectCarColorValidationText{return "select car color validation text".tr;}
 static String get search{return "search".tr;}
 static String get emptyDataText{return "empty data text".tr;}
+static String get carColor{return "car color".tr;}
 }

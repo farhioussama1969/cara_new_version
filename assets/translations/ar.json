@@ -164,7 +164,9 @@
   "select car color validation text": "يرجى اختيار لون السيارة",
   "search": "بحث",
 
-  "empty data text": "لم يتم العثور على أي بيانات"
+  "empty data text": "لم يتم العثور على أي بيانات",
+
+  "car color": "لون السيارة"
 
 
 }
