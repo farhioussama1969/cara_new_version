@@ -24,6 +24,8 @@ import '../modules/new_update/bindings/new_update_binding.dart';
 import '../modules/new_update/views/new_update_view.dart';
 import '../modules/remind_password/bindings/remind_password_binding.dart';
 import '../modules/remind_password/views/remind_password_view.dart';
+import '../modules/reservation_details/bindings/reservation_details_binding.dart';
+import '../modules/reservation_details/views/reservation_details_view.dart';
 import '../modules/reset_password/bindings/reset_password_binding.dart';
 import '../modules/reset_password/views/reset_password_view.dart';
 import '../modules/sign_in/bindings/sign_in_binding.dart';
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.EDIT_CAR,
       page: () => const EditCarView(),
       binding: EditCarBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESERVATION_DETAILS,
+      page: () => const ReservationDetailsView(),
+      binding: ReservationDetailsBinding(),
     ),
   ];
 }

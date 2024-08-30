@@ -19,6 +19,7 @@ abstract class Routes {
   static const MY_RESERVATIONS = _Paths.MY_RESERVATIONS;
   static const ADD_NEW_CAR = _Paths.ADD_NEW_CAR;
   static const EDIT_CAR = _Paths.EDIT_CAR;
+  static const RESERVATION_DETAILS = _Paths.RESERVATION_DETAILS;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const MY_RESERVATIONS = '/my-reservations';
   static const ADD_NEW_CAR = '/add-new-car';
   static const EDIT_CAR = '/edit-car';
+  static const RESERVATION_DETAILS = '/reservation-details';
 }

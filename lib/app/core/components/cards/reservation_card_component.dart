@@ -82,13 +82,13 @@ class ReservationCardComponent extends StatelessWidget {
                               text: TextSpan(
                                 text:
                                     '${RelativeDateUtil.numToDay(DateTime.parse(order?.date ?? '').weekday)} ',
-                                style: TextStyles.largeBodyTextStyle(context),
+                                style: TextStyles.mediumBodyTextStyle(context),
                                 children: [
                                   TextSpan(
                                     text:
                                         '${DateTime.parse(order?.date ?? '').day} ',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context)
+                                        TextStyles.mediumBodyTextStyle(context)
                                             .copyWith(
                                       color: MainColors.primaryColor,
                                       fontFamily:
@@ -99,13 +99,13 @@ class ReservationCardComponent extends StatelessWidget {
                                     text:
                                         '${RelativeDateUtil.numToMonth(DateTime.parse(order?.date ?? '').month)} ',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context),
+                                        TextStyles.mediumBodyTextStyle(context),
                                   ),
                                   TextSpan(
                                     text:
                                         '${DateTime.parse(order?.date ?? '').year} ',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context)
+                                        TextStyles.mediumBodyTextStyle(context)
                                             .copyWith(
                                       color: MainColors.primaryColor,
                                       fontFamily:
@@ -115,13 +115,13 @@ class ReservationCardComponent extends StatelessWidget {
                                   TextSpan(
                                     text: ' | ',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context),
+                                        TextStyles.mediumBodyTextStyle(context),
                                   ),
                                   TextSpan(
                                     text:
                                         '${RelativeDateUtil.changeHourFormat(order?.time?.replaceAll('H', ''))} ',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context)
+                                        TextStyles.mediumBodyTextStyle(context)
                                             .copyWith(
                                       color: MainColors.primaryColor,
                                       fontFamily:
@@ -132,7 +132,7 @@ class ReservationCardComponent extends StatelessWidget {
                                     text:
                                         '${RelativeDateUtil.getAmPmFromTime(order?.time).substring(0, 5)} ',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context),
+                                        TextStyles.mediumBodyTextStyle(context),
                                   ),
                                 ],
                               ),
@@ -193,7 +193,7 @@ class ReservationCardComponent extends StatelessWidget {
                                   child: Text(
                                     '${order?.washingType?.name}',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context),
+                                        TextStyles.mediumBodyTextStyle(context),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -252,7 +252,7 @@ class ReservationCardComponent extends StatelessWidget {
                                   child: Text(
                                     '${order?.car?.brand?.name}',
                                     style:
-                                        TextStyles.largeBodyTextStyle(context),
+                                        TextStyles.mediumBodyTextStyle(context),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),

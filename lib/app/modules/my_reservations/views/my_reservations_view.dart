@@ -12,6 +12,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_co
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 import '../controllers/my_reservations_controller.dart';
 
@@ -151,7 +152,14 @@ class MyReservationsView extends GetView<MyReservationsController> {
                                               shrinkWrap: true,
                                               itemBuilder: (context, index) {
                                                 return GestureDetector(
-                                                  onTap: () {},
+                                                  onTap: () => Get.toNamed(
+                                                      Routes
+                                                          .RESERVATION_DETAILS,
+                                                      arguments: {
+                                                        'order': logic
+                                                            .myReservationList
+                                                            ?.data?[index]
+                                                      }),
                                                   child:
                                                       ReservationCardComponent(
                                                     order: logic
