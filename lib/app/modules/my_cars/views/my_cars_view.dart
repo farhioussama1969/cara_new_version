@@ -46,79 +46,101 @@ class MyCarsView extends GetView<MyCarsController> {
           child: GetBuilder<MyCarsController>(
               id: GetBuildersIdsConstants.myCarsList,
               builder: (logic) {
-                return SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  controller: logic.myCarsListScrollController,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: 10.h),
-                      SizedBox(
-                        child: ((logic.myCarsList?.data?.isEmpty == true) &&
-                                !logic.getMyCarsListLoading)
-                            ? Column(
-                                children: [
-                                  EmptyComponent(
-                                    text: StringsAssetsConstants.emptyCars,
-                                  ),
-                                  SizedBox(height: 20.h),
-                                ],
-                              )
-                            : (logic.getMyCarsListLoading)
-                                ? Padding(
-                                    padding: EdgeInsetsDirectional.only(
-                                        top: 50.h, bottom: 50.h),
-                                    child: const Center(
-                                      child: LoadingComponent(),
-                                    ),
-                                  )
-                                : Stack(
+                return Stack(
+                  children: [
+                    SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
+                      controller: logic.myCarsListScrollController,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 10.h),
+                          SizedBox(
+                            child: ((logic.myCarsList?.data?.isEmpty == true) &&
+                                    !logic.getMyCarsListLoading)
+                                ? Column(
                                     children: [
-                                      ListView.separated(
-                                        padding: EdgeInsetsDirectional.only(
-                                          start: 20.w,
-                                          end: 20.w,
-                                          top: 5.h,
-                                          bottom: 30.h,
-                                        ),
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, index) {
-                                          return GestureDetector(
-                                            onTap: () => Get.toNamed(
-                                                Routes.EDIT_CAR,
-                                                arguments: {
-                                                  'car': logic
-                                                      .myCarsList?.data?[index]
-                                                }),
-                                            child: MyCarCardComponent(
-                                              car: logic
-                                                  .myCarsList?.data?[index],
-                                              isSelected: false,
-                                            ),
-                                          )
-                                              .animate(delay: (index * 50).ms)
-                                              .fadeIn(
-                                                  duration: 900.ms,
-                                                  delay: 300.ms)
-                                              .move(
-                                                begin: const Offset(200, 0),
-                                                duration: 500.ms,
-                                              );
-                                        },
-                                        separatorBuilder: (context, index) {
-                                          return SizedBox(height: 10.h);
-                                        },
-                                        itemCount:
-                                            logic.myCarsList?.data?.length ?? 0,
+                                      EmptyComponent(
+                                        text: StringsAssetsConstants.emptyCars,
                                       ),
+                                      SizedBox(height: 20.h),
                                     ],
-                                  ),
+                                  )
+                                : (logic.getMyCarsListLoading &&
+                                        (logic.myCarsList?.data ?? [])
+                                                .isEmpty ==
+                                            true)
+                                    ? Padding(
+                                        padding: EdgeInsetsDirectional.only(
+                                            top: 50.h, bottom: 50.h),
+                                        child: const Center(
+                                          child: LoadingComponent(),
+                                        ),
+                                      )
+                                    : Stack(
+                                        children: [
+                                          ListView.separated(
+                                            padding: EdgeInsetsDirectional.only(
+                                              start: 20.w,
+                                              end: 20.w,
+                                              top: 5.h,
+                                              bottom: 30.h,
+                                            ),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () => Get.toNamed(
+                                                    Routes.EDIT_CAR,
+                                                    arguments: {
+                                                      'car': logic.myCarsList
+                                                          ?.data?[index]
+                                                    }),
+                                                child: MyCarCardComponent(
+                                                  car: logic
+                                                      .myCarsList?.data?[index],
+                                                  isSelected: false,
+                                                ),
+                                              )
+                                                  .animate(
+                                                      delay: (index * 50).ms)
+                                                  .fadeIn(
+                                                      duration: 900.ms,
+                                                      delay: 300.ms)
+                                                  .move(
+                                                    begin: const Offset(200, 0),
+                                                    duration: 500.ms,
+                                                  );
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return SizedBox(height: 10.h);
+                                            },
+                                            itemCount: logic
+                                                    .myCarsList?.data?.length ??
+                                                0,
+                                          ),
+                                        ],
+                                      ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    if (logic.getMyCarsListLoading &&
+                        logic.myCarsList?.data?.isNotEmpty == true)
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.only(bottom: 20.h),
+                            child: const Center(
+                              child: LoadingComponent(),
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
                 );
               }),
         ),

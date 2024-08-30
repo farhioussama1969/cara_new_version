@@ -142,4 +142,11 @@ static String get carUpdatedSuccessfully{return "car updated successfully".tr;}
 static String get generalErrorMessage{return "general error message".tr;}
 static String get editCar{return "edit car".tr;}
 static String get deleteCarConfirmationText{return "delete car confirmation text".tr;}
+static String get emptyReservations{return "empty reservations".tr;}
+static String get acceptedOrder{return "accepted order".tr;}
+static String get orderCompleted{return "order completed".tr;}
+static String get orderCanceled{return "order canceled".tr;}
+static String get onTheWay{return "on the way".tr;}
+static String get previousOrders{return "previous orders".tr;}
+static String get nextOrders{return "next orders".tr;}
 }

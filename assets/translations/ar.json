@@ -176,7 +176,17 @@
 
   "edit car": "تعديل السيارة",
 
-  "delete car confirmation text": "هل متأكد من حذفك للسيارة؟"
+  "delete car confirmation text": "هل متأكد من حذفك للسيارة؟",
+
+  "empty reservations": "لا توجد أي حجوزات بعد",
+
+  "accepted order": "تم قبول الطلب",
+  "order completed": "تم إكمال الطلب",
+  "order canceled": "تم إلغاء الطلب",
+  "on the way": "في الطريق",
+
+  "previous orders": "الطلبات السابقة",
+  "next orders": "الطلبات القادمة"
 
 
 }

@@ -30,4 +30,6 @@ class GetBuildersIdsConstants {
   static const String addNewCarButton = 'add_new_car_button';
   static const String updateCarButton = 'update_car_button';
   static const String deleteCarButton = 'delete_car_button';
+  static const String reservationList = 'reservation_list';
+  static const String reservationListTabBar = 'reservation_list_tab_bar';
 }
