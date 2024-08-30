@@ -7,6 +7,7 @@ import 'package:solvodev_mobile_structure/app/core/components/inputs/text_input_
 import 'package:solvodev_mobile_structure/app/core/components/layouts/scrollable_body_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
@@ -18,6 +19,7 @@ import '../controllers/add_new_car_controller.dart';
 
 class AddNewCarView extends GetView<AddNewCarController> {
   const AddNewCarView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +44,10 @@ class AddNewCarView extends GetView<AddNewCarController> {
               readOnly: true,
               hint:
                   '${StringsAssetsConstants.enter} ${StringsAssetsConstants.carBrand}...',
+              onTap: (context) {
+                controller.getCarBrandsList();
+                showCarBrandsWindow();
+              },
               suffix: Row(
                 children: [
                   SizedBox(width: 10.w),
@@ -69,7 +75,22 @@ class AddNewCarView extends GetView<AddNewCarController> {
   void showCarBrandsWindow() {
     BottomSheetComponent.show(
       Get.context!,
-      body: CarBrandsWindowComponent(),
+      body: GetBuilder<AddNewCarController>(
+          autoRemove: false,
+          id: GetBuildersIdsConstants.addNewCarBrandsList,
+          builder: (logic) {
+            return CarBrandsWindowComponent(
+              carBrandsList: logic.resultCarBrandsList,
+              loading: logic.getCarBrandsLoading,
+              onCarBrandSelected: (brand) {
+                controller.carBrandController.text = brand.name ?? '';
+                logic.changeSelectedCarBrandId(brand.id);
+              },
+              onConfirm: () => Get.back(),
+              onSearch: (value) => logic.searchInCarBrandsList(value),
+              selectedCarBrandId: logic.selectedCarBrandId,
+            );
+          }),
     );
   }
 }

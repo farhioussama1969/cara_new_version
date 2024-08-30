@@ -21,6 +21,7 @@ class AddNewCarController extends GetxController {
   }
 
   Future<void> getCarBrandsList() async {
+    changeCarBrandsList([]);
     await CarProvider()
         .getCarsBrandsList(
       onLoading: () => changeGetCarBrandsLoading(true),
@@ -46,7 +47,7 @@ class AddNewCarController extends GetxController {
   }
 
   int? selectedCarBrandId;
-  void changeSelectedCarBrandId(int value) {
+  void changeSelectedCarBrandId(int? value) {
     selectedCarBrandId = value;
     update([GetBuildersIdsConstants.addNewCarBrandsList]);
   }

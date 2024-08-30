@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/car_brand_card_component.dart';
@@ -115,17 +116,25 @@ class CarBrandsWindowComponent extends StatelessWidget {
                             ),
                         ],
                       )
-                    : SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        child: Column(
-                          children: [
-                            EmptyComponent(
-                                text: StringsAssetsConstants.emptyDataText),
-                            SizedBox(height: 300.h),
-                          ],
-                        ),
-                      ),
+                    : (loading && carBrandsList.isEmpty)
+                        ? Padding(
+                            padding: EdgeInsetsDirectional.only(
+                                top: 10.h, bottom: 50.h),
+                            child: const Center(
+                              child: LoadingComponent(),
+                            ),
+                          )
+                        : SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            child: Column(
+                              children: [
+                                EmptyComponent(
+                                    text: StringsAssetsConstants.emptyDataText),
+                                SizedBox(height: 300.h),
+                              ],
+                            ),
+                          ),
               ),
             ],
           ),

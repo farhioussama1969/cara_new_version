@@ -38,7 +38,7 @@ class CarProvider {
       endPoint: EndPointsConstants.carBrands,
       requestType: HttpRequestTypes.get,
       queryParameters: {
-        'perPage': 300,
+        'per_page': 300,
       },
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),
@@ -48,6 +48,7 @@ class CarProvider {
       response?.body['data'].forEach((brand) {
         brands.add(CarBrandModel.fromJson(brand));
       });
+      return brands;
     }
     return null;
   }
