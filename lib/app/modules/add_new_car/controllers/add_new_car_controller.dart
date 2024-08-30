@@ -111,7 +111,13 @@ class AddNewCarController extends GetxController {
     )
         .then((value) {
       if (value != null) {
-      } else {}
+        Get.back();
+        ToastComponent.showSuccessToast(Get.context!,
+            text: StringsAssetsConstants.carAddedSuccessfully);
+      } else {
+        ToastComponent.showErrorToast(Get.context!,
+            text: StringsAssetsConstants.generalErrorMessage);
+      }
     });
   }
 

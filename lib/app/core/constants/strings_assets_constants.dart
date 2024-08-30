@@ -136,4 +136,8 @@ static String get selectCarColorValidationText{return "select car color validati
 static String get search{return "search".tr;}
 static String get emptyDataText{return "empty data text".tr;}
 static String get carColor{return "car color".tr;}
+static String get carAddedSuccessfully{return "car added successfully".tr;}
+static String get carDeletedSuccessfully{return "car deleted successfully".tr;}
+static String get carUpdatedSuccessfully{return "car updated successfully".tr;}
+static String get generalErrorMessage{return "general error message".tr;}
 }

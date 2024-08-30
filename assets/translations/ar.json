@@ -166,7 +166,13 @@
 
   "empty data text": "لم يتم العثور على أي بيانات",
 
-  "car color": "لون السيارة"
+  "car color": "لون السيارة",
+
+
+  "car added successfully": "تمت إضافة السيارة بنجاح",
+  "car deleted successfully": "تم حذف السيارة بنجاح",
+    "car updated successfully": "تم تحديث السيارة بنجاح",
+  "general error message": "حدث خطأ، يرجى المحاولة مرة أخرى"
 
 
 }
