@@ -34,18 +34,18 @@ class MyCarsView extends GetView<MyCarsController> {
           onTap: () {},
         ),
       ),
-      body: SizedBox(
-        height: 1.sh,
-        child: GetBuilder<MyCarsController>(
-            id: GetBuildersIdsConstants.myCarsList,
-            builder: (logic) {
-              return RefreshIndicator(
-                onRefresh: () async => Future.delayed(
-                    const Duration(milliseconds: 1500),
-                    () => logic.refreshMyCars()),
-                backgroundColor: MainColors.backgroundColor(context),
-                color: MainColors.primaryColor,
-                child: SingleChildScrollView(
+      body: RefreshIndicator(
+        onRefresh: () async => Future.delayed(
+            const Duration(milliseconds: 1500),
+            () => controller.refreshMyCars()),
+        backgroundColor: MainColors.backgroundColor(context),
+        color: MainColors.primaryColor,
+        child: SizedBox(
+          height: 1.sh,
+          child: GetBuilder<MyCarsController>(
+              id: GetBuildersIdsConstants.myCarsList,
+              builder: (logic) {
+                return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
                   controller: logic.myCarsListScrollController,
@@ -113,9 +113,9 @@ class MyCarsView extends GetView<MyCarsController> {
                       ),
                     ],
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+        ),
       ),
     );
   }
