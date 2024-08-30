@@ -5,11 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/components/animations/animator_component.dart';
-import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/inputs/text_input_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/layouts/scrollable_body_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/confirm_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
@@ -19,24 +19,25 @@ import 'package:solvodev_mobile_structure/app/core/utils/color_convertor_util.da
 import 'package:solvodev_mobile_structure/app/core/utils/validator_util.dart';
 import 'package:solvodev_mobile_structure/app/modules/add_new_car/views/components/car_brands_window_component.dart';
 
-import '../controllers/add_new_car_controller.dart';
+import '../../../core/components/buttons/primary_button_component.dart';
+import '../controllers/edit_car_controller.dart';
 
-class AddNewCarView extends GetView<AddNewCarController> {
-  const AddNewCarView({super.key});
+class EditCarView extends GetView<EditCarController> {
+  const EditCarView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderComponent(
         actionWidget: Text(
-          StringsAssetsConstants.addCar,
+          StringsAssetsConstants.editCar,
           style: TextStyles.largeLabelTextStyle(context),
         ),
       ),
       body: SizedBox(
         width: double.infinity,
         child: Form(
-          key: controller.addNewCarFormKey,
+          key: controller.updateCarFormKey,
           child: ScrollableBodyComponent(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             children: [
@@ -157,8 +158,8 @@ class AddNewCarView extends GetView<AddNewCarController> {
                     SizedBox(height: 15.h),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: GetBuilder<AddNewCarController>(
-                          id: GetBuildersIdsConstants.addNewCarColorsList,
+                      child: GetBuilder<EditCarController>(
+                          id: GetBuildersIdsConstants.editCarColorsList,
                           builder: (logic) {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -267,13 +268,13 @@ class AddNewCarView extends GetView<AddNewCarController> {
                     duration: 500.ms,
                   ),
               SizedBox(height: 40.h),
-              GetBuilder<AddNewCarController>(
-                      id: GetBuildersIdsConstants.addNewCarButton,
+              GetBuilder<EditCarController>(
+                      id: GetBuildersIdsConstants.updateCarButton,
                       builder: (logic) {
                         return PrimaryButtonComponent(
-                          onTap: () => logic.addNewCar(),
-                          isLoading: logic.addNewCarLoading,
-                          text: StringsAssetsConstants.confirm,
+                          onTap: () => logic.updateCar(),
+                          isLoading: logic.updateCarLoading,
+                          text: StringsAssetsConstants.update,
                           width: 0.4.sw,
                         );
                       })
@@ -283,6 +284,18 @@ class AddNewCarView extends GetView<AddNewCarController> {
                     begin: const Offset(200, 0),
                     duration: 500.ms,
                   ),
+              SizedBox(height: 40.h),
+              InkWell(
+                onTap: () => showDeleteConfirmationWindow(),
+                child: Center(
+                  child: Text(
+                    StringsAssetsConstants.delete,
+                    style: TextStyles.largeBodyTextStyle(context).copyWith(
+                      color: MainColors.errorColor(context),
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(height: 40.h),
             ],
           ),
@@ -294,9 +307,9 @@ class AddNewCarView extends GetView<AddNewCarController> {
   void showCarBrandsWindow() {
     BottomSheetComponent.show(
       Get.context!,
-      body: GetBuilder<AddNewCarController>(
+      body: GetBuilder<EditCarController>(
           autoRemove: false,
-          id: GetBuildersIdsConstants.addNewCarBrandsList,
+          id: GetBuildersIdsConstants.editCarBrandsList,
           builder: (logic) {
             return CarBrandsWindowComponent(
               carBrandsList: logic.resultCarBrandsList,
@@ -310,6 +323,25 @@ class AddNewCarView extends GetView<AddNewCarController> {
               selectedCarBrandId: logic.selectedCarBrandId,
             );
           }),
+    );
+  }
+
+  void showDeleteConfirmationWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<EditCarController>(
+        id: GetBuildersIdsConstants.deleteCarButton,
+        builder: (logic) {
+          return ConfirmWindowComponent(
+            title: StringsAssetsConstants.delete,
+            subtitle: StringsAssetsConstants.deleteCarConfirmationText,
+            isLoading: logic.deleteCarLoading,
+            onCancel: () => Get.back(),
+            onConfirm: () => logic.deleteCar(),
+            baseColor: MainColors.errorColor(Get.context!),
+          );
+        },
+      ),
     );
   }
 }

@@ -140,4 +140,6 @@ static String get carAddedSuccessfully{return "car added successfully".tr;}
 static String get carDeletedSuccessfully{return "car deleted successfully".tr;}
 static String get carUpdatedSuccessfully{return "car updated successfully".tr;}
 static String get generalErrorMessage{return "general error message".tr;}
+static String get editCar{return "edit car".tr;}
+static String get deleteCarConfirmationText{return "delete car confirmation text".tr;}
 }

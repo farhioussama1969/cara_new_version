@@ -172,7 +172,11 @@
   "car added successfully": "تمت إضافة السيارة بنجاح",
   "car deleted successfully": "تم حذف السيارة بنجاح",
     "car updated successfully": "تم تحديث السيارة بنجاح",
-  "general error message": "حدث خطأ، يرجى المحاولة مرة أخرى"
+  "general error message": "حدث خطأ، يرجى المحاولة مرة أخرى",
+
+  "edit car": "تعديل السيارة",
+
+  "delete car confirmation text": "هل متأكد من حذفك للسيارة؟"
 
 
 }

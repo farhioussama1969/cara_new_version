@@ -87,7 +87,12 @@ class MyCarsView extends GetView<MyCarsController> {
                                         shrinkWrap: true,
                                         itemBuilder: (context, index) {
                                           return GestureDetector(
-                                            onTap: () {},
+                                            onTap: () => Get.toNamed(
+                                                Routes.EDIT_CAR,
+                                                arguments: {
+                                                  'car': logic
+                                                      .myCarsList?.data?[index]
+                                                }),
                                             child: MyCarCardComponent(
                                               car: logic
                                                   .myCarsList?.data?[index],

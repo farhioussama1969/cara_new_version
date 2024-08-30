@@ -96,7 +96,7 @@ class MyCarCardComponent extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: '${car?.numberPlate}',
+                              text: '${car?.numberPlate ?? '/'}',
                               style: TextStyles.mediumBodyTextStyle(context)
                                   .copyWith(
                                 fontFamily: FontsFamilyAssetsConstants.bold,

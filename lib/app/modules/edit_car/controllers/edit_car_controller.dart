@@ -4,21 +4,24 @@ import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_comp
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_brand_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/car_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_cars/controllers/my_cars_controller.dart';
 
-class AddNewCarController extends GetxController {
+class EditCarController extends GetxController {
+  CarModel? carModel;
+
   bool getCarBrandsLoading = false;
   void changeGetCarBrandsLoading(bool value) {
     getCarBrandsLoading = value;
-    update([GetBuildersIdsConstants.addNewCarBrandsList]);
+    update([GetBuildersIdsConstants.editCarBrandsList]);
   }
 
   List<CarBrandModel> allCarBrandsList = [];
   List<CarBrandModel> resultCarBrandsList = [];
   void changeCarBrandsList(List<CarBrandModel> value) {
     resultCarBrandsList = value;
-    update([GetBuildersIdsConstants.addNewCarBrandsList]);
+    update([GetBuildersIdsConstants.editCarBrandsList]);
   }
 
   Future<void> getCarBrandsList() async {
@@ -50,10 +53,10 @@ class AddNewCarController extends GetxController {
   int? selectedCarBrandId;
   void changeSelectedCarBrandId(int? value) {
     selectedCarBrandId = value;
-    update([GetBuildersIdsConstants.addNewCarBrandsList]);
+    update([GetBuildersIdsConstants.editCarBrandsList]);
   }
 
-  final GlobalKey<FormState> addNewCarFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> updateCarFormKey = GlobalKey<FormState>();
 
   final FocusNode carBrandFocusNode = FocusNode();
   final FocusNode carModelFocusNode = FocusNode();
@@ -84,38 +87,75 @@ class AddNewCarController extends GetxController {
   String? selectedColor;
   void changeSelectedColor(String value) {
     selectedColor = value;
-    update([GetBuildersIdsConstants.addNewCarColorsList]);
+    update([GetBuildersIdsConstants.editCarColorsList]);
   }
 
-  bool addNewCarLoading = false;
-  void changeAddNewCarLoading(bool value) {
-    addNewCarLoading = value;
-    update([GetBuildersIdsConstants.addNewCarButton]);
+  bool updateCarLoading = false;
+  void changeUpdateCarLoading(bool value) {
+    updateCarLoading = value;
+    update([GetBuildersIdsConstants.updateCarButton]);
   }
 
-  Future<void> addNewCar() async {
-    if (addNewCarLoading) return;
-    if (!addNewCarFormKey.currentState!.validate()) return;
+  void filCarData() {
+    carBrandController.text = carModel?.brand?.name ?? '';
+    carModelController.text = carModel?.model ?? '';
+    plateNumberController.text = carModel?.numberPlate ?? '';
+    selectedColor = '#${carModel?.color}';
+    selectedCarBrandId = carModel?.brand?.id;
+  }
+
+  Future<void> updateCar() async {
+    if (updateCarLoading) return;
+    if (!updateCarFormKey.currentState!.validate()) return;
     if (selectedColor == null) {
       ToastComponent.showErrorToast(Get.context!,
           text: StringsAssetsConstants.selectCarColorValidationText);
       return;
     }
     await CarProvider()
-        .addNewCar(
+        .updateCar(
+      carId: carModel?.id,
       brandId: selectedCarBrandId,
       model: carModelController.text,
       color: selectedColor!.replaceAll('#', ''),
       numberPlate: plateNumberController.text,
-      onLoading: () => changeAddNewCarLoading(true),
-      onFinal: () => changeAddNewCarLoading(false),
+      onLoading: () => changeUpdateCarLoading(true),
+      onFinal: () => changeUpdateCarLoading(false),
     )
         .then((value) {
       if (value != null) {
         Get.back();
         Get.find<MyCarsController>().refreshMyCars();
         ToastComponent.showSuccessToast(Get.context!,
-            text: StringsAssetsConstants.carAddedSuccessfully);
+            text: StringsAssetsConstants.carUpdatedSuccessfully);
+      } else {
+        ToastComponent.showErrorToast(Get.context!,
+            text: StringsAssetsConstants.generalErrorMessage);
+      }
+    });
+  }
+
+  bool deleteCarLoading = false;
+  void changeDeleteCarLoading(bool value) {
+    deleteCarLoading = value;
+    update([GetBuildersIdsConstants.deleteCarButton]);
+  }
+
+  Future<void> deleteCar() async {
+    if (deleteCarLoading) return;
+    await CarProvider()
+        .deleteCar(
+      carId: carModel?.id,
+      onLoading: () => changeDeleteCarLoading(true),
+      onFinal: () => changeDeleteCarLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        Get.back();
+        Get.back();
+        Get.find<MyCarsController>().refreshMyCars();
+        ToastComponent.showSuccessToast(Get.context!,
+            text: StringsAssetsConstants.carDeletedSuccessfully);
       } else {
         ToastComponent.showErrorToast(Get.context!,
             text: StringsAssetsConstants.generalErrorMessage);
@@ -125,6 +165,10 @@ class AddNewCarController extends GetxController {
 
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      carModel = Get.arguments['car'];
+      filCarData();
+    }
     super.onInit();
   }
 
