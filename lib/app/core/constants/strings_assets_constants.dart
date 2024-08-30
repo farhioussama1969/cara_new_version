@@ -131,4 +131,5 @@ static String get orderNow{return "order now".tr;}
 static String get successOrder{return "success order".tr;}
 static String get successOrderDescription{return "success order description".tr;}
 static String get failedOrderDescription{return "failed order description".tr;}
+static String get emptyCars{return "empty cars".tr;}
 }

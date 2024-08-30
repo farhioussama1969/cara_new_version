@@ -322,7 +322,7 @@ class HomeController extends GetxController {
     );
   }
 
-  void recentLocationsScrollEvent() {
+  void myCarsScrollEvent() {
     myCarsListScrollController.addListener(() {
       double maxScroll = myCarsListScrollController.position.maxScrollExtent;
       if (myCarsListScrollController.offset > maxScroll * 0.8) {
@@ -671,7 +671,7 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    recentLocationsScrollEvent();
+    myCarsScrollEvent();
     super.onReady();
   }
 

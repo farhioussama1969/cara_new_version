@@ -12,7 +12,7 @@ class MyCarCardComponent extends StatelessWidget {
   const MyCarCardComponent(
       {super.key, required this.car, required this.isSelected});
 
-  final CarModel car;
+  final CarModel? car;
   final bool isSelected;
 
   @override
@@ -46,7 +46,7 @@ class MyCarCardComponent extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        '${car.brand?.name}',
+                        '${car?.brand?.name}',
                         style: TextStyles.largeBodyTextStyle(context).copyWith(
                           fontFamily: FontsFamilyAssetsConstants.bold,
                           color: isSelected
@@ -71,7 +71,7 @@ class MyCarCardComponent extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: '${car.model}',
+                              text: '${car?.model}',
                               style: TextStyles.mediumBodyTextStyle(context)
                                   .copyWith(
                                 fontFamily: FontsFamilyAssetsConstants.bold,
@@ -96,7 +96,7 @@ class MyCarCardComponent extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: '${car.numberPlate}',
+                              text: '${car?.numberPlate}',
                               style: TextStyles.mediumBodyTextStyle(context)
                                   .copyWith(
                                 fontFamily: FontsFamilyAssetsConstants.bold,
@@ -124,7 +124,7 @@ class MyCarCardComponent extends StatelessWidget {
                       width: 22.r,
                       decoration: BoxDecoration(
                         color: ColorConvertorUtil()
-                            .stringColorCodeToColor("#${car.color}"),
+                            .stringColorCodeToColor("#${car?.color}"),
                         borderRadius: BorderRadius.circular(1000.r),
                         border: Border.all(
                           color:
@@ -145,7 +145,7 @@ class MyCarCardComponent extends StatelessWidget {
               height: 80.r,
               width: 80.r,
               child: NetworkImageComponent(
-                imageLink: '${car.brand?.logo}',
+                imageLink: '${car?.brand?.logo}',
                 fit: BoxFit.contain,
               ),
             ),
