@@ -155,4 +155,7 @@ static String get reservationTime{return "reservation time".tr;}
 static String get reservationStatus{return "reservation status".tr;}
 static String get reservationNumber{return "reservation number".tr;}
 static String get services{return "services".tr;}
+static String get serviceRating{return "service rating".tr;}
+static String get ratingValueValidation{return "rating value validation".tr;}
+static String get ratingNoteHint{return "rating note hint".tr;}
 }

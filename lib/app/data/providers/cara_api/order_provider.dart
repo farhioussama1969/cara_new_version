@@ -113,7 +113,7 @@ class OrderProvider {
 
   Future<OrderModel?> ratingOrder({
     required int? orderId,
-    required int rating,
+    required double rating,
     required String? note,
     required Function onLoading,
     required Function onFinal,
@@ -122,7 +122,7 @@ class OrderProvider {
       endPoint: '${EndPointsConstants.orders}/$orderId',
       requestType: HttpRequestTypes.put,
       data: {
-        "rate": rating,
+        "rate": rating.toInt(),
         "note": note ?? '/',
       },
       onLoading: () => onLoading(),

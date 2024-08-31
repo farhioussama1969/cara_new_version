@@ -195,7 +195,13 @@
     "reservation status": "حالة الحجز",
   "reservation number": "رقم الحجز",
 
-  "services": "الخدمات"
+  "services": "الخدمات",
+
+  "service rating": "تقييم الخدمة",
+
+  "rating value validation": "يرجى تقييم الخدمة",
+
+  "rating note hint": "ما رأيك بالخدمة؟"
 
 
 }

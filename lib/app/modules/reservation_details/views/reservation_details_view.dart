@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,17 +8,22 @@ import 'package:solvodev_mobile_structure/app/core/components/cards/my_car_card_
 import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/layouts/scrollable_body_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/logos_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/relative_date_util.dart';
+import 'package:solvodev_mobile_structure/app/modules/reservation_details/views/components/rating_window_component.dart';
 
 import '../controllers/reservation_details_controller.dart';
 
 class ReservationDetailsView extends GetView<ReservationDetailsController> {
   const ReservationDetailsView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +174,13 @@ class ReservationDetailsView extends GetView<ReservationDetailsController> {
                   ],
                 ),
               ],
-            ),
+            )
+                .animate(delay: (100).ms)
+                .fadeIn(duration: 900.ms, delay: 300.ms)
+                .move(
+                  begin: const Offset(200, 0),
+                  duration: 500.ms,
+                ),
             SizedBox(height: 20.h),
             Container(
               padding: EdgeInsets.all(12.r),
@@ -188,7 +200,13 @@ class ReservationDetailsView extends GetView<ReservationDetailsController> {
                   MyCarCardComponent(
                     car: controller?.orderModel?.car,
                     isSelected: false,
-                  ),
+                  )
+                      .animate(delay: (200).ms)
+                      .fadeIn(duration: 900.ms, delay: 300.ms)
+                      .move(
+                        begin: const Offset(200, 0),
+                        duration: 500.ms,
+                      ),
                   SizedBox(height: 20.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -201,61 +219,91 @@ class ReservationDetailsView extends GetView<ReservationDetailsController> {
                               style: TextStyles.mediumLabelTextStyle(context),
                             )
                           ],
-                        ),
+                        )
+                            .animate(delay: (250).ms)
+                            .fadeIn(duration: 900.ms, delay: 300.ms)
+                            .move(
+                              begin: const Offset(200, 0),
+                              duration: 500.ms,
+                            ),
                         SizedBox(height: 15.h),
-                        Row(
+                        Column(
                           children: [
-                            SvgPicture.asset(
-                              IconsAssetsConstants.carWashIcon,
-                              width: 22.r,
-                              height: 22.r,
-                              color: MainColors.primaryColor,
-                            ),
-                            SizedBox(width: 10.w),
-                            Expanded(
-                              child: Text(
-                                '${controller.orderModel?.washingType?.name}',
-                                style: TextStyles.mediumBodyTextStyle(context),
-                              ),
-                            ),
-                            Text(
-                              '${controller.orderModel?.washingType?.price?.floor()} ${StringsAssetsConstants.currency}',
-                              style: TextStyles.largeBodyTextStyle(context)
-                                  .copyWith(
-                                color: MainColors.primaryColor,
-                                fontFamily: FontsFamilyAssetsConstants.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5.h),
-                        Divider(
-                          color:
-                              MainColors.textColor(context)!.withOpacity(0.2),
-                        ),
-                        SizedBox(height: 5.h),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '${StringsAssetsConstants.totalPrice}',
-                                style: TextStyles.largeBodyTextStyle(context)
-                                    .copyWith(
-                                  color: MainColors.textColor(context),
-                                  fontFamily: FontsFamilyAssetsConstants.bold,
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  IconsAssetsConstants.carWashIcon,
+                                  width: 22.r,
+                                  height: 22.r,
+                                  color: MainColors.primaryColor,
                                 ),
-                              ),
+                                SizedBox(width: 10.w),
+                                Expanded(
+                                  child: Text(
+                                    '${controller.orderModel?.washingType?.name}',
+                                    style:
+                                        TextStyles.mediumBodyTextStyle(context),
+                                  ),
+                                ),
+                                Text(
+                                  '${controller.orderModel?.washingType?.price?.floor()} ${StringsAssetsConstants.currency}',
+                                  style: TextStyles.largeBodyTextStyle(context)
+                                      .copyWith(
+                                    color: MainColors.primaryColor,
+                                    fontFamily: FontsFamilyAssetsConstants.bold,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              '${controller.orderModel?.price?.floor()} ${StringsAssetsConstants.currency}',
-                              style: TextStyles.largeBodyTextStyle(context)
-                                  .copyWith(
-                                color: MainColors.primaryColor,
-                                fontFamily: FontsFamilyAssetsConstants.bold,
-                              ),
+                            SizedBox(height: 5.h),
+                            Divider(
+                              color: MainColors.textColor(context)!
+                                  .withOpacity(0.2),
                             ),
+                            SizedBox(height: 5.h),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '${StringsAssetsConstants.totalPrice}',
+                                    style:
+                                        TextStyles.largeBodyTextStyle(context)
+                                            .copyWith(
+                                      color: MainColors.textColor(context),
+                                      fontFamily:
+                                          FontsFamilyAssetsConstants.bold,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  '${controller.orderModel?.price?.floor()} ${StringsAssetsConstants.currency}',
+                                  style: TextStyles.largeBodyTextStyle(context)
+                                      .copyWith(
+                                    color: MainColors.primaryColor,
+                                    fontFamily: FontsFamilyAssetsConstants.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 40.h),
                           ],
-                        ),
+                        )
+                            .animate(delay: (300).ms)
+                            .fadeIn(duration: 900.ms, delay: 300.ms)
+                            .move(
+                              begin: const Offset(200, 0),
+                              duration: 500.ms,
+                            ),
+                        SvgPicture.asset(
+                          LogosAssetsConstants.appLogoVector,
+                        )
+                            .animate(delay: (400).ms)
+                            .fadeIn(duration: 900.ms, delay: 300.ms)
+                            .move(
+                              begin: const Offset(200, 0),
+                              duration: 500.ms,
+                            ),
+                        SizedBox(height: 20.h),
                       ],
                     ),
                   ),
@@ -265,6 +313,24 @@ class ReservationDetailsView extends GetView<ReservationDetailsController> {
           ],
         ),
       ),
+    );
+  }
+
+  void showRatingWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<ReservationDetailsController>(
+          id: GetBuildersIdsConstants.ratingWindow,
+          autoRemove: false,
+          builder: (logic) {
+            return RatingWindowComponent(
+              ratingValue: logic.ratingValue,
+              changeRatingValue: logic.changeRatingValue,
+              loading: logic.ratingLoading,
+              ratingNoteController: logic.ratingNoteController,
+              onConfirm: () => logic.rating(),
+            );
+          }),
     );
   }
 }
