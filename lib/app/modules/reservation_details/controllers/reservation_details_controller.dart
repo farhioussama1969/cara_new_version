@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/data/models/order_model.dart';
 
 class ReservationDetailsController extends GetxController {
-  //TODO: Implement ReservationDetailsController
+  OrderModel? orderModel;
 
-  final count = 0.obs;
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      orderModel = Get.arguments['order'];
+    }
     super.onInit();
   }
 
@@ -18,6 +21,4 @@ class ReservationDetailsController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

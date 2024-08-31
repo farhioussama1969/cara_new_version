@@ -149,4 +149,10 @@ static String get orderCanceled{return "order canceled".tr;}
 static String get onTheWay{return "on the way".tr;}
 static String get previousOrders{return "previous orders".tr;}
 static String get nextOrders{return "next orders".tr;}
+static String get reservationDetails{return "reservation details".tr;}
+static String get reservationDate{return "reservation date".tr;}
+static String get reservationTime{return "reservation time".tr;}
+static String get reservationStatus{return "reservation status".tr;}
+static String get reservationNumber{return "reservation number".tr;}
+static String get services{return "services".tr;}
 }

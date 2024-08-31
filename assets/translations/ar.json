@@ -186,7 +186,16 @@
   "on the way": "في الطريق",
 
   "previous orders": "الطلبات السابقة",
-  "next orders": "الطلبات القادمة"
+  "next orders": "الطلبات القادمة",
+
+  "reservation details": "تفاصيل الحجز",
+
+  "reservation date": "تاريخ الحجز",
+    "reservation time": "وقت الحجز",
+    "reservation status": "حالة الحجز",
+  "reservation number": "رقم الحجز",
+
+  "services": "الخدمات"
 
 
 }
