@@ -123,7 +123,7 @@ class OrderProvider {
       requestType: HttpRequestTypes.put,
       data: {
         "rate": rating.toInt(),
-        "note": note ?? '/',
+        "note": (note == null || note == '') ? '/' : note,
       },
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),

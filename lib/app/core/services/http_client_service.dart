@@ -246,6 +246,7 @@ class HttpClientService {
   }
 
   static ApiResponse _buildOut(dio.Response response) {
+    print('error::: ${response.data}');
     ApiResponse apiResponse = ApiResponse();
     if (response.statusCode == 200) {
       apiResponse.statusCode = response.statusCode;
