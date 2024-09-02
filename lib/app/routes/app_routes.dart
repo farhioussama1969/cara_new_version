@@ -20,6 +20,8 @@ abstract class Routes {
   static const ADD_NEW_CAR = _Paths.ADD_NEW_CAR;
   static const EDIT_CAR = _Paths.EDIT_CAR;
   static const RESERVATION_DETAILS = _Paths.RESERVATION_DETAILS;
+  static const SEND_GIFTS = _Paths.SEND_GIFTS;
+  static const SUBSCRIPTIONS = _Paths.SUBSCRIPTIONS;
 }
 
 abstract class _Paths {
@@ -41,4 +43,6 @@ abstract class _Paths {
   static const ADD_NEW_CAR = '/add-new-car';
   static const EDIT_CAR = '/edit-car';
   static const RESERVATION_DETAILS = '/reservation-details';
+  static const SEND_GIFTS = '/send-gifts';
+  static const SUBSCRIPTIONS = '/subscriptions';
 }

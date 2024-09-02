@@ -28,12 +28,16 @@ import '../modules/reservation_details/bindings/reservation_details_binding.dart
 import '../modules/reservation_details/views/reservation_details_view.dart';
 import '../modules/reset_password/bindings/reset_password_binding.dart';
 import '../modules/reset_password/views/reset_password_view.dart';
+import '../modules/send_gifts/bindings/send_gifts_binding.dart';
+import '../modules/send_gifts/views/send_gifts_view.dart';
 import '../modules/sign_in/bindings/sign_in_binding.dart';
 import '../modules/sign_in/views/sign_in_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/subscriptions/bindings/subscriptions_binding.dart';
+import '../modules/subscriptions/views/subscriptions_view.dart';
 
 part 'app_routes.dart';
 
@@ -127,6 +131,16 @@ class AppPages {
       name: _Paths.RESERVATION_DETAILS,
       page: () => const ReservationDetailsView(),
       binding: ReservationDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEND_GIFTS,
+      page: () => const SendGiftsView(),
+      binding: SendGiftsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUBSCRIPTIONS,
+      page: () => const SubscriptionsView(),
+      binding: SubscriptionsBinding(),
     ),
   ];
 }
