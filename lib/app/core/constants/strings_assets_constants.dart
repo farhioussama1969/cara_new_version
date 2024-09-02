@@ -158,4 +158,13 @@ static String get services{return "services".tr;}
 static String get serviceRating{return "service rating".tr;}
 static String get ratingValueValidation{return "rating value validation".tr;}
 static String get ratingNoteHint{return "rating note hint".tr;}
+static String get giftsAndFreeWashes{return "gifts and free washes".tr;}
+static String get freeWashes{return "free washes".tr;}
+static String get youGot{return "you got".tr;}
+static String get freeWashesReadyToUse{return "free washes ready to use".tr;}
+static String get washingOrdersLeftToGetAOneFree{return "washing orders left to get a one free".tr;}
+static String get sendGiftsNow{return "Send gifts now".tr;}
+static String get sendWashGiftsToYourFriendsAndLovedOnes{return "Send Wash Gifts to your friends and loved ones".tr;}
+static String get sendGistCardDescription{return "send gist card description".tr;}
+static String get sendNow{return "send now".tr;}
 }

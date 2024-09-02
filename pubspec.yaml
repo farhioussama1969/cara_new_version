@@ -49,6 +49,7 @@ dependencies:
   location: ^6.0.2
   smooth_page_indicator: ^1.1.0
   flutter_pannable_rating_bar: ^2.7.2+1
+  percent_indicator: ^4.2.3
   flutter:
     sdk: flutter
 

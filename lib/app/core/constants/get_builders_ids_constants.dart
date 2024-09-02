@@ -33,4 +33,5 @@ class GetBuildersIdsConstants {
   static const String reservationList = 'reservation_list';
   static const String reservationListTabBar = 'reservation_list_tab_bar';
   static const String ratingWindow = 'rating_window';
+  static const String giftsFreeWashingConfig = 'gifts_free_washing_config';
 }

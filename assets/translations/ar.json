@@ -201,7 +201,23 @@
 
   "rating value validation": "يرجى تقييم الخدمة",
 
-  "rating note hint": "ما رأيك بالخدمة؟"
+  "rating note hint": "ما رأيك بالخدمة؟",
+  "gifts and free washes": "الهدايا والغسيل المجاني",
+
+  "free washes": "الغسيل المجاني",
+
+  "you got": "لقد حصلت على",
+  "free washes ready to use": "غسيل مجاني جاهز للاستخدام",
+  "washing orders left to get a one free": "طلبات غسيل متبقية للحصول على غسيل مجاني",
+
+  "Send gifts now": "إرسال الهدايا الآن",
+
+  "Send Wash Gifts to your friends and loved ones": "أرسل هدايا الغسيل لأصدقائك وأحبائك",
+
+  "send gist card description": "احجز كوبون الهدية وارسلها عبر مواقع التواصل الإجتماعي إلى من تريد إهداءه الغسيل",
+
+  "send now": "أرسل الآن"
+
 
 
 }

@@ -9,13 +9,13 @@ class GiftsController extends GetxController {
 
   void changeFreeWashingConfig(FreeWashingConfigModel? value) {
     freeWashingConfig = value;
-    update([GetBuildersIdsConstants.homePaymentWindow]);
+    update([GetBuildersIdsConstants.giftsFreeWashingConfig]);
   }
 
   bool getFreeWashingConfigLoading = false;
   void changeGetFreeWashingConfigLoading(bool value) {
     getFreeWashingConfigLoading = value;
-    update([GetBuildersIdsConstants.homePaymentWindow]);
+    update([GetBuildersIdsConstants.giftsFreeWashingConfig]);
   }
 
   void getFreeWashingConfig() {
