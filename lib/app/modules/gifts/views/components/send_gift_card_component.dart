@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/images_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 class SendGiftCardComponent extends StatelessWidget {
   const SendGiftCardComponent({super.key});
@@ -83,14 +85,17 @@ class SendGiftCardComponent extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(width: 20.w),
-                    TagComponent(
-                      title: StringsAssetsConstants.sendNow,
-                      backgroundColor: MainColors.whiteColor,
-                      textColor: MainColors.primaryColor,
-                      textStyle:
-                          TextStyles.mediumBodyTextStyle(context).copyWith(
-                        color: MainColors.primaryColor,
-                        fontFamily: FontsFamilyAssetsConstants.bold,
+                    GestureDetector(
+                      onTap: () => Get.toNamed(Routes.SEND_GIFTS),
+                      child: TagComponent(
+                        title: StringsAssetsConstants.sendNow,
+                        backgroundColor: MainColors.whiteColor,
+                        textColor: MainColors.primaryColor,
+                        textStyle:
+                            TextStyles.mediumBodyTextStyle(context).copyWith(
+                          color: MainColors.primaryColor,
+                          fontFamily: FontsFamilyAssetsConstants.bold,
+                        ),
                       ),
                     ),
                   ],

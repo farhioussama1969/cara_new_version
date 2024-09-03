@@ -167,4 +167,5 @@ static String get sendGiftsNow{return "Send gifts now".tr;}
 static String get sendWashGiftsToYourFriendsAndLovedOnes{return "Send Wash Gifts to your friends and loved ones".tr;}
 static String get sendGistCardDescription{return "send gist card description".tr;}
 static String get sendNow{return "send now".tr;}
+static String get sendGifts{return "send gifts".tr;}
 }
