@@ -498,10 +498,6 @@ class HomeView extends GetView<HomeController> {
             loading: logic.creditCardPaymentLoading,
             onConfirm: () {},
             totalPrice: logic.coupon?.actualTotal ?? 0,
-            cardNumber: logic.cardNumber,
-            expiryDate: logic.expiryDate,
-            cardHolderName: logic.cardHolderName,
-            cvvCode: logic.cvvCode,
           );
         },
       ),

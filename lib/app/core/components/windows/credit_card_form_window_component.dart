@@ -9,28 +9,24 @@ import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_bu
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/images_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
+import 'package:solvodev_mobile_structure/app/core/utils/validator_util.dart';
 
 import '../../constants/strings_assets_constants.dart';
 import '../../styles/text_styles.dart';
 
 class CreditCardFormWindowComponent extends StatefulWidget {
-  const CreditCardFormWindowComponent(
-      {super.key,
-      required this.loading,
-      required this.onConfirm,
-      required this.totalPrice,
-      required this.cardNumber,
-      required this.expiryDate,
-      required this.cardHolderName,
-      required this.cvvCode});
+  const CreditCardFormWindowComponent({
+    super.key,
+    required this.loading,
+    required this.onConfirm,
+    required this.totalPrice,
+  });
 
   final bool loading;
-  final Function() onConfirm;
+  final Function(
+          String number, String expiredDate, String cvv, String? holderName)
+      onConfirm;
   final double totalPrice;
-  final String cardNumber;
-  final String expiryDate;
-  final String cardHolderName;
-  final String cvvCode;
 
   @override
   State<CreditCardFormWindowComponent> createState() =>
@@ -48,6 +44,12 @@ class _CreditCardFormWindowComponentState
       GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> cardHolderKey =
       GlobalKey<FormFieldState<String>>();
+
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+  bool showBackView = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,16 +82,48 @@ class _CreditCardFormWindowComponentState
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.w,
+                            vertical: 15.h,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '${StringsAssetsConstants.totalPrice}:',
+                                  style:
+                                      TextStyles.mediumLabelTextStyle(context),
+                                ),
+                              ),
+                              SizedBox(width: 10.w),
+                              Text(
+                                  '${widget.totalPrice.floor()} ${StringsAssetsConstants.currency}',
+                                  style:
+                                      TextStyles.mediumLabelTextStyle(context)
+                                          .copyWith(
+                                    color: MainColors.primaryColor,
+                                  )),
+                            ],
+                          )
+                              .animate(delay: (100).ms)
+                              .fadeIn(duration: 900.ms, delay: 300.ms)
+                              .move(
+                                begin: const Offset(-200, 0),
+                                duration: 500.ms,
+                              ),
+                        ),
                         CreditCardWidget(
-                          cardNumber: widget.cardNumber,
-                          expiryDate: widget.expiryDate,
-                          cardHolderName: widget.cardHolderName,
-                          cvvCode: widget.cvvCode,
-                          showBackView: false,
+                          cardNumber: cardNumber,
+                          expiryDate: expiryDate,
+                          cardHolderName: cardHolderName ?? '',
+                          cvvCode: cvvCode,
+                          showBackView: showBackView,
                           onCreditCardWidgetChange: (CreditCardBrand brand) {},
                           backgroundImage:
                               ImagesAssetsConstants.cardBackgroundImage,
                           enableFloatingCard: true,
+                          isHolderNameVisible: true,
                           glassmorphismConfig: Glassmorphism(
                             blurX: 2.0,
                             blurY: 2.0,
@@ -106,37 +140,67 @@ class _CreditCardFormWindowComponentState
                               ],
                             ),
                           ),
-                        ),
+                        )
+                            .animate(delay: (100).ms)
+                            .fadeIn(duration: 900.ms, delay: 300.ms)
+                            .move(
+                              begin: const Offset(0, 200),
+                              duration: 500.ms,
+                            ),
                         CreditCardForm(
                           formKey: formKey, // Required
-                          cardNumber: widget.cardNumber, // Required
-                          expiryDate: widget.expiryDate, // Required
-                          cardHolderName: widget.cardHolderName, // Required
-                          cvvCode: widget.cvvCode, // Required
+                          cardNumber: cardNumber,
+                          expiryDate: expiryDate,
+                          cardHolderName: cardHolderName,
+                          cvvCode: cvvCode,
                           cardNumberKey: cardNumberKey,
                           cvvCodeKey: cvvCodeKey,
                           expiryDateKey: expiryDateKey,
                           cardHolderKey: cardHolderKey,
-                          onCreditCardModelChange:
-                              (CreditCardModel data) {}, // Required
+                          onCreditCardModelChange: (CreditCardModel data) {
+                            setState(() {
+                              cardNumber = data.cardNumber;
+                              expiryDate = data.expiryDate;
+                              cardHolderName = data.cardHolderName;
+                              cvvCode = data.cvvCode;
+                              showBackView = data.isCvvFocused;
+                            });
+                          }, // Required
                           obscureCvv: true,
                           obscureNumber: false,
                           isHolderNameVisible: true,
                           isCardNumberVisible: true,
                           isExpiryDateVisible: true,
                           enableCvv: true,
-                          cvvValidationMessage: 'Please input a valid CVV',
-                          dateValidationMessage: 'Please input a valid date',
+                          cvvValidationMessage:
+                              '${StringsAssetsConstants.check} ${StringsAssetsConstants.cvv}',
+                          dateValidationMessage:
+                              '${StringsAssetsConstants.check} ${StringsAssetsConstants.expiryDate}',
                           numberValidationMessage:
-                              'Please input a valid number',
-                          cardNumberValidator: (String? cardNumber) {},
-                          expiryDateValidator: (String? expiryDate) {},
-                          cvvValidator: (String? cvv) {},
+                              '${StringsAssetsConstants.check} ${StringsAssetsConstants.cardNumber}',
+                          cardNumberValidator: (String? cardNumber) {
+                            return ValidatorUtil.creditCardNumberValidation(
+                                cardNumber ?? '',
+                                customMessage:
+                                    '${StringsAssetsConstants.check} ${StringsAssetsConstants.cardNumber}');
+                          },
+                          expiryDateValidator: (String? expiryDate) {
+                            return ValidatorUtil.creditCardExpiredDateValidation(
+                                expiryDate ?? '',
+                                customMessage:
+                                    '${StringsAssetsConstants.check} ${StringsAssetsConstants.expiryDate}');
+                          },
+                          cvvValidator: (String? cvv) {
+                            return ValidatorUtil.creditCardCvvValidation(
+                                cvv ?? '', cardNumber,
+                                customMessage:
+                                    '${StringsAssetsConstants.check} ${StringsAssetsConstants.cvv}');
+                          },
                           cardHolderValidator: (String? cardHolderName) {},
                           onFormComplete: () {
-                            // callback to execute at the end of filling card data
+                            print('form complete');
                           },
-                          autovalidateMode: AutovalidateMode.always,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           disableCardNumberAutoFillHints: false,
                           inputConfiguration: InputConfiguration(
                             cardNumberDecoration: InputDecoration(
@@ -388,14 +452,28 @@ class _CreditCardFormWindowComponentState
                             cvvCodeTextStyle:
                                 TextStyles.largeBodyTextStyle(context),
                           ),
-                        ),
+                        )
+                            .animate(delay: (150).ms)
+                            .fadeIn(duration: 900.ms, delay: 300.ms)
+                            .move(
+                              begin: const Offset(0, 200),
+                              duration: 500.ms,
+                            ),
                         SizedBox(height: 30.h),
                         PrimaryButtonComponent(
-                          onTap: () => widget.onConfirm(),
+                          onTap: () {
+                            if (!formKey.currentState!.validate()) return;
+                            widget.onConfirm(
+                              cardNumber,
+                              expiryDate,
+                              cvvCode,
+                              cardHolderName,
+                            );
+                          },
                           text: StringsAssetsConstants.confirm,
                           width: 0.7.sw,
                         )
-                            .animate(delay: (150).ms)
+                            .animate(delay: (200).ms)
                             .fadeIn(duration: 900.ms, delay: 300.ms)
                             .move(
                               begin: const Offset(0, 200),
