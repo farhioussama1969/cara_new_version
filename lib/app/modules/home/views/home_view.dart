@@ -11,6 +11,7 @@ import 'package:solvodev_mobile_structure/app/core/components/animations/loading
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/credit_card_form_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
@@ -453,6 +454,9 @@ class HomeView extends GetView<HomeController> {
                   logic.freePayment(false);
                 } else if (logic.coupon?.actualTotal == 0) {
                   logic.freePayment(true);
+                } else if (logic.selectedPaymentMethod == 2) {
+                  Get.back();
+                  showCreditCardFormWindow();
                 }
               },
             );
@@ -481,5 +485,26 @@ class HomeView extends GetView<HomeController> {
             }
           },
         ));
+  }
+
+  void showCreditCardFormWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      dismissible: false,
+      body: GetBuilder<HomeController>(
+        id: GetBuildersIdsConstants.homeCreditCardWindow,
+        builder: (logic) {
+          return CreditCardFormWindowComponent(
+            loading: logic.creditCardPaymentLoading,
+            onConfirm: () {},
+            totalPrice: logic.coupon?.actualTotal ?? 0,
+            cardNumber: logic.cardNumber,
+            expiryDate: logic.expiryDate,
+            cardHolderName: logic.cardHolderName,
+            cvvCode: logic.cvvCode,
+          );
+        },
+      ),
+    );
   }
 }

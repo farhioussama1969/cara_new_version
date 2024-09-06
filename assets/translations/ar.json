@@ -218,7 +218,12 @@
 
   "send now": "أرسل الآن",
 
-  "send gifts": "إرسال الهدايا"
+  "send gifts": "إرسال الهدايا",
+
+  "card number": "رقم البطاقة",
+    "card holder name": "اسم حامل البطاقة",
+    "expiry date": "تاريخ الانتهاء",
+    "cvv": "رقم الحماية"
 
 
 

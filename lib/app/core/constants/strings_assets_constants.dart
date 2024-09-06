@@ -168,4 +168,8 @@ static String get sendWashGiftsToYourFriendsAndLovedOnes{return "Send Wash Gifts
 static String get sendGistCardDescription{return "send gist card description".tr;}
 static String get sendNow{return "send now".tr;}
 static String get sendGifts{return "send gifts".tr;}
+static String get cardNumber{return "card number".tr;}
+static String get cardHolderName{return "card holder name".tr;}
+static String get expiryDate{return "expiry date".tr;}
+static String get cvv{return "cvv".tr;}
 }

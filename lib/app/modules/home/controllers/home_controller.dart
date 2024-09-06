@@ -649,6 +649,38 @@ class HomeController extends GetxController {
     });
   }
 
+  //credit card payment
+  bool creditCardPaymentLoading = false;
+  void changeCreditCardPaymentLoading(bool value) {
+    creditCardPaymentLoading = value;
+    update([GetBuildersIdsConstants.homeCreditCardWindow]);
+  }
+
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+
+  void changeCardNumber(String newCardNumber) {
+    cardNumber = newCardNumber;
+    update([GetBuildersIdsConstants.homeCreditCardWindow]);
+  }
+
+  void changeExpiryDate(String newExpiryDate) {
+    expiryDate = newExpiryDate;
+    update([GetBuildersIdsConstants.homeCreditCardWindow]);
+  }
+
+  void changeCardHolderName(String newCardHolderName) {
+    cardHolderName = newCardHolderName;
+    update([GetBuildersIdsConstants.homeCreditCardWindow]);
+  }
+
+  void changeCvvCode(String newCvvCode) {
+    cvvCode = newCvvCode;
+    update([GetBuildersIdsConstants.homeCreditCardWindow]);
+  }
+
   //clear and reset all data
   void resetData() {
     changeSelectedCarId(null);

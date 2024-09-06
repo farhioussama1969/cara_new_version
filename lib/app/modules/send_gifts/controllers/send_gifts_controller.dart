@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/gift_provider.dart';
 
 import '../../../data/models/gift_model.dart';
@@ -7,13 +8,13 @@ class SendGiftsController extends GetxController {
   List<GiftModel> giftsList = [];
   void changeGiftsList(List<GiftModel> newGiftsList) {
     giftsList = newGiftsList;
-    update();
+    update([GetBuildersIdsConstants.sendGiftsList]);
   }
 
   bool getGiftsLoading = false;
   void changeGiftsLoading(bool newGiftsLoading) {
     getGiftsLoading = newGiftsLoading;
-    update();
+    update([GetBuildersIdsConstants.sendGiftsList]);
   }
 
   // Future<void> getGiftsList() async {
