@@ -172,4 +172,15 @@ static String get cardNumber{return "card number".tr;}
 static String get cardHolderName{return "card holder name".tr;}
 static String get expiryDate{return "expiry date".tr;}
 static String get cvv{return "cvv".tr;}
+static String get buyGifts{return "buy gifts".tr;}
+static String get oldGifts{return "old gifts".tr;}
+static String get giftId{return "gift id".tr;}
+static String get giftCode{return "gift code".tr;}
+static String get giftUtilizations{return "gift utilizations".tr;}
+static String get copy{return "copy".tr;}
+static String get share{return "share".tr;}
+static String get giftCopied{return "gift copied".tr;}
+static String get giftShare{return "gift share".tr;}
+static String get view{return "view".tr;}
+static String get giftShareText{return "gift share text".tr;}
 }

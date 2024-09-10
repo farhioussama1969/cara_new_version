@@ -6,6 +6,7 @@ import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_comp
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
+import 'package:solvodev_mobile_structure/app/core/services/moyasar_payment_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/coupon_model.dart';
@@ -656,29 +657,22 @@ class HomeController extends GetxController {
     update([GetBuildersIdsConstants.homeCreditCardWindow]);
   }
 
-  String cardNumber = '';
-  String expiryDate = '';
-  String cardHolderName = '';
-  String cvvCode = '';
-
-  void changeCardNumber(String newCardNumber) {
-    cardNumber = newCardNumber;
-    update([GetBuildersIdsConstants.homeCreditCardWindow]);
-  }
-
-  void changeExpiryDate(String newExpiryDate) {
-    expiryDate = newExpiryDate;
-    update([GetBuildersIdsConstants.homeCreditCardWindow]);
-  }
-
-  void changeCardHolderName(String newCardHolderName) {
-    cardHolderName = newCardHolderName;
-    update([GetBuildersIdsConstants.homeCreditCardWindow]);
-  }
-
-  void changeCvvCode(String newCvvCode) {
-    cvvCode = newCvvCode;
-    update([GetBuildersIdsConstants.homeCreditCardWindow]);
+  void creditCardPayment(
+      String number, String expiredDate, String cvv, String? holderName) {
+    if (creditCardPaymentLoading) return;
+    print('payment started ${expiredDate.split('/')[0]}');
+    MoyasarPaymentService.creditCardPayment(
+      cardNumber: number,
+      cardHolderName: holderName ?? 'cara user',
+      cardExpiryMonth: expiredDate.split('/')[0],
+      cardExpiryYear: expiredDate.split('/')[1],
+      cardCvc: cvv,
+      amount: washingTypes
+              .where((element) => element.id == selectedWashingTypeId)
+              .first
+              .price ??
+          0,
+    );
   }
 
   //clear and reset all data

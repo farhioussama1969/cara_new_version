@@ -496,8 +496,21 @@ class HomeView extends GetView<HomeController> {
         builder: (logic) {
           return CreditCardFormWindowComponent(
             loading: logic.creditCardPaymentLoading,
-            onConfirm: () {},
-            totalPrice: logic.coupon?.actualTotal ?? 0,
+            onConfirm: (cardNumber, expiryDate, cvv, cardHolderName) {
+              logic.creditCardPayment(
+                cardNumber,
+                expiryDate,
+                cvv,
+                cardHolderName,
+              );
+            },
+            totalPrice: (logic.coupon?.couponDiscount != null)
+                ? ((logic.coupon?.actualTotal ?? 0))
+                : ((logic.washingTypes
+                        ?.where((e) => e.id == logic.selectedWashingTypeId)
+                        .first
+                        .price ??
+                    0)),
           );
         },
       ),
