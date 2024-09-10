@@ -7,9 +7,13 @@ import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/gift_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/old_gift_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/images_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
+import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
+import 'package:solvodev_mobile_structure/app/modules/send_gifts/views/components/share_gift_window_component.dart';
 
 import '../../../core/components/animations/loading_component.dart';
 import '../../../core/components/others/empty_component.dart';
@@ -265,6 +269,10 @@ class SendGiftsView extends GetView<SendGiftsController> {
                                                               giftCoupon: logic
                                                                   .oldGiftsList
                                                                   ?.data?[index],
+                                                              onShare: () =>
+                                                                  shareGiftWindow(logic
+                                                                      .oldGiftsList
+                                                                      ?.data?[index]),
                                                             ),
                                                           )
                                                               .animate(
@@ -320,6 +328,32 @@ class SendGiftsView extends GetView<SendGiftsController> {
                 );
               }),
         ),
+      ),
+    );
+  }
+
+  void shareGiftWindow(GiftCouponModel? giftCoupon) {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: ShareGiftWindowComponent(
+        noteController: controller.noteController,
+        onShare: () {
+          controller.shareTextInvitationCode(
+              '${StringsAssetsConstants.shareGiftCardText} ${giftCoupon?.code}',
+              controller.noteController.text,
+              '${giftCoupon?.numberWashes ?? 0}',
+              '${giftCoupon?.code}',
+              ImagesAssetsConstants.giftCardImage);
+        },
+        onView: () {
+          controller.openGiftFile(
+              '${StringsAssetsConstants.shareGiftCardText} ${giftCoupon?.code}',
+              controller.noteController.text,
+              '${giftCoupon?.numberWashes ?? 0}',
+              '${giftCoupon?.code}',
+              ImagesAssetsConstants.giftCardImage);
+        },
+        gift: giftCoupon,
       ),
     );
   }

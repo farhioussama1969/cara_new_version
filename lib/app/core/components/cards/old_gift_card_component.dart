@@ -12,9 +12,11 @@ import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
 
 class OldGiftCardComponent extends StatelessWidget {
-  const OldGiftCardComponent({super.key, required this.giftCoupon});
+  const OldGiftCardComponent(
+      {super.key, required this.giftCoupon, required this.onShare});
 
   final GiftCouponModel? giftCoupon;
+  final Function onShare;
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +138,7 @@ class OldGiftCardComponent extends StatelessWidget {
               ),
               SizedBox(width: 10.w),
               GestureDetector(
-                onTap: () {},
+                onTap: () => onShare(),
                 child: TagComponent(
                   title: StringsAssetsConstants.share,
                   textStyle: TextStyles.mediumBodyTextStyle(context).copyWith(
@@ -150,6 +152,4 @@ class OldGiftCardComponent extends StatelessWidget {
       ),
     );
   }
-
-  void shareGiftWindow() {}
 }

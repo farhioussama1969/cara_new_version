@@ -1,6 +1,17 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
+import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/pagination_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/gift_provider.dart';
@@ -164,5 +175,161 @@ class SendGiftsController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  //render gift card image
+  final TextEditingController noteController = TextEditingController();
+
+  String? finalImagePath = '';
+  void shareTextInvitationCode(
+    String? extraTextMessage,
+    String? imageText,
+    String? numberOfWashing,
+    String? coupon,
+    String? backgroundImageAssetPath,
+  ) async {
+    await _renderTextOnImage(
+        text: imageText,
+        text2: numberOfWashing,
+        text3: coupon,
+        backgroundImageAssetPath: backgroundImageAssetPath);
+    await Share.shareXFiles([XFile(finalImagePath!)]);
+  }
+
+  Future<void> _renderTextOnImage(
+      {String? text,
+      String? text2,
+      String? text3,
+      String? backgroundImageAssetPath}) async {
+    Image image = Image.asset(
+      backgroundImageAssetPath ?? "",
+      fit: BoxFit.cover,
+    );
+    // Render text on the image
+    late ui.Image renderedImage;
+
+    // Convert Image widget to ImageStream
+    ImageStream imageStream = image.image.resolve(ImageConfiguration.empty);
+
+    // Create a Completer to wait for image loading
+    Completer<void> completer = Completer<void>();
+
+    // Add a listener to the ImageStreamCompleter
+    imageStream.addListener(
+      ImageStreamListener((info, synchronousCall) async {
+        renderedImage = info.image;
+        completer.complete(); // Complete the Completer when image is loaded
+      }),
+    );
+
+    await completer.future; // Wait for the image to load
+
+    // Create a new canvas to draw text on the image
+    ui.PictureRecorder recorder = ui.PictureRecorder();
+    Canvas canvas = Canvas(recorder);
+    canvas.drawImage(renderedImage, Offset(0, 0), Paint());
+
+    // Create a TextSpan to hold the text style and content
+    TextSpan textSpan = TextSpan(
+      text: text ?? '',
+      style: TextStyles.largeBodyTextStyle(Get.context!).copyWith(
+        fontSize: 25,
+        color: MainColors.whiteColor,
+      ),
+    );
+
+    TextSpan textSpan2 = TextSpan(
+      text: ' $text2 ' ?? '',
+      style: TextStyles.largeBodyTextStyle(Get.context!).copyWith(
+        fontSize: 40,
+        color: MainColors.whiteColor,
+        fontFamily: FontsFamilyAssetsConstants.bold,
+      ),
+    );
+
+    TextSpan textSpan3 = TextSpan(
+      text: text3 ?? '',
+      style: TextStyles.largeBodyTextStyle(Get.context!).copyWith(
+        fontSize: 16,
+        color: MainColors.whiteColor,
+        fontFamily: FontsFamilyAssetsConstants.bold,
+      ),
+    );
+
+    // Use a TextPainter to layout the text on the canvas
+    TextPainter textPainter = TextPainter(
+      textAlign: TextAlign.right,
+      text: textSpan,
+      //check the language for the text direction
+
+      textDirection: (Get.locale!.languageCode == 'ar')
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+    );
+
+    TextPainter textPainter2 = TextPainter(
+      textAlign: TextAlign.right,
+      text: textSpan2,
+      //check the language for the text direction
+
+      textDirection: (Get.locale!.languageCode == 'ar')
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+    );
+
+    TextPainter textPainter3 = TextPainter(
+      textAlign: TextAlign.right,
+      text: textSpan3,
+      //check the language for the text direction
+
+      textDirection: (Get.locale!.languageCode == 'ar')
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+    );
+    textPainter.layout(maxWidth: renderedImage.width.toDouble() * 0.8);
+    textPainter2.layout(maxWidth: renderedImage.width.toDouble() * 0.4);
+    textPainter3.layout(maxWidth: renderedImage.width.toDouble() * 0.4);
+
+    // Specify the position to draw the text on the canvas
+    Offset textOffset = Offset(renderedImage.width.toDouble() * 0.05,
+        renderedImage.height.toDouble() * 0.28);
+    Offset textOffset2 = Offset(renderedImage.width.toDouble() * 0.26,
+        renderedImage.height.toDouble() * 0.415);
+    Offset textOffset3 = Offset(renderedImage.width.toDouble() * 0.22,
+        renderedImage.height.toDouble() * 0.505);
+    textPainter.paint(canvas, textOffset);
+    textPainter2.paint(canvas, textOffset2);
+    textPainter3.paint(canvas, textOffset3);
+
+    // Convert the canvas to an Image
+    ui.Image resultImage = await recorder
+        .endRecording()
+        .toImage(renderedImage.width, renderedImage.height);
+
+    // Save the resulting image to file
+    ByteData? byteData =
+        await resultImage.toByteData(format: ui.ImageByteFormat.png);
+    List<int> encodedImage = byteData?.buffer.asUint8List() as List<int>;
+
+    final tempDir = await getTemporaryDirectory();
+    String imagePath = '${tempDir.path}/result_image.png';
+    File resultImageFile = File(imagePath);
+    await resultImageFile.writeAsBytes(encodedImage);
+    finalImagePath = imagePath;
+  }
+
+  openGiftFile(
+    String? extraTextMessage,
+    String? imageText,
+    String? numberOfWashing,
+    String? coupon,
+    String? backgroundImageAssetPath,
+  ) async {
+    await _renderTextOnImage(
+        text: imageText,
+        text2: numberOfWashing,
+        text3: coupon,
+        backgroundImageAssetPath: backgroundImageAssetPath);
+    OpenFile.open(finalImagePath);
   }
 }

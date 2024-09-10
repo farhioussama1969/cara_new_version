@@ -183,4 +183,5 @@ static String get giftCopied{return "gift copied".tr;}
 static String get giftShare{return "gift share".tr;}
 static String get view{return "view".tr;}
 static String get giftShareText{return "gift share text".tr;}
+static String get shareGiftCardText{return "share gift card text".tr;}
 }
