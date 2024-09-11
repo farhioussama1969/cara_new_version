@@ -17,6 +17,7 @@ class GetBuildersIdsConstants {
   static const String pickCurrentLocationButton =
       'pick_current_location_button';
   static const String homeWashingTypes = 'home_washing_types';
+  static const String subscriptionsList = 'subscriptions_list';
   static const String homeWashingTypesButton = 'home_washing_types_button';
   static const String homeSetDateButton = 'home_set_date_button';
   static const String homeSetDateWindow = 'home_set_date_window';

@@ -13,6 +13,7 @@ import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/washing_type_model.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/components/home_subscription_banner_component.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 class WashingTypesWindowComponent extends StatelessWidget {
   const WashingTypesWindowComponent(
@@ -59,13 +60,16 @@ class WashingTypesWindowComponent extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const HomeSubscriptionBannerComponent()
-                            .animate(delay: (50).ms)
-                            .fadeIn(duration: 900.ms, delay: 300.ms)
-                            .move(
-                              begin: const Offset(0, -200),
-                              duration: 500.ms,
-                            ),
+                        GestureDetector(
+                          onTap: () => Get.toNamed(Routes.SUBSCRIPTIONS),
+                          child: const HomeSubscriptionBannerComponent()
+                              .animate(delay: (50).ms)
+                              .fadeIn(duration: 900.ms, delay: 300.ms)
+                              .move(
+                                begin: const Offset(0, -200),
+                                duration: 500.ms,
+                              ),
+                        ),
                         SizedBox(height: 10.h),
                         Divider(
                           color:
