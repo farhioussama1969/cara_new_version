@@ -5,6 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/confirm_window_component.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/logos_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
@@ -17,6 +20,7 @@ import '../controllers/my_account_controller.dart';
 
 class MyAccountView extends GetView<MyAccountController> {
   const MyAccountView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,7 +183,7 @@ class MyAccountView extends GetView<MyAccountController> {
                       iconPath: IconsAssetsConstants.logoutIcon,
                       title: StringsAssetsConstants.logout,
                       iconColor: MainColors.errorColor(context),
-                      onTap: () {},
+                      onTap: () => showLogoutConfirmationWindow(),
                     ),
                   ],
                 ),
@@ -194,6 +198,25 @@ class MyAccountView extends GetView<MyAccountController> {
           ),
         ),
       ),
+    );
+  }
+
+  void showLogoutConfirmationWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<MyAccountController>(
+          id: GetBuildersIdsConstants.logoutConfirmationButton,
+          builder: (logic) {
+            return ConfirmWindowComponent(
+              title: StringsAssetsConstants.logout,
+              subtitle: StringsAssetsConstants.logoutConfirmationText,
+              baseColor: MainColors.errorColor(Get.context!),
+              iconPath: IconsAssetsConstants.logoutIcon,
+              onCancel: () => Get.back(),
+              isLoading: logic.logoutLoading,
+              onConfirm: () => logic.logout(),
+            );
+          }),
     );
   }
 }

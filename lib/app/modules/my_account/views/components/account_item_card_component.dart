@@ -20,24 +20,30 @@ class AccountItemCardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SvgPicture.asset(
-          iconPath,
-          width: 25.r,
-          height: 25.r,
-          color: iconColor ?? MainColors.primaryColor,
-        ),
-        SizedBox(width: 14.w),
-        Expanded(
-          child: Text(
-            title,
-            style: TextStyles.largeBodyTextStyle(context).copyWith(
-              fontFamily: FontsFamilyAssetsConstants.bold,
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Container(
+        color: MainColors.backgroundColor(context),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              width: 25.r,
+              height: 25.r,
+              color: iconColor ?? MainColors.primaryColor,
             ),
-          ),
+            SizedBox(width: 14.w),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyles.largeBodyTextStyle(context).copyWith(
+                  fontFamily: FontsFamilyAssetsConstants.bold,
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

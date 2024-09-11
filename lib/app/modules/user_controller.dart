@@ -11,6 +11,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/storage_keys_consta
 import 'package:solvodev_mobile_structure/app/core/services/app_version_info_service.dart';
 import 'package:solvodev_mobile_structure/app/core/services/local_storage_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/user_model.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/auth_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/config_controller.dart';
 import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
@@ -82,10 +83,10 @@ class UserController extends GetxController {
 
   Future<void> clearUser({bool? withoutLogout}) async {
     if (withoutLogout != true) {
-      // await AuthProvider().logout(
-      //   onLoading: () => changeLogoutLoading(true),
-      //   onFinal: () => changeLogoutLoading(false),
-      // );
+      await AuthProvider().logout(
+        onLoading: () => changeLogoutLoading(true),
+        onFinal: () => changeLogoutLoading(false),
+      );
     }
     await LocalStorageService.deleteData(key: StorageKeysConstants.userData);
     await LocalStorageService.deleteData(

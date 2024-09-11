@@ -162,6 +162,22 @@ class AuthProvider {
     return null;
   }
 
+  Future<bool?> logout({
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.logout,
+      requestType: HttpRequestTypes.post,
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return response?.body['success'];
+    }
+    return null;
+  }
+
   Future<UserModel?> updateProfile({
     required String username,
     required Function onLoading,
