@@ -187,4 +187,6 @@ static String get shareGiftCardText{return "share gift card text".tr;}
 static String get successGiftOrderDescription{return "success gift order description".tr;}
 static String get failedGiftOrderDescription{return "failed gift order description".tr;}
 static String get subscriptions{return "subscriptions".tr;}
+static String get successSubscriptionOrderDescription{return "success subscription order description".tr;}
+static String get failedSubscriptionOrderDescription{return "failed subscription order description".tr;}
 }

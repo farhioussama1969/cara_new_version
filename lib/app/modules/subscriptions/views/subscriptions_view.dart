@@ -7,12 +7,16 @@ import 'package:solvodev_mobile_structure/app/core/components/animations/loading
 import 'package:solvodev_mobile_structure/app/core/components/cards/subscription_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/empty_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
+import 'package:solvodev_mobile_structure/app/data/models/subscription_plan_model.dart';
 
 import '../controllers/subscriptions_controller.dart';
+import 'components/payment_window_component.dart';
 
 class SubscriptionsView extends GetView<SubscriptionsController> {
   const SubscriptionsView({super.key});
@@ -83,7 +87,11 @@ class SubscriptionsView extends GetView<SubscriptionsController> {
                                             shrinkWrap: true,
                                             itemBuilder: (context, index) {
                                               return GestureDetector(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  controller.getWalletAmount();
+                                                  showPaymentWindow(logic
+                                                      .subscriptions[index]);
+                                                },
                                                 child:
                                                     SubscriptionCardComponent(
                                                   subscription: logic
@@ -118,5 +126,54 @@ class SubscriptionsView extends GetView<SubscriptionsController> {
         ),
       ),
     );
+  }
+
+  void showPaymentWindow(SubscriptionPlanModel? subscription) {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<SubscriptionsController>(
+          id: GetBuildersIdsConstants.subscriptionsPaymentWindow,
+          builder: (logic) {
+            return PaymentWindowComponent(
+              subscription: subscription,
+              selectedPaymentMethod: logic.selectedPaymentMethod,
+              onPaymentMethodSelected: (paymentMethod) =>
+                  logic.changeSelectedPaymentMethod(paymentMethod),
+              getWalletAmountLoading: logic.getWalletAmountLoading,
+              walletAmount: logic.walletAmount,
+              applePaymentLoading: logic.applePaymentLoading,
+              onApplePayment: () {},
+              walletPaymentLoading: logic.walletPaymentLoading,
+              onConfirm: () {
+                if (logic.selectedPaymentMethod == 1) {
+                  logic.walletPayment(subscription?.id);
+                } else if (logic.selectedPaymentMethod == 2) {
+                  Get.back();
+                  //showCreditCardFormWindow();
+                }
+              },
+            );
+          }),
+    );
+  }
+
+  void showCreateGiftStatusWindow(bool status) {
+    BottomSheetComponent.show(Get.context!,
+        dismissible: false,
+        body: ProgressStatusWindowComponent(
+          success: status,
+          text: status
+              ? StringsAssetsConstants.successSubscriptionOrderDescription
+              : StringsAssetsConstants.failedSubscriptionOrderDescription,
+          onDone: () {
+            if (status) {
+              Get.back();
+              Get.back();
+            } else {
+              Get.back();
+              Get.back();
+            }
+          },
+        ));
   }
 }

@@ -246,7 +246,10 @@
   "success gift order description": "تم إنشاء الهدية بنجاح",
   "failed gift order description": "حدث خطأ أثناء إنشاء الهدية، يرجى المحاولة مرة أخرى",
 
-  "subscriptions": "الاشتراكات"
+  "subscriptions": "الاشتراكات",
+
+  "success subscription order description": "تم إنشاء الاشتراك بنجاح",
+    "failed subscription order description": "حدث خطأ أثناء إنشاء الاشتراك، يرجى المحاولة مرة أخرى"
 
 
 
