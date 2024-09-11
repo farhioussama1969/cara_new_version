@@ -56,7 +56,7 @@ class GiftProvider {
   Future<GiftCouponModel?> buyGift({
     required int? giftId,
     required String? title,
-    required String? paymentId,
+    String? paymentId,
     required String? paymentMethod,
     required Function onLoading,
     required Function onFinal,
@@ -64,12 +64,12 @@ class GiftProvider {
     ApiResponse? response = await HttpClientService.sendRequest(
       endPoint: paymentMethod == "Apple pay"
           ? EndPointsConstants.buyGiftWithApplePay
-          : EndPointsConstants.giftCoupons,
-      queryParameters: {
+          : EndPointsConstants.gifts,
+      data: {
         "gift_id": giftId,
         "title": title,
         "payment_method": paymentMethod,
-        "payment_id": paymentId,
+        if (paymentId != null) "payment_id": paymentId,
       },
       requestType: HttpRequestTypes.post,
       onLoading: () => onLoading(),

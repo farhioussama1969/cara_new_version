@@ -8,17 +8,20 @@ import 'package:solvodev_mobile_structure/app/core/components/cards/gift_card_co
 import 'package:solvodev_mobile_structure/app/core/components/cards/old_gift_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/images_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/gift_model.dart';
 import 'package:solvodev_mobile_structure/app/modules/send_gifts/views/components/share_gift_window_component.dart';
 
 import '../../../core/components/animations/loading_component.dart';
 import '../../../core/components/others/empty_component.dart';
 import '../../../core/constants/get_builders_ids_constants.dart';
 import '../controllers/send_gifts_controller.dart';
+import 'components/payment_window_component.dart';
 
 class SendGiftsView extends GetView<SendGiftsController> {
   const SendGiftsView({super.key});
@@ -166,7 +169,14 @@ class SendGiftsView extends GetView<SendGiftsController> {
                                                         itemBuilder:
                                                             (context, index) {
                                                           return GestureDetector(
-                                                            onTap: () {},
+                                                            onTap: () {
+                                                              controller
+                                                                  .getWalletAmount();
+                                                              showPaymentWindow(
+                                                                  logic.giftsList
+                                                                          ?.data?[
+                                                                      index]);
+                                                            },
                                                             child:
                                                                 GiftCardComponent(
                                                               gift: logic
@@ -356,5 +366,55 @@ class SendGiftsView extends GetView<SendGiftsController> {
         gift: giftCoupon,
       ),
     );
+  }
+
+  void showPaymentWindow(GiftModel? gift) {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<SendGiftsController>(
+          id: GetBuildersIdsConstants.sendGiftPaymentWindow,
+          builder: (logic) {
+            return PaymentWindowComponent(
+              gift: gift,
+              selectedPaymentMethod: logic.selectedPaymentMethod,
+              onPaymentMethodSelected: (paymentMethod) =>
+                  logic.changeSelectedPaymentMethod(paymentMethod),
+              getWalletAmountLoading: logic.getWalletAmountLoading,
+              walletAmount: logic.walletAmount,
+              applePaymentLoading: logic.applePaymentLoading,
+              onApplePayment: () {},
+              walletPaymentLoading: logic.walletPaymentLoading,
+              onConfirm: () {
+                if (logic.selectedPaymentMethod == 1) {
+                  logic.walletPayment(gift?.id);
+                } else if (logic.selectedPaymentMethod == 2) {
+                  Get.back();
+                  //showCreditCardFormWindow();
+                }
+              },
+            );
+          }),
+    );
+  }
+
+  void showCreateGiftStatusWindow(bool status, GiftCouponModel? giftCoupon) {
+    BottomSheetComponent.show(Get.context!,
+        dismissible: false,
+        body: ProgressStatusWindowComponent(
+          success: status,
+          text: status
+              ? StringsAssetsConstants.successGiftOrderDescription
+              : StringsAssetsConstants.failedGiftOrderDescription,
+          onDone: () {
+            if (status) {
+              Get.back();
+              Get.back();
+              shareGiftWindow(giftCoupon);
+            } else {
+              Get.back();
+              Get.back();
+            }
+          },
+        ));
   }
 }

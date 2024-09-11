@@ -15,7 +15,9 @@ import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/pagination_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/gift_provider.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/wallet_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/controllers/home_controller.dart';
+import 'package:solvodev_mobile_structure/app/modules/send_gifts/views/send_gifts_view.dart';
 
 import '../../../data/models/gift_model.dart';
 
@@ -156,6 +158,72 @@ class SendGiftsController extends GetxController {
     oldGiftsCurrentPage = 1;
     changeOldGiftsList(null, refresh: true);
     getOldGifts();
+  }
+
+  //payment
+
+  int? selectedPaymentMethod;
+  void changeSelectedPaymentMethod(int? newSelectedPaymentMethod) {
+    selectedPaymentMethod = newSelectedPaymentMethod;
+    update([GetBuildersIdsConstants.sendGiftPaymentWindow]);
+  }
+
+  bool getWalletAmountLoading = false;
+  void changeGetWalletAmountLoading(bool value) {
+    getWalletAmountLoading = value;
+    update([GetBuildersIdsConstants.sendGiftPaymentWindow]);
+  }
+
+  double walletAmount = 0;
+  void changeWallet(double? walletAmount) {
+    this.walletAmount = walletAmount ?? 0;
+    update([GetBuildersIdsConstants.sendGiftPaymentWindow]);
+  }
+
+  void getWalletAmount() {
+    WalletProvider()
+        .getWalletAmount(
+      onLoading: () => changeGetWalletAmountLoading(true),
+      onFinal: () => changeGetWalletAmountLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        changeWallet(value);
+      }
+    });
+  }
+
+  bool applePaymentLoading = false;
+  void changeApplePaymentLoading(bool value) {
+    applePaymentLoading = value;
+    update([GetBuildersIdsConstants.sendGiftPaymentWindow]);
+  }
+
+  bool walletPaymentLoading = false;
+  void changeWalletPaymentLoading(bool value) {
+    walletPaymentLoading = value;
+    update([GetBuildersIdsConstants.sendGiftPaymentWindow]);
+  }
+
+  void walletPayment(int? giftId) {
+    print('wallet payment');
+    GiftProvider()
+        .buyGift(
+      giftId: giftId,
+      paymentMethod: "Wallet",
+      title: '/',
+      onLoading: () => changeWalletPaymentLoading(true),
+      onFinal: () => changeWalletPaymentLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        refreshOldGifts();
+        const SendGiftsView().showCreateGiftStatusWindow(true, value);
+      } else {
+        const SendGiftsView().showCreateGiftStatusWindow(false, null);
+      }
+      changeSelectedPaymentMethod(null);
+    });
   }
 
   @override

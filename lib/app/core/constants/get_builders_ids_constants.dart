@@ -37,4 +37,5 @@ class GetBuildersIdsConstants {
   static const String sendGiftsList = 'send_gifts_list';
   static const String homeCreditCardWindow = 'home_credit_card_window';
   static const String sendGiftsTopBar = 'send_gifts_top_bar';
+  static const String sendGiftPaymentWindow = 'send_gift_payment_window';
 }

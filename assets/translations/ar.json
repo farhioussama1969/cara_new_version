@@ -241,7 +241,10 @@
   "view": "معاينة",
   "gift share text": "أدخل نص للشخص الذي تريد إهداءه الغسيل",
 
-  "share gift card text": "\\n حمل تطبيق كارا واستعمل كوبون الهدية لجعل سيارتك تلمع. \\n رابط تحميل التطبيق: https://www.cara-wash.com \\n رمز الكوبون:"
+  "share gift card text": "\\n حمل تطبيق كارا واستعمل كوبون الهدية لجعل سيارتك تلمع. \\n رابط تحميل التطبيق: https://www.cara-wash.com \\n رمز الكوبون:",
+
+  "success gift order description": "تم إنشاء الهدية بنجاح",
+  "failed gift order description": "حدث خطأ أثناء إنشاء الهدية، يرجى المحاولة مرة أخرى"
 
 
 
