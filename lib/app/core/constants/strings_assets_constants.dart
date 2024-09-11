@@ -189,4 +189,14 @@ static String get failedGiftOrderDescription{return "failed gift order descripti
 static String get subscriptions{return "subscriptions".tr;}
 static String get successSubscriptionOrderDescription{return "success subscription order description".tr;}
 static String get failedSubscriptionOrderDescription{return "failed subscription order description".tr;}
+static String get myInformation{return "my information".tr;}
+static String get notifications{return "notifications".tr;}
+static String get myWallet{return "my wallet".tr;}
+static String get policyPrivacy{return "policy privacy".tr;}
+static String get aboutTheApp{return "about the app".tr;}
+static String get contactUs{return "contact us".tr;}
+static String get deleteMyAccount{return "delete my account".tr;}
+static String get username{return "username".tr;}
+static String get walletBalance{return "wallet balance".tr;}
+static String get lastTransactions{return "last transactions".tr;}
 }

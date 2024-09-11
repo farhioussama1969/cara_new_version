@@ -249,7 +249,18 @@
   "subscriptions": "الاشتراكات",
 
   "success subscription order description": "تم إنشاء الاشتراك بنجاح",
-    "failed subscription order description": "حدث خطأ أثناء إنشاء الاشتراك، يرجى المحاولة مرة أخرى"
+    "failed subscription order description": "حدث خطأ أثناء إنشاء الاشتراك، يرجى المحاولة مرة أخرى",
+
+  "my information": "معلوماتي",
+  "notifications": "الإشعارات",
+  "my wallet": "محفظتي",
+  "policy privacy": "سياسة الخصوصية",
+  "about the app": "عن التطبيق",
+  "contact us": "تواصل معنا",
+  "delete my account": "حذف حسابي",
+  "username": "اسم المستخدم",
+  "wallet balance": "رصيد المحفظة",
+  "last transactions": "آخر العمليات"
 
 
 
