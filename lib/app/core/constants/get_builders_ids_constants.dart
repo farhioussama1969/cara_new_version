@@ -45,6 +45,7 @@ class GetBuildersIdsConstants {
   static const String transactionsList = 'transactions_list';
   static const String notificationsList = 'notifications_list';
   static const String aboutBody = 'about_body';
+  static const String policyBody = 'policy_body';
   static const String subscriptionsPaymentWindow =
       'subscriptions_payment_window';
 }

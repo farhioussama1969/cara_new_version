@@ -11,6 +11,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_co
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/logos_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/services/url_launcher_service.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_account/views/components/account_item_card_component.dart';
@@ -178,7 +179,11 @@ class MyAccountView extends GetView<MyAccountController> {
                     AccountItemCardComponent(
                       iconPath: IconsAssetsConstants.whatsappLogoIcon,
                       title: StringsAssetsConstants.contactUs,
-                      onTap: () {},
+                      onTap: () {
+                        UrlLauncherService.chatWithWhatsapp(
+                            phoneNUmber: controller.whatsAppNumber,
+                            message: '');
+                      },
                     ),
                     SizedBox(height: 10.h),
                     Divider(
