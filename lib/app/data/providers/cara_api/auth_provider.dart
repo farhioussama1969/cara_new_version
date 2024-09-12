@@ -186,7 +186,7 @@ class AuthProvider {
     ApiResponse? response = await HttpClientService.sendRequest(
       endPoint:
           '${EndPointsConstants.updateProfile}/${Get.find<UserController>().user?.id}',
-      requestType: HttpRequestTypes.post,
+      requestType: HttpRequestTypes.put,
       data: {
         "username": username,
       },

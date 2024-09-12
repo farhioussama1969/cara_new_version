@@ -87,10 +87,15 @@ class MyAccountView extends GetView<MyAccountController> {
                         SizedBox(height: 8.h),
                         Row(
                           children: [
-                            Text(
-                              '${Get.find<UserController>().user?.username}',
-                              style: TextStyles.largeBodyTextStyle(context),
-                            ),
+                            GetBuilder<UserController>(
+                                id: GetBuildersIdsConstants.userInfosComponents,
+                                builder: (logic) {
+                                  return Text(
+                                    '${Get.find<UserController>().user?.username}',
+                                    style:
+                                        TextStyles.largeBodyTextStyle(context),
+                                  );
+                                }),
                           ],
                         ),
                       ],

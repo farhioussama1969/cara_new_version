@@ -40,6 +40,7 @@ class GetBuildersIdsConstants {
   static const String sendGiftsTopBar = 'send_gifts_top_bar';
   static const String sendGiftPaymentWindow = 'send_gift_payment_window';
   static const String logoutConfirmationButton = 'logout_confirmation_button';
+  static const String updateProfileButton = 'update_profile_button';
   static const String subscriptionsPaymentWindow =
       'subscriptions_payment_window';
 }

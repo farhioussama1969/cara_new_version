@@ -260,7 +260,10 @@
   "delete my account": "حذف حسابي",
   "username": "اسم المستخدم",
   "wallet balance": "رصيد المحفظة",
-  "last transactions": "آخر العمليات"
+  "last transactions": "آخر العمليات",
+
+  "update profile success": "تم تحديث الملف الشخصي بنجاح",
+    "update profile failed": "حدث خطأ أثناء تحديث الملف الشخصي، يرجى المحاولة مرة أخرى"
 
 
 

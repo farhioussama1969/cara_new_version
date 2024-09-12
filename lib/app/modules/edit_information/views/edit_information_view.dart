@@ -7,6 +7,7 @@ import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_bu
 import 'package:solvodev_mobile_structure/app/core/components/inputs/text_input_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/layouts/scrollable_body_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/validator_util.dart';
@@ -17,6 +18,7 @@ import '../controllers/edit_information_controller.dart';
 
 class EditInformationView extends GetView<EditInformationController> {
   const EditInformationView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,11 +72,16 @@ class EditInformationView extends GetView<EditInformationController> {
             ),
             SizedBox(height: 20.h),
             const Expanded(child: SizedBox.shrink()),
-            PrimaryButtonComponent(
-              onTap: () {},
-              text: StringsAssetsConstants.update,
-              width: 0.7.sw,
-            ),
+            GetBuilder<EditInformationController>(
+                id: GetBuildersIdsConstants.updateProfileButton,
+                builder: (logic) {
+                  return PrimaryButtonComponent(
+                    onTap: () => logic.updateProfile(),
+                    text: StringsAssetsConstants.update,
+                    isLoading: logic.updateProfileLoading,
+                    width: 0.7.sw,
+                  );
+                }),
             SizedBox(height: 40.h),
             Center(
               child: Text(
