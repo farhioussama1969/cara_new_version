@@ -21,7 +21,9 @@ import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_pro
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/subscription_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/wallet_provider.dart';
+import 'package:solvodev_mobile_structure/app/modules/gifts/controllers/gifts_controller.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/views/home_view.dart';
+import 'package:solvodev_mobile_structure/app/modules/my_account/controllers/my_account_controller.dart';
 
 class HomeController extends GetxController {
   bool checkingServiceAvailabilityLoading = false;
@@ -36,12 +38,13 @@ class HomeController extends GetxController {
       CheckServiceAvailabilityModel? checkServiceAvailabilityResponse) {
     this.checkServiceAvailabilityResponse = checkServiceAvailabilityResponse;
     changeWorkingHours([]);
-    print('okokokok');
     daysList = [];
     timesList = [];
     changeSelectedTime(null);
     changeSelectedCarId(null);
     changeSelectedWashingTypeId(null);
+    Get.find<MyAccountController>().getWhatsAppNumber();
+    Get.find<GiftsController>().getFreeWashingConfig();
     update([GetBuildersIdsConstants.homeFloatingButton]);
   }
 
@@ -692,6 +695,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+    enableAndGetStartingPositionFromGeoLocator();
     super.onInit();
   }
 
