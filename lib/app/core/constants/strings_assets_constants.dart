@@ -202,4 +202,8 @@ static String get lastTransactions{return "last transactions".tr;}
 static String get updateProfileSuccess{return "update profile success".tr;}
 static String get updateProfileFailed{return "update profile failed".tr;}
 static String get deleteAccountConfirmationText{return "delete account confirmation text".tr;}
+static String get transactionId{return "transaction id".tr;}
+static String get transactionDate{return "transaction date".tr;}
+static String get transactionAmount{return "transaction amount".tr;}
+static String get transactionType{return "transaction type".tr;}
 }

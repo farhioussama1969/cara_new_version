@@ -148,7 +148,7 @@ class MyAccountView extends GetView<MyAccountController> {
                     AccountItemCardComponent(
                       iconPath: IconsAssetsConstants.walletIcon,
                       title: StringsAssetsConstants.myWallet,
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.WALLET),
                     ),
                     SizedBox(height: 10.h),
                     Divider(

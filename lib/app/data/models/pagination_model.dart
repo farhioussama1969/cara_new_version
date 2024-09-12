@@ -9,9 +9,7 @@ class PaginationModel<Model> {
     if (json['meta'] != null) {
       meta = Meta.fromJson(json['meta']);
     }
-    if (json['links'] != null) {
-      links = Links.fromJson(json['links']);
-    }
+
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
@@ -31,7 +29,15 @@ class Meta {
   int? to;
   int? total;
 
-  Meta({this.currentPage, this.from, this.lastPage, this.links, this.path, this.perPage, this.to, this.total});
+  Meta(
+      {this.currentPage,
+      this.from,
+      this.lastPage,
+      this.links,
+      this.path,
+      this.perPage,
+      this.to,
+      this.total});
 
   Meta.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
@@ -44,7 +50,9 @@ class Meta {
       });
     }
     path = json['path'];
-    perPage = (json['per_page'] is String)?int.parse(json['per_page']) : json['per_page'] ;
+    perPage = (json['per_page'] is String)
+        ? int.parse(json['per_page'])
+        : json['per_page'];
     to = json['to'];
     total = json['total'];
   }

@@ -40,6 +40,8 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/subscriptions/bindings/subscriptions_binding.dart';
 import '../modules/subscriptions/views/subscriptions_view.dart';
+import '../modules/wallet/bindings/wallet_binding.dart';
+import '../modules/wallet/views/wallet_view.dart';
 
 part 'app_routes.dart';
 
@@ -148,6 +150,11 @@ class AppPages {
       name: _Paths.EDIT_INFORMATION,
       page: () => const EditInformationView(),
       binding: EditInformationBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET,
+      page: () => const WalletView(),
+      binding: WalletBinding(),
     ),
   ];
 }
