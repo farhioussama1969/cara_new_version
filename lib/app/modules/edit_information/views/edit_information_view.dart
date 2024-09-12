@@ -7,7 +7,10 @@ import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_bu
 import 'package:solvodev_mobile_structure/app/core/components/inputs/text_input_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/layouts/scrollable_body_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/confirm_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/validator_util.dart';
@@ -84,10 +87,13 @@ class EditInformationView extends GetView<EditInformationController> {
                 }),
             SizedBox(height: 40.h),
             Center(
-              child: Text(
-                StringsAssetsConstants.deleteMyAccount,
-                style: TextStyles.largeBodyTextStyle(context).copyWith(
-                  color: MainColors.errorColor(context),
+              child: InkWell(
+                onTap: showDeleteAccountWindow,
+                child: Text(
+                  StringsAssetsConstants.deleteMyAccount,
+                  style: TextStyles.largeBodyTextStyle(context).copyWith(
+                    color: MainColors.errorColor(context),
+                  ),
                 ),
               ),
             ),
@@ -95,6 +101,25 @@ class EditInformationView extends GetView<EditInformationController> {
           ],
         ),
       ),
+    );
+  }
+
+  void showDeleteAccountWindow() {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: GetBuilder<EditInformationController>(
+          id: GetBuildersIdsConstants.deleteProfileButton,
+          builder: (logic) {
+            return ConfirmWindowComponent(
+              title: StringsAssetsConstants.deleteAccount,
+              subtitle: StringsAssetsConstants.deleteAccountConfirmationText,
+              onCancel: () => Get.back(),
+              onConfirm: () => logic.deleteAccount(),
+              isLoading: logic.deleteProfileLoading,
+              baseColor: MainColors.errorColor(Get.context!),
+              iconPath: IconsAssetsConstants.deleteIcon,
+            );
+          }),
     );
   }
 }

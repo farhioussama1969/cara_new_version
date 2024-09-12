@@ -5,6 +5,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_co
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/auth_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/user_controller.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 class EditInformationController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -34,6 +35,25 @@ class EditInformationController extends GetxController {
         ToastComponent.showErrorToast(Get.context!,
             text: StringsAssetsConstants.updateProfileFailed);
       }
+    });
+  }
+
+  bool deleteProfileLoading = false;
+  void changeDeleteProfileLoading(bool value) {
+    deleteProfileLoading = value;
+    update([GetBuildersIdsConstants.deleteProfileButton]);
+  }
+
+  void deleteAccount() async {
+    if (deleteProfileLoading) return;
+    await AuthProvider()
+        .deleteAccount(
+      onLoading: () => changeDeleteProfileLoading(true),
+      onFinal: () => changeDeleteProfileLoading(false),
+    )
+        .then((value) async {
+      await Get.find<UserController>().clearUser();
+      Get.offAllNamed(Routes.GET_STARTED);
     });
   }
 

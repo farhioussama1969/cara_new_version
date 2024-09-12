@@ -201,4 +201,5 @@ static String get walletBalance{return "wallet balance".tr;}
 static String get lastTransactions{return "last transactions".tr;}
 static String get updateProfileSuccess{return "update profile success".tr;}
 static String get updateProfileFailed{return "update profile failed".tr;}
+static String get deleteAccountConfirmationText{return "delete account confirmation text".tr;}
 }
