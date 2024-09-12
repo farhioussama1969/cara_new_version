@@ -44,6 +44,7 @@ class GetBuildersIdsConstants {
   static const String deleteProfileButton = 'delete_profile_button';
   static const String transactionsList = 'transactions_list';
   static const String notificationsList = 'notifications_list';
+  static const String aboutBody = 'about_body';
   static const String subscriptionsPaymentWindow =
       'subscriptions_payment_window';
 }

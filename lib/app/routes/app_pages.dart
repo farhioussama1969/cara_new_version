@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/about/bindings/about_binding.dart';
+import '../modules/about/views/about_view.dart';
 import '../modules/add_new_car/bindings/add_new_car_binding.dart';
 import '../modules/add_new_car/views/add_new_car_view.dart';
 import '../modules/banned/bindings/banned_binding.dart';
@@ -26,6 +28,8 @@ import '../modules/new_update/bindings/new_update_binding.dart';
 import '../modules/new_update/views/new_update_view.dart';
 import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
+import '../modules/policy_privacy/bindings/policy_privacy_binding.dart';
+import '../modules/policy_privacy/views/policy_privacy_view.dart';
 import '../modules/remind_password/bindings/remind_password_binding.dart';
 import '../modules/remind_password/views/remind_password_view.dart';
 import '../modules/reservation_details/bindings/reservation_details_binding.dart';
@@ -162,6 +166,16 @@ class AppPages {
       name: _Paths.NOTIFICATIONS,
       page: () => const NotificationsView(),
       binding: NotificationsBinding(),
+    ),
+    GetPage(
+      name: _Paths.POLICY_PRIVACY,
+      page: () => const PolicyPrivacyView(),
+      binding: PolicyPrivacyBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT,
+      page: () => const AboutView(),
+      binding: AboutBinding(),
     ),
   ];
 }

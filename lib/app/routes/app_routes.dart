@@ -25,6 +25,8 @@ abstract class Routes {
   static const EDIT_INFORMATION = _Paths.EDIT_INFORMATION;
   static const WALLET = _Paths.WALLET;
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
+  static const POLICY_PRIVACY = _Paths.POLICY_PRIVACY;
+  static const ABOUT = _Paths.ABOUT;
 }
 
 abstract class _Paths {
@@ -51,4 +53,6 @@ abstract class _Paths {
   static const EDIT_INFORMATION = '/edit-information';
   static const WALLET = '/wallet';
   static const NOTIFICATIONS = '/notifications';
+  static const POLICY_PRIVACY = '/policy-privacy';
+  static const ABOUT = '/about';
 }

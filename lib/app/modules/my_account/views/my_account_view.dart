@@ -158,7 +158,7 @@ class MyAccountView extends GetView<MyAccountController> {
                     AccountItemCardComponent(
                       iconPath: IconsAssetsConstants.shieldIcon,
                       title: StringsAssetsConstants.policyPrivacy,
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.POLICY_PRIVACY),
                     ),
                     SizedBox(height: 10.h),
                     Divider(
@@ -168,7 +168,7 @@ class MyAccountView extends GetView<MyAccountController> {
                     AccountItemCardComponent(
                       iconPath: IconsAssetsConstants.aboutUsIcon,
                       title: StringsAssetsConstants.aboutTheApp,
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.ABOUT),
                     ),
                     SizedBox(height: 10.h),
                     Divider(
