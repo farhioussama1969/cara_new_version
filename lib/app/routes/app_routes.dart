@@ -22,6 +22,7 @@ abstract class Routes {
   static const RESERVATION_DETAILS = _Paths.RESERVATION_DETAILS;
   static const SEND_GIFTS = _Paths.SEND_GIFTS;
   static const SUBSCRIPTIONS = _Paths.SUBSCRIPTIONS;
+  static const EDIT_INFORMATION = _Paths.EDIT_INFORMATION;
 }
 
 abstract class _Paths {
@@ -45,4 +46,5 @@ abstract class _Paths {
   static const RESERVATION_DETAILS = '/reservation-details';
   static const SEND_GIFTS = '/send-gifts';
   static const SUBSCRIPTIONS = '/subscriptions';
+  static const EDIT_INFORMATION = '/edit-information';
 }

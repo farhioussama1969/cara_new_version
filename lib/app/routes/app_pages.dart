@@ -6,6 +6,8 @@ import '../modules/banned/bindings/banned_binding.dart';
 import '../modules/banned/views/banned_view.dart';
 import '../modules/edit_car/bindings/edit_car_binding.dart';
 import '../modules/edit_car/views/edit_car_view.dart';
+import '../modules/edit_information/bindings/edit_information_binding.dart';
+import '../modules/edit_information/views/edit_information_view.dart';
 import '../modules/get_started/bindings/get_started_binding.dart';
 import '../modules/get_started/views/get_started_view.dart';
 import '../modules/gifts/bindings/gifts_binding.dart';
@@ -141,6 +143,11 @@ class AppPages {
       name: _Paths.SUBSCRIPTIONS,
       page: () => const SubscriptionsView(),
       binding: SubscriptionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_INFORMATION,
+      page: () => const EditInformationView(),
+      binding: EditInformationBinding(),
     ),
   ];
 }

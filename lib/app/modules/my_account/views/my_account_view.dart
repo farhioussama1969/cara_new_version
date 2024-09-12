@@ -15,6 +15,7 @@ import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_account/views/components/account_item_card_component.dart';
 import 'package:solvodev_mobile_structure/app/modules/user_controller.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 import '../controllers/my_account_controller.dart';
 
@@ -122,7 +123,7 @@ class MyAccountView extends GetView<MyAccountController> {
                     AccountItemCardComponent(
                       iconPath: IconsAssetsConstants.editIcon,
                       title: StringsAssetsConstants.myInformation,
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.EDIT_INFORMATION),
                     ),
                     SizedBox(height: 10.h),
                     Divider(
