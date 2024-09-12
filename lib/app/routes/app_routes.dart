@@ -24,6 +24,7 @@ abstract class Routes {
   static const SUBSCRIPTIONS = _Paths.SUBSCRIPTIONS;
   static const EDIT_INFORMATION = _Paths.EDIT_INFORMATION;
   static const WALLET = _Paths.WALLET;
+  static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
 }
 
 abstract class _Paths {
@@ -49,4 +50,5 @@ abstract class _Paths {
   static const SUBSCRIPTIONS = '/subscriptions';
   static const EDIT_INFORMATION = '/edit-information';
   static const WALLET = '/wallet';
+  static const NOTIFICATIONS = '/notifications';
 }

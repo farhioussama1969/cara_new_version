@@ -24,6 +24,8 @@ import '../modules/my_reservations/bindings/my_reservations_binding.dart';
 import '../modules/my_reservations/views/my_reservations_view.dart';
 import '../modules/new_update/bindings/new_update_binding.dart';
 import '../modules/new_update/views/new_update_view.dart';
+import '../modules/notifications/bindings/notifications_binding.dart';
+import '../modules/notifications/views/notifications_view.dart';
 import '../modules/remind_password/bindings/remind_password_binding.dart';
 import '../modules/remind_password/views/remind_password_view.dart';
 import '../modules/reservation_details/bindings/reservation_details_binding.dart';
@@ -155,6 +157,11 @@ class AppPages {
       name: _Paths.WALLET,
       page: () => const WalletView(),
       binding: WalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATIONS,
+      page: () => const NotificationsView(),
+      binding: NotificationsBinding(),
     ),
   ];
 }

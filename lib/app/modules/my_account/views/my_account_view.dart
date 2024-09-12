@@ -138,7 +138,7 @@ class MyAccountView extends GetView<MyAccountController> {
                     AccountItemCardComponent(
                       iconPath: IconsAssetsConstants.notificationsIcon,
                       title: StringsAssetsConstants.notifications,
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.NOTIFICATIONS),
                     ),
                     SizedBox(height: 10.h),
                     Divider(
