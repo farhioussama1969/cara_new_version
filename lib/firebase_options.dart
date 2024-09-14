@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -59,4 +56,14 @@ class DefaultFirebaseOptions {
     projectId: 'cara-614e1',
     storageBucket: 'cara-614e1.appspot.com',
   );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCZc_6BLaKFThkI2b2dVeBp-iBi39dGWEs',
+    appId: '1:568727460384:ios:96390d02f0decf30fbba45',
+    messagingSenderId: '568727460384',
+    projectId: 'cara-app-1324d',
+    storageBucket: 'cara-app-1324d.appspot.com',
+    iosBundleId: 'com.hoskadev.caraupgared',
+  );
+
 }

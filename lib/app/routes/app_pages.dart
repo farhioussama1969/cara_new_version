@@ -6,6 +6,8 @@ import '../modules/add_new_car/bindings/add_new_car_binding.dart';
 import '../modules/add_new_car/views/add_new_car_view.dart';
 import '../modules/banned/bindings/banned_binding.dart';
 import '../modules/banned/views/banned_view.dart';
+import '../modules/check_location_service/bindings/check_location_service_binding.dart';
+import '../modules/check_location_service/views/check_location_service_view.dart';
 import '../modules/edit_car/bindings/edit_car_binding.dart';
 import '../modules/edit_car/views/edit_car_view.dart';
 import '../modules/edit_information/bindings/edit_information_binding.dart';
@@ -176,6 +178,11 @@ class AppPages {
       name: _Paths.ABOUT,
       page: () => const AboutView(),
       binding: AboutBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHECK_LOCATION_SERVICE,
+      page: () => const CheckLocationServiceView(),
+      binding: CheckLocationServiceBinding(),
     ),
   ];
 }
