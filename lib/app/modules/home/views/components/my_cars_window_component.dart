@@ -13,6 +13,7 @@ import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_brand_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 import '../../../../core/components/animations/loading_component.dart';
 
@@ -156,8 +157,11 @@ class MyCarsWindowComponent extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TagComponent(
-                title: StringsAssetsConstants.addCar,
+              GestureDetector(
+                onTap: () => Get.toNamed(Routes.ADD_NEW_CAR),
+                child: TagComponent(
+                  title: StringsAssetsConstants.addCar,
+                ),
               ),
               IconButtonComponent(
                 onTap: () => Get.back(),

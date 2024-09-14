@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/google_maps_styles_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
 import 'package:solvodev_mobile_structure/app/core/services/moyasar_payment_service.dart';
+import 'package:solvodev_mobile_structure/app/core/utils/theme_util.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/coupon_model.dart';
@@ -77,6 +80,15 @@ class HomeController extends GetxController {
 
   void updateGoogleMapsController(GoogleMapController mapController) {
     googleMapsController = mapController;
+    if (ThemeUtil.isDarkMode) {
+      String _mapStyleString = '';
+      rootBundle
+          .loadString(GoogleMapsStylesAssetsConstants.darkModeStyle)
+          .then((string) {
+        _mapStyleString = string;
+        googleMapsController?.setMapStyle(_mapStyleString);
+      });
+    }
     if (Get.arguments != null) {
       if (Get.arguments['latitude'] != null &&
           Get.arguments['longitude'] != null) {

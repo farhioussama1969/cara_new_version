@@ -701,6 +701,8 @@ class PaymentWindowComponent extends StatelessWidget {
                                   onTap: () {},
                                   text: StringsAssetsConstants.payWithApplePay,
                                   iconPath: IconsAssetsConstants.appleIcon,
+                                  textColor:
+                                      MainColors.backgroundColor(context),
                                   iconColor:
                                       MainColors.backgroundColor(context),
                                   backgroundColor:
