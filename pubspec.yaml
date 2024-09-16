@@ -48,12 +48,14 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   flutter_pannable_rating_bar: ^2.7.2+1
   percent_indicator: ^4.2.3
-  moyasar: ^2.0.13
   flutter_credit_card: ^4.0.1
   credit_card_validator: ^2.1.0
   flutter_widget_from_html_core: ^0.8.5+3
   path_provider: ^2.1.4
   open_file: ^3.5.3
+  flutter_moyasar:
+    path: ./packages/flutter_moyasar
+
   flutter:
     sdk: flutter
 

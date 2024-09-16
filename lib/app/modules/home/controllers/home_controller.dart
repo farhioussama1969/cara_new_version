@@ -8,7 +8,6 @@ import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_co
 import 'package:solvodev_mobile_structure/app/core/constants/google_maps_styles_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
-import 'package:solvodev_mobile_structure/app/core/services/moyasar_payment_service.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/theme_util.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
@@ -676,18 +675,6 @@ class HomeController extends GetxController {
       String number, String expiredDate, String cvv, String? holderName) {
     if (creditCardPaymentLoading) return;
     print('payment started ${expiredDate.split('/')[0]}');
-    MoyasarPaymentService.creditCardPayment(
-      cardNumber: number,
-      cardHolderName: holderName ?? 'cara user',
-      cardExpiryMonth: expiredDate.split('/')[0],
-      cardExpiryYear: expiredDate.split('/')[1],
-      cardCvc: cvv,
-      amount: washingTypes
-              .where((element) => element.id == selectedWashingTypeId)
-              .first
-              .price ??
-          0,
-    );
   }
 
   //clear and reset all data
