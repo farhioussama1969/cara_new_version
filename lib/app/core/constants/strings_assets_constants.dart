@@ -206,4 +206,14 @@ static String get transactionId{return "transaction id".tr;}
 static String get transactionDate{return "transaction date".tr;}
 static String get transactionAmount{return "transaction amount".tr;}
 static String get transactionType{return "transaction type".tr;}
+static String get phoneNumberVerification{return "phone number verification".tr;}
+static String get phoneNumberVerificationDescription{return "phone number verification description".tr;}
+static String get anErrorOccurredWhileSendingOtpCode{return "an error occurred while sending otp code".tr;}
+static String get otpInputValidationText{return "otp input validation text".tr;}
+static String get wrongOtp{return "wrong otp".tr;}
+static String get youDidntReceive{return "you didnt receive".tr;}
+static String get resend{return "resend".tr;}
+static String get verification{return "verification".tr;}
+static String get fullName{return "full name".tr;}
+static String get passwordConfirmation{return "password confirmation".tr;}
 }

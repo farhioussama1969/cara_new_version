@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/primary_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/inputs/text_input_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/layouts/scrollable_body_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
@@ -20,6 +21,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_cons
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/validator_util.dart';
+import 'package:solvodev_mobile_structure/app/modules/get_started/views/components/otp_verification_window_component.dart';
 
 import '../controllers/get_started_controller.dart';
 
@@ -486,5 +488,10 @@ class GetStartedView extends GetView<GetStartedController> {
         ],
       ),
     );
+  }
+
+  void showOtpConfirmationWindow() {
+    BottomSheetComponent.show(Get.context!,
+        body: const OtpVerificationWindowComponent());
   }
 }

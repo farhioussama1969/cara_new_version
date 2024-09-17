@@ -48,4 +48,11 @@ class GetBuildersIdsConstants {
   static const String policyBody = 'policy_body';
   static const String subscriptionsPaymentWindow =
       'subscriptions_payment_window';
+  static const String signInResendOtpButton = 'sign_in_resend_otp_button';
+  static const String signInOtpVerificationButton =
+      'sign_in_otp_verification_button';
+  static const String signUpPasswordInput = 'sign_up_password_input';
+  static const String signUpConfirmPasswordInput =
+      'sign_up_confirm_password_input';
+  static const String signUpButton = 'sign_up_button';
 }

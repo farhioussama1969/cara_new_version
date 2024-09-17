@@ -270,7 +270,21 @@
   "transaction id": "رقم العملية",
     "transaction date": "تاريخ العملية",
     "transaction amount": "قيمة العملية",
-    "transaction type": "نوع العملية"
+    "transaction type": "نوع العملية",
+
+  "phone number verification": "التحقق من رقم الهاتف",
+    "phone number verification description": "تم إرسال رمز التحقق إلى رقم الهاتف الخاص بك، يرجى إدخال الرمز للتحقق من رقم الهاتف",
+  "an error occurred while sending otp code": "حدث خطأ أثناء إرسال رمز التحقق، يرجى المحاولة مرة أخرى",
+  "otp input validation text": "يرجى إدخال رمز التحقق",
+  "wrong otp": "رمز التحقق غير صحيح",
+  "you didnt receive": "لم تستلم رمز التحقق؟",
+  "resend": "إعادة الإرسال",
+
+  "verification": "التحقق",
+  "full name": "الاسم الكامل",
+  "password confirmation": "تأكيد كلمة المرور"
+
+
 
 
 

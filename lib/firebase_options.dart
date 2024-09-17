@@ -50,11 +50,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCZuDttLykwZ4fb7EiWBYd5_74NTzkC60s',
-    appId: '1:993627948710:android:64142da8333990c7961667',
-    messagingSenderId: '993627948710',
-    projectId: 'cara-614e1',
-    storageBucket: 'cara-614e1.appspot.com',
+    apiKey: 'AIzaSyAmku-2mJlXU-_lhQUjzQtKhhe52A79vYQ',
+    appId: '1:568727460384:android:7141eec4ff705458fbba45',
+    messagingSenderId: '568727460384',
+    projectId: 'cara-app-1324d',
+    storageBucket: 'cara-app-1324d.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

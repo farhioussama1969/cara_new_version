@@ -86,6 +86,16 @@ class ValidatorUtil {
     return null;
   }
 
+  static String? passwordConfirmationValidation(
+      String confPassword, String password,
+      {String? customMessage}) {
+    if (!equals(password, confPassword)) {
+      return customMessage ??
+          StringsAssetsConstants.validatorDefaultErrorMessage;
+    }
+    return null;
+  }
+
   static String? creditCardNumberValidation(String cardNumber,
       {String? customMessage}) {
     if (!CreditCardValidator().validateCCNum(cardNumber).isPotentiallyValid) {

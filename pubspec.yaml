@@ -53,6 +53,8 @@ dependencies:
   flutter_widget_from_html_core: ^0.8.5+3
   path_provider: ^2.1.4
   open_file: ^3.5.3
+  custom_timer: ^0.1.2
+  pin_code_fields: ^8.0.1
   flutter_moyasar:
     path: ./packages/flutter_moyasar
 

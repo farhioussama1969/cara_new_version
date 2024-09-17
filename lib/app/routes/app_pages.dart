@@ -30,6 +30,8 @@ import '../modules/new_update/bindings/new_update_binding.dart';
 import '../modules/new_update/views/new_update_view.dart';
 import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
+import '../modules/otp_confirmation/bindings/otp_confirmation_binding.dart';
+import '../modules/otp_confirmation/views/otp_confirmation_view.dart';
 import '../modules/policy_privacy/bindings/policy_privacy_binding.dart';
 import '../modules/policy_privacy/views/policy_privacy_view.dart';
 import '../modules/remind_password/bindings/remind_password_binding.dart';
@@ -183,6 +185,11 @@ class AppPages {
       name: _Paths.CHECK_LOCATION_SERVICE,
       page: () => const CheckLocationServiceView(),
       binding: CheckLocationServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP_CONFIRMATION,
+      page: () => const OtpConfirmationView(),
+      binding: OtpConfirmationBinding(),
     ),
   ];
 }

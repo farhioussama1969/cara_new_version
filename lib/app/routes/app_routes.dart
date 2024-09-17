@@ -28,6 +28,7 @@ abstract class Routes {
   static const POLICY_PRIVACY = _Paths.POLICY_PRIVACY;
   static const ABOUT = _Paths.ABOUT;
   static const CHECK_LOCATION_SERVICE = _Paths.CHECK_LOCATION_SERVICE;
+  static const OTP_CONFIRMATION = _Paths.OTP_CONFIRMATION;
 }
 
 abstract class _Paths {
@@ -57,4 +58,5 @@ abstract class _Paths {
   static const POLICY_PRIVACY = '/policy-privacy';
   static const ABOUT = '/about';
   static const CHECK_LOCATION_SERVICE = '/check-location-service';
+  static const OTP_CONFIRMATION = '/otp-confirmation';
 }

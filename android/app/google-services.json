@@ -1,125 +1,26 @@
 {
   "project_info": {
-    "project_number": "993627948710",
-    "project_id": "cara-614e1",
-    "storage_bucket": "cara-614e1.appspot.com"
+    "project_number": "568727460384",
+    "project_id": "cara-app-1324d",
+    "storage_bucket": "cara-app-1324d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993627948710:android:64142da8333990c7961667",
+        "mobilesdk_app_id": "1:568727460384:android:7141eec4ff705458fbba45",
         "android_client_info": {
           "package_name": "com.hoskadev.cara"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "993627948710-d43bafeu42ihear9kufgemv65qk5gr78.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hoskadev.cara",
-            "certificate_hash": "f8d0290567b0d0121b4452c6a87f2a002b43e5d3"
-          }
-        },
-        {
-          "client_id": "993627948710-jlmo78nh4g629sf189l7jarutg548cil.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hoskadev.cara",
-            "certificate_hash": "b7b0227f545669437684d9675e2f8e8302a27fbf"
-          }
-        },
-        {
-          "client_id": "993627948710-kgk1126oplkkqlfrmi3h9vgb8b9shpbi.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hoskadev.cara",
-            "certificate_hash": "ef043cf43f3ff5237bda953043d5d01ebbb5e224"
-          }
-        },
-        {
-          "client_id": "993627948710-n619tqcq5iurc5g1kfie1orjohf4tt4b.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hoskadev.cara",
-            "certificate_hash": "48945546c0648006dc222e7ae118a64ac44724b9"
-          }
-        },
-        {
-          "client_id": "993627948710-2b040sjm1fmcu0dco4t595u59t8hm7h5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCZuDttLykwZ4fb7EiWBYd5_74NTzkC60s"
-        },
-        {
-          "current_key": "AIzaSyBI7qggRcKLHJOq1wgJKw-GRFOdSK0QdDI"
+          "current_key": "AIzaSyAmku-2mJlXU-_lhQUjzQtKhhe52A79vYQ"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "993627948710-2b040sjm1fmcu0dco4t595u59t8hm7h5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "993627948710-99ibfgv3dano2fot21i5n83v7s5tkm0q.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.hoskadev.caraadmin"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:993627948710:android:fd2110c464cb25ee961667",
-        "android_client_info": {
-          "package_name": "com.hoskadev.caraadmin"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "993627948710-sblltba6atmt939661j52uqpfcslh0mg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hoskadev.caraadmin",
-            "certificate_hash": "ef043cf43f3ff5237bda953043d5d01ebbb5e224"
-          }
-        },
-        {
-          "client_id": "993627948710-2b040sjm1fmcu0dco4t595u59t8hm7h5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCZuDttLykwZ4fb7EiWBYd5_74NTzkC60s"
-        },
-        {
-          "current_key": "AIzaSyBI7qggRcKLHJOq1wgJKw-GRFOdSK0QdDI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "993627948710-2b040sjm1fmcu0dco4t595u59t8hm7h5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "993627948710-99ibfgv3dano2fot21i5n83v7s5tkm0q.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.hoskadev.caraadmin"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
