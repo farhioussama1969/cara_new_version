@@ -22,6 +22,7 @@ import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/validator_util.dart';
 import 'package:solvodev_mobile_structure/app/modules/get_started/views/components/otp_verification_window_component.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 import '../controllers/get_started_controller.dart';
 
@@ -328,12 +329,18 @@ class GetStartedView extends GetView<GetStartedController> {
                                           ),
                                       SizedBox(height: 40.h),
                                       Center(
-                                        child: Text(
-                                          StringsAssetsConstants.forgotPassword,
-                                          style: TextStyles.largeBodyTextStyle(
-                                                  context)
-                                              .copyWith(
-                                            color: MainColors.primaryColor,
+                                        child: InkWell(
+                                          onTap: () => Get.toNamed(
+                                              Routes.REMIND_PASSWORD),
+                                          child: Text(
+                                            StringsAssetsConstants
+                                                .forgotPassword,
+                                            style:
+                                                TextStyles.largeBodyTextStyle(
+                                                        context)
+                                                    .copyWith(
+                                              color: MainColors.primaryColor,
+                                            ),
                                           ),
                                         ),
                                       )

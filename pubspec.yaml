@@ -55,8 +55,8 @@ dependencies:
   open_file: ^3.5.3
   custom_timer: ^0.1.2
   pin_code_fields: ^8.0.1
-  flutter_moyasar:
-    path: ./packages/flutter_moyasar
+  moyasar_payment:
+    path: ./packages/moyasar_payment
 
   flutter:
     sdk: flutter
