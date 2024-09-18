@@ -698,7 +698,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                 SizedBox(height: 15.h),
                               if (Platform.isIOS && coupon?.actualTotal != 0)
                                 PrimaryButtonComponent(
-                                  onTap: () {},
+                                  onTap: () => onApplePayment(),
                                   text: StringsAssetsConstants.payWithApplePay,
                                   iconPath: IconsAssetsConstants.appleIcon,
                                   textColor:
@@ -707,6 +707,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                       MainColors.backgroundColor(context),
                                   backgroundColor:
                                       MainColors.textColor(context),
+                                  isLoading: applePaymentLoading,
                                 )
                                     .animate(delay: (100).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)

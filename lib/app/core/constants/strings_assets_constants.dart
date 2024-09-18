@@ -216,4 +216,7 @@ static String get resend{return "resend".tr;}
 static String get verification{return "verification".tr;}
 static String get fullName{return "full name".tr;}
 static String get passwordConfirmation{return "password confirmation".tr;}
+static String get paymentError{return "payment error".tr;}
+static String get createOrderError{return "create order error".tr;}
+static String get paymentConfirmation{return "payment confirmation".tr;}
 }

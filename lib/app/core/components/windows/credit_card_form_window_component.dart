@@ -470,6 +470,7 @@ class _CreditCardFormWindowComponentState
                               cardHolderName,
                             );
                           },
+                          isLoading: widget.loading,
                           text: StringsAssetsConstants.confirm,
                           width: 0.7.sw,
                         )

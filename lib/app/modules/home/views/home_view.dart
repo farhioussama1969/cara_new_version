@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/others/webview_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/windows/credit_card_form_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
@@ -426,7 +427,7 @@ class HomeView extends GetView<HomeController> {
               getMySubscriptionsLoading: logic.getSubscriptionsListLoading,
               subscriptionsList: logic.subscriptionsList,
               applePaymentLoading: logic.applePaymentLoading,
-              onApplePayment: () {},
+              onApplePayment: () => logic.applePayment(),
               subscriptionPaymentLoading: logic.subscriptionPaymentLoading,
               walletPaymentLoading: logic.walletPaymentLoading,
               getFreeWashesConfig: logic.getFreeWashingConfigLoading,
@@ -498,7 +499,7 @@ class HomeView extends GetView<HomeController> {
             loading: logic.creditCardPaymentLoading,
             onConfirm: (cardNumber, expiryDate, cvv, cardHolderName) {
               logic.creditCardPayment(
-                cardNumber,
+                cardNumber.removeAllWhitespace,
                 expiryDate,
                 cvv,
                 cardHolderName,
@@ -507,11 +508,38 @@ class HomeView extends GetView<HomeController> {
             totalPrice: (logic.coupon?.couponDiscount != null)
                 ? ((logic.coupon?.actualTotal ?? 0))
                 : ((logic.washingTypes
-                        ?.where((e) => e.id == logic.selectedWashingTypeId)
+                        .where((e) => e.id == logic.selectedWashingTypeId)
                         .first
                         .price ??
                     0)),
           );
+        },
+      ),
+    );
+  }
+
+  void showCreditCardPaymentWebView(String url) {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: WebViewComponent(
+        url: url,
+        title: StringsAssetsConstants.paymentConfirmation,
+        onExitWebView: () {},
+        onPageFinished: (url) {
+          if (url.contains('demo.cara-wash.com')) {
+            var link = Uri.dataFromString(url);
+            Map<String, String> params = link.queryParameters;
+            if (params['status'] == 'paid') {
+              controller.resetData();
+              Get.back();
+              Get.back();
+              const HomeView().showCreateOrderStatusWindow(true);
+            } else {
+              Get.back();
+              Get.back();
+              const HomeView().showCreateOrderStatusWindow(false);
+            }
+          }
         },
       ),
     );

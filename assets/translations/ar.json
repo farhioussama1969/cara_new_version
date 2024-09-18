@@ -282,7 +282,12 @@
 
   "verification": "التحقق",
   "full name": "الاسم الكامل",
-  "password confirmation": "تأكيد كلمة المرور"
+  "password confirmation": "تأكيد كلمة المرور",
+
+  "payment error": "حدث خطأ أثناء عملية الدفع، يرجى المحاولة مرة أخرى",
+  "create order error": "حدث خطأ أثناء إنشاء الطلب، يرجى المحاولة مرة أخرى",
+
+  "payment confirmation": "تأكيد الدفع"
 
 
 

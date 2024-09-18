@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_co
 import 'package:solvodev_mobile_structure/app/core/constants/google_maps_styles_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/geolocator_location_service.dart';
+import 'package:solvodev_mobile_structure/app/core/services/moyasar_payment_service.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/theme_util.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/check_service_availability_model.dart';
@@ -486,48 +488,46 @@ class HomeController extends GetxController {
   }
 
   void applePayment() {
-    var items = <String, double?>{
-      '${washingTypes.where((element) => element.id == selectedWashingTypeId).first.name}':
-          washingTypes
-              .where((element) => element.id == selectedWashingTypeId)
+    MoyasarPaymentService.applePayPayment(
+      coupon: coupon,
+      orderDescription: '',
+      price: washingTypes
+              .where((e) => e.id == selectedWashingTypeId)
               .first
-              .price,
-      '${StringsAssetsConstants.appName}': coupon?.actualTotal ??
-          washingTypes
-              .where((element) => element.id == selectedWashingTypeId)
-              .first
-              .price,
-    };
-    // PayModel res = await MoyasarPayment().applePay(
-    //     amount: coupon().actualTotal ?? price.value,
-    //     publishableKey: currentBranchData?.moyasarPublishableApiKey ??
-    //         MoyasarPaymentGateway.publishableApiKey,
-    //     applepayMerchantId: currentBranchData?.moyasarMerchantId ??
-    //         'merchant.com.hoskadev.carawash',
-    //     paymentItems: items,
-    //     currencyCode: 'SAR',
-    //     countryCode: 'SA',
-    //     description: 'wash order with apple pay');
-    OrderProvider()
-        .createNewOrder(
-      lat: currentLatitude,
-      lng: currentLongitude,
-      washingTypeId: selectedWashingTypeId,
-      cardId: selectedCarId,
-      date: selectedDay!,
-      time: selectedTime!,
-      paymentMethod: "Apple pay",
-      couponId: coupon?.couponId,
-      price: coupon?.actualTotal ?? 0,
-      paymentId: '',
+              .price ??
+          0,
+      publishableKey:
+          checkServiceAvailabilityResponse?.branch?.moyasarPublishableApiKey ??
+              FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
+      merchantId: checkServiceAvailabilityResponse?.branch?.moyasarMerchantId ??
+          FlutterConfig.get('MOYASAR_PAYMENT_MERCHANET_ID'),
       onLoading: () => changeApplePaymentLoading(true),
       onFinal: () => changeApplePaymentLoading(false),
-    )
-        .then((value) {
-      if (value != null) {
-        const HomeView().showCreateOrderStatusWindow(true);
-      } else {
-        const HomeView().showCreateOrderStatusWindow(false);
+      onError: () {},
+    ).then((paymentRes) {
+      if (paymentRes != null) {
+        OrderProvider()
+            .createNewOrder(
+          lat: currentLatitude,
+          lng: currentLongitude,
+          washingTypeId: selectedWashingTypeId,
+          carId: selectedCarId,
+          date: selectedDay!,
+          time: selectedTime!,
+          paymentMethod: "Apple pay",
+          couponId: coupon?.couponId,
+          price: coupon?.actualTotal ?? 0,
+          paymentId: paymentRes.id,
+          onLoading: () => changeApplePaymentLoading(true),
+          onFinal: () => changeApplePaymentLoading(false),
+        )
+            .then((value) {
+          if (value != null) {
+            const HomeView().showCreateOrderStatusWindow(true);
+          } else {
+            const HomeView().showCreateOrderStatusWindow(false);
+          }
+        });
       }
     });
   }
@@ -545,7 +545,7 @@ class HomeController extends GetxController {
       lat: currentLatitude,
       lng: currentLongitude,
       washingTypeId: selectedWashingTypeId,
-      cardId: selectedCarId,
+      carId: selectedCarId,
       date: selectedDay!,
       time: selectedTime!,
       paymentMethod: "Wallet",
@@ -576,7 +576,7 @@ class HomeController extends GetxController {
       lat: currentLatitude,
       lng: currentLongitude,
       washingTypeId: selectedWashingTypeId,
-      cardId: selectedCarId,
+      carId: selectedCarId,
       date: selectedDay!,
       time: selectedTime!,
       paymentMethod: gift ? "Gift" : "Free",
@@ -607,7 +607,7 @@ class HomeController extends GetxController {
       lat: currentLatitude,
       lng: currentLongitude,
       washingTypeId: selectedWashingTypeId,
-      cardId: selectedCarId,
+      carId: selectedCarId,
       date: selectedDay!,
       time: selectedTime!,
       paymentMethod: "Subscription",
@@ -674,7 +674,56 @@ class HomeController extends GetxController {
   void creditCardPayment(
       String number, String expiredDate, String cvv, String? holderName) {
     if (creditCardPaymentLoading) return;
-    print('payment started ${expiredDate.split('/')[0]}');
+    OrderProvider()
+        .createNewOrder(
+      lat: currentLatitude,
+      lng: currentLongitude,
+      washingTypeId: selectedWashingTypeId,
+      carId: selectedCarId,
+      date: selectedDay ?? '',
+      time: selectedTime ?? '',
+      paymentMethod: 'Credit card',
+      couponId: coupon?.couponId,
+      price: coupon?.actualTotal ?? 0,
+      onLoading: () => changeCreditCardPaymentLoading(true),
+      onFinal: () => changeCreditCardPaymentLoading(false),
+    )
+        .then((value) {
+      if (value != null) {
+        MoyasarPaymentService.creditCardPayment(
+          cardHolderName: holderName ?? '',
+          cardNumber: number,
+          expiryDate: expiredDate,
+          cvvCode: cvv,
+          orderDescription: 'description',
+          coupon: coupon,
+          price: coupon?.actualTotal ??
+              (washingTypes
+                      .where((e) => e.id == selectedWashingTypeId)
+                      .first
+                      .price ??
+                  0),
+          publishableKey: checkServiceAvailabilityResponse
+                  ?.branch?.moyasarPublishableApiKey ??
+              FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
+          callBackUrl: '',
+          onLoading: () => changeCreditCardPaymentLoading(true),
+          onFinal: () => changeCreditCardPaymentLoading(false),
+          onError: () {
+            ToastComponent.showErrorToast(Get.context!,
+                text: StringsAssetsConstants.paymentError);
+          },
+        ).then((paymentRes) {
+          if (paymentRes != null) {
+            const HomeView()
+                .showCreditCardPaymentWebView(paymentRes.transactionUrl ?? '');
+          }
+        });
+      } else {
+        ToastComponent.showErrorToast(Get.context!,
+            text: StringsAssetsConstants.createOrderError);
+      }
+    });
   }
 
   //clear and reset all data
