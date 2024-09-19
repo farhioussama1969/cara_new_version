@@ -1,6 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -64,17 +63,17 @@ Future<void> requestAndRegisterNotification() async {
   }
 }
 
-void startFirebaseCrashlytics() {
-  FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
-
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-}
+// void startFirebaseCrashlytics() {
+//   FlutterError.onError = (errorDetails) {
+//     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+//   };
+//   PlatformDispatcher.instance.onError = (error, stack) {
+//     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+//     return true;
+//   };
+//
+//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,7 +85,7 @@ Future<void> main() async {
   LocalNotificationService.initialize();
   await requestAndRegisterNotification();
   FirebaseAnalytics.instance;
-  startFirebaseCrashlytics();
+  //startFirebaseCrashlytics();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -31,6 +31,27 @@ class WebViewComponent extends StatefulWidget {
 class _WebViewComponentState extends State<WebViewComponent> {
   bool isLoading = true;
 
+  var controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        onProgress: (int progress) {
+          // Update loading bar.
+        },
+        onPageStarted: (String url) {},
+        onPageFinished: (String url) {},
+        onHttpError: (HttpResponseError error) {},
+        onWebResourceError: (WebResourceError error) {},
+        onNavigationRequest: (NavigationRequest request) {
+          if (request.url.startsWith('https://www.youtube.com/')) {
+            return NavigationDecision.prevent;
+          }
+          return NavigationDecision.navigate;
+        },
+      ),
+    )
+    ..loadRequest(Uri.parse('https://flutter.dev'));
+
   @override
   Widget build(BuildContext context) {
     WebViewController? webViewController;
@@ -60,20 +81,21 @@ class _WebViewComponentState extends State<WebViewComponent> {
                 child: Container(
                   child: Stack(
                     children: [
-                      WebView(
-                        initialUrl: widget.url,
-                        javascriptMode: JavascriptMode.unrestricted,
-                        zoomEnabled: true,
-                        onWebViewCreated: (controller) {
-                          webViewController = controller;
-                        },
-                        onPageFinished: (url) {
-                          setState(() {
-                            isLoading = false;
-                          });
-                          widget.onPageFinished(url);
-                        },
-                        onPageStarted: (url) {},
+                      WebViewWidget(
+                        // initialUrl: widget.url,
+                        // javascriptMode: JavascriptMode.unrestricted,
+                        // zoomEnabled: true,
+                        // onWebViewCreated: (controller) {
+                        //   webViewController = controller;
+                        // },
+                        // onPageFinished: (url) {
+                        //   setState(() {
+                        //     isLoading = false;
+                        //   });
+                        //   widget.onPageFinished(url);
+                        // },
+                        // onPageStarted: (url) {},
+                        controller: controller,
                       ),
                       if (isLoading)
                         Column(
