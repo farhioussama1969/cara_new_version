@@ -706,7 +706,8 @@ class HomeController extends GetxController {
           publishableKey: checkServiceAvailabilityResponse
                   ?.branch?.moyasarPublishableApiKey ??
               FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
-          callBackUrl: '',
+          callBackUrl:
+              "http://demo.cara-wash.com/orders/${value.id}/payment/callback",
           onLoading: () => changeCreditCardPaymentLoading(true),
           onFinal: () => changeCreditCardPaymentLoading(false),
           onError: () {

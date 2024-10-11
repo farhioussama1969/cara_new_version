@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:moyasar_payment/model/paymodel.dart';
 import 'package:moyasar_payment/model/source/applepaymodel.dart';
 import 'package:moyasar_payment/model/source/creditcardmodel.dart';
@@ -22,6 +24,19 @@ class MoyasarPaymentService {
   }) async {
     try {
       onLoading();
+
+      log('${{
+        'amount': coupon?.actualTotal ?? price,
+        'publishableKey': publishableKey,
+        'cardHolderName':
+            cardHolderName == '' ? "without name" : cardHolderName,
+        'cardNumber': cardNumber.replaceAll(' ', ''),
+        'cvv': cvvCode,
+        'expiryMonth': expiryDate.substring(0, 2),
+        'expiryYear': expiryDate.substring(3, 5),
+        'callbackUrl': callBackUrl,
+      }}');
+
       PayModel res = await MoyasarPayment().creditCard(
         description: "Order #$orderDescription",
         amount: coupon?.actualTotal ?? price,

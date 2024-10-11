@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:solvodev_mobile_structure/app/core/components/buttons/back_button_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/icons_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
@@ -31,26 +32,31 @@ class WebViewComponent extends StatefulWidget {
 class _WebViewComponentState extends State<WebViewComponent> {
   bool isLoading = true;
 
-  var controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setNavigationDelegate(
-      NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-        onHttpError: (HttpResponseError error) {},
-        onWebResourceError: (WebResourceError error) {},
-        onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('https://www.youtube.com/')) {
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-      ),
-    )
-    ..loadRequest(Uri.parse('https://flutter.dev'));
+  late WebViewController controller;
+
+  @override
+  void initState() {
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {
+            setState(() {
+              isLoading = false;
+            });
+            widget.onPageFinished(url);
+          },
+          onHttpError: (HttpResponseError error) {},
+          onWebResourceError: (WebResourceError error) {},
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.url));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,61 +70,59 @@ class _WebViewComponentState extends State<WebViewComponent> {
           return true;
         }
       },
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: HeaderComponent(
-          title: widget.title,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.r),
+          topRight: Radius.circular(20.r),
         ),
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: MainColors.backgroundColor(context),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: HeaderComponent(
+            title: widget.title,
+            isBack: false,
+            prefixWidget: BackButtonComponent(
+              isCloseButton: true,
+            ),
           ),
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  child: Stack(
-                    children: [
-                      WebViewWidget(
-                        // initialUrl: widget.url,
-                        // javascriptMode: JavascriptMode.unrestricted,
-                        // zoomEnabled: true,
-                        // onWebViewCreated: (controller) {
-                        //   webViewController = controller;
-                        // },
-                        // onPageFinished: (url) {
-                        //   setState(() {
-                        //     isLoading = false;
-                        //   });
-                        //   widget.onPageFinished(url);
-                        // },
-                        // onPageStarted: (url) {},
-                        controller: controller,
-                      ),
-                      if (isLoading)
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            LoadingAnimationWidget.beat(
-                              color: MainColors.primaryColor,
-                              size: 70.h,
-                            ),
-                            SizedBox(height: 20.h),
-                            Center(
-                              child: Text(
-                                '${StringsAssetsConstants.pleaseWait}...',
-                                style: TextStyles.mediumBodyTextStyle(context),
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: MainColors.backgroundColor(context),
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    child: Stack(
+                      children: [
+                        WebViewWidget(
+                          controller: controller,
+                        ),
+                        if (isLoading)
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              LoadingAnimationWidget.beat(
+                                color: MainColors.primaryColor,
+                                size: 70.h,
                               ),
-                            ),
-                          ],
-                        )
-                    ],
+                              SizedBox(height: 20.h),
+                              Center(
+                                child: Text(
+                                  '${StringsAssetsConstants.pleaseWait}...',
+                                  style:
+                                      TextStyles.mediumBodyTextStyle(context),
+                                ),
+                              ),
+                            ],
+                          )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
