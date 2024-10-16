@@ -330,8 +330,8 @@ class GetStartedView extends GetView<GetStartedController> {
                                       SizedBox(height: 40.h),
                                       Center(
                                         child: InkWell(
-                                          onTap: () => Get.toNamed(
-                                              Routes.REMIND_PASSWORD),
+                                          // onTap: () => Get.toNamed(
+                                          //     Routes.REMIND_PASSWORD),
                                           child: Text(
                                             StringsAssetsConstants
                                                 .forgotPassword,
