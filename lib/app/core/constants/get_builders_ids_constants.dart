@@ -56,4 +56,6 @@ class GetBuildersIdsConstants {
       'sign_up_confirm_password_input';
   static const String signUpButton = 'sign_up_button';
   static const String sendGiftCreditCardWindow = 'send_gift_credit_card_window';
+  static const String subscriptionsCreditCardWindow =
+      'subscriptions_credit_card_window';
 }

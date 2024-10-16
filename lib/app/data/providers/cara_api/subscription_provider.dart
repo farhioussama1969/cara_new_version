@@ -32,7 +32,7 @@ class SubscriptionProvider {
   Future<UserSubscriptionModel?> subscription({
     required int? branchId,
     required int? subscriptionId,
-    required String? paymentId,
+    String? paymentId,
     required String? paymentMethod,
     required Function onLoading,
     required Function onFinal,

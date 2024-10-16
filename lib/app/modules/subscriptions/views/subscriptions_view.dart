@@ -7,13 +7,16 @@ import 'package:solvodev_mobile_structure/app/core/components/animations/loading
 import 'package:solvodev_mobile_structure/app/core/components/cards/subscription_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/empty_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/others/webview_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/credit_card_form_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/subscription_plan_model.dart';
+import 'package:solvodev_mobile_structure/app/data/models/user_subscription_model.dart';
 
 import '../controllers/subscriptions_controller.dart';
 import 'components/payment_window_component.dart';
@@ -149,7 +152,7 @@ class SubscriptionsView extends GetView<SubscriptionsController> {
                   logic.walletPayment(subscription?.id);
                 } else if (logic.selectedPaymentMethod == 2) {
                   Get.back();
-                  //showCreditCardFormWindow();
+                  showCreditCardFormWindow(subscription);
                 }
               },
             );
@@ -175,5 +178,57 @@ class SubscriptionsView extends GetView<SubscriptionsController> {
             }
           },
         ));
+  }
+
+  void showCreditCardPaymentWebView(
+      String url, UserSubscriptionModel? giftCoupon) {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: WebViewComponent(
+        url: url,
+        title: StringsAssetsConstants.paymentConfirmation,
+        onExitWebView: () {},
+        onPageFinished: (url) {
+          if (url.contains('demo.cara-wash.com')) {
+            var link = Uri.dataFromString(url);
+            Map<String, String> params = link.queryParameters;
+            if (params['status'] == 'paid') {
+              Get.back();
+              Get.back();
+              showCreateGiftStatusWindow(true);
+            } else {
+              Get.back();
+              Get.back();
+              showCreateGiftStatusWindow(false);
+            }
+          }
+        },
+      ),
+    );
+  }
+
+  void showCreditCardFormWindow(SubscriptionPlanModel? gift) {
+    BottomSheetComponent.show(
+      Get.context!,
+      dismissible: false,
+      body: GetBuilder<SubscriptionsController>(
+        id: GetBuildersIdsConstants.subscriptionsCreditCardWindow,
+        builder: (logic) {
+          return CreditCardFormWindowComponent(
+            loading: logic.creditCardPaymentLoading,
+            onConfirm: (cardNumber, expiryDate, cvv, cardHolderName) {
+              logic.creditCardPayment(
+                cardNumber.removeAllWhitespace,
+                expiryDate,
+                cvv,
+                cardHolderName,
+                gift,
+              );
+            },
+            totalPrice: gift?.price ?? 0,
+          );
+        },
+      ),
+    );
   }
 }

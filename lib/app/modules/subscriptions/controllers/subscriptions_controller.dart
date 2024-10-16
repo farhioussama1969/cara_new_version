@@ -1,5 +1,9 @@
+import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/services/moyasar_payment_service.dart';
 import 'package:solvodev_mobile_structure/app/data/models/subscription_plan_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/subscription_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/wallet_provider.dart';
@@ -105,6 +109,63 @@ class SubscriptionsController extends GetxController {
         const SubscriptionsView().showCreateGiftStatusWindow(false);
       }
       changeSelectedPaymentMethod(null);
+    });
+  }
+
+  //credit card payment
+
+  bool creditCardPaymentLoading = false;
+  void changeCreditCardPaymentLoading(bool value) {
+    creditCardPaymentLoading = value;
+    update([GetBuildersIdsConstants.subscriptionsCreditCardWindow]);
+  }
+
+  void creditCardPayment(String number, String expiredDate, String cvv,
+      String? holderName, SubscriptionPlanModel? gift) {
+    if (creditCardPaymentLoading) return;
+    SubscriptionProvider()
+        .subscription(
+      paymentMethod: 'Credit card',
+      onLoading: () => changeCreditCardPaymentLoading(true),
+      onFinal: () => changeCreditCardPaymentLoading(false),
+      subscriptionId: gift?.id,
+      branchId: Get.find<HomeController>()
+          .checkServiceAvailabilityResponse
+          ?.branch
+          ?.id,
+    )
+        .then((value) {
+      if (value != null) {
+        MoyasarPaymentService.creditCardPayment(
+          cardHolderName: holderName ?? '',
+          cardNumber: number,
+          expiryDate: expiredDate,
+          cvvCode: cvv,
+          orderDescription: 'description',
+          price: gift?.price ?? 0,
+          publishableKey: Get.find<HomeController>()
+                  .checkServiceAvailabilityResponse
+                  ?.branch
+                  ?.moyasarPublishableApiKey ??
+              FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
+          callBackUrl:
+              "http://demo.cara-wash.com/subscriptions/userSubscriptions/${value.id}/payment/callback",
+          onLoading: () => changeCreditCardPaymentLoading(true),
+          onFinal: () => changeCreditCardPaymentLoading(false),
+          onError: () {
+            ToastComponent.showErrorToast(Get.context!,
+                text: StringsAssetsConstants.paymentError);
+          },
+        ).then((paymentRes) {
+          if (paymentRes != null) {
+            const SubscriptionsView().showCreditCardPaymentWebView(
+                paymentRes.transactionUrl ?? '', value);
+          }
+        });
+      } else {
+        ToastComponent.showErrorToast(Get.context!,
+            text: StringsAssetsConstants.createOrderError);
+      }
     });
   }
 
