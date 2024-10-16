@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:solvodev_mobile_structure/app/core/components/animations/loading_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/others/webview_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';

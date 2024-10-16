@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/gift_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/cards/old_gift_card_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/header_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/others/webview_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/windows/credit_card_form_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/images_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
@@ -389,7 +391,7 @@ class SendGiftsView extends GetView<SendGiftsController> {
                   logic.walletPayment(gift?.id);
                 } else if (logic.selectedPaymentMethod == 2) {
                   Get.back();
-                  //showCreditCardFormWindow();
+                  showCreditCardFormWindow(gift);
                 }
               },
             );
@@ -416,5 +418,56 @@ class SendGiftsView extends GetView<SendGiftsController> {
             }
           },
         ));
+  }
+
+  void showCreditCardPaymentWebView(String url, GiftCouponModel? giftCoupon) {
+    BottomSheetComponent.show(
+      Get.context!,
+      body: WebViewComponent(
+        url: url,
+        title: StringsAssetsConstants.paymentConfirmation,
+        onExitWebView: () {},
+        onPageFinished: (url) {
+          if (url.contains('demo.cara-wash.com')) {
+            var link = Uri.dataFromString(url);
+            Map<String, String> params = link.queryParameters;
+            if (params['status'] == 'paid') {
+              Get.back();
+              Get.back();
+              showCreateGiftStatusWindow(true, giftCoupon);
+            } else {
+              Get.back();
+              Get.back();
+              showCreateGiftStatusWindow(false, giftCoupon);
+            }
+          }
+        },
+      ),
+    );
+  }
+
+  void showCreditCardFormWindow(GiftModel? gift) {
+    BottomSheetComponent.show(
+      Get.context!,
+      dismissible: false,
+      body: GetBuilder<SendGiftsController>(
+        id: GetBuildersIdsConstants.sendGiftCreditCardWindow,
+        builder: (logic) {
+          return CreditCardFormWindowComponent(
+            loading: logic.creditCardPaymentLoading,
+            onConfirm: (cardNumber, expiryDate, cvv, cardHolderName) {
+              logic.creditCardPayment(
+                cardNumber.removeAllWhitespace,
+                expiryDate,
+                cvv,
+                cardHolderName,
+                gift,
+              );
+            },
+            totalPrice: gift?.amount ?? 0,
+          );
+        },
+      ),
+    );
   }
 }

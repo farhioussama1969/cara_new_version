@@ -696,7 +696,6 @@ class HomeController extends GetxController {
           expiryDate: expiredDate,
           cvvCode: cvv,
           orderDescription: 'description',
-          coupon: coupon,
           price: coupon?.actualTotal ??
               (washingTypes
                       .where((e) => e.id == selectedWashingTypeId)

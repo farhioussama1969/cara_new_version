@@ -4,12 +4,16 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/services/moyasar_payment_service.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/main_colors.dart';
 import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
@@ -223,6 +227,60 @@ class SendGiftsController extends GetxController {
         const SendGiftsView().showCreateGiftStatusWindow(false, null);
       }
       changeSelectedPaymentMethod(null);
+    });
+  }
+
+  //credit card payment
+
+  bool creditCardPaymentLoading = false;
+  void changeCreditCardPaymentLoading(bool value) {
+    creditCardPaymentLoading = value;
+    update([GetBuildersIdsConstants.sendGiftCreditCardWindow]);
+  }
+
+  void creditCardPayment(String number, String expiredDate, String cvv,
+      String? holderName, GiftModel? gift) {
+    if (creditCardPaymentLoading) return;
+    GiftProvider()
+        .buyGift(
+      paymentMethod: 'Credit card',
+      onLoading: () => changeCreditCardPaymentLoading(true),
+      onFinal: () => changeCreditCardPaymentLoading(false),
+      giftId: gift?.id,
+      title: '/',
+    )
+        .then((value) {
+      if (value != null) {
+        MoyasarPaymentService.creditCardPayment(
+          cardHolderName: holderName ?? '',
+          cardNumber: number,
+          expiryDate: expiredDate,
+          cvvCode: cvv,
+          orderDescription: 'description',
+          price: gift?.amount ?? 0,
+          publishableKey: Get.find<HomeController>()
+                  .checkServiceAvailabilityResponse
+                  ?.branch
+                  ?.moyasarPublishableApiKey ??
+              FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
+          callBackUrl:
+              "http://demo.cara-wash.com/gifts/coupons/${value.id}/payment/callback",
+          onLoading: () => changeCreditCardPaymentLoading(true),
+          onFinal: () => changeCreditCardPaymentLoading(false),
+          onError: () {
+            ToastComponent.showErrorToast(Get.context!,
+                text: StringsAssetsConstants.paymentError);
+          },
+        ).then((paymentRes) {
+          if (paymentRes != null) {
+            const SendGiftsView().showCreditCardPaymentWebView(
+                paymentRes.transactionUrl ?? '', value);
+          }
+        });
+      } else {
+        ToastComponent.showErrorToast(Get.context!,
+            text: StringsAssetsConstants.createOrderError);
+      }
     });
   }
 

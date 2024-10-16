@@ -14,7 +14,6 @@ class MoyasarPaymentService {
     required String expiryDate,
     required String cvvCode,
     required String orderDescription,
-    required CouponModel? coupon,
     required double price,
     required String publishableKey,
     required String callBackUrl,
@@ -26,7 +25,7 @@ class MoyasarPaymentService {
       onLoading();
 
       log('${{
-        'amount': coupon?.actualTotal ?? price,
+        'amount': price,
         'publishableKey': publishableKey,
         'cardHolderName':
             cardHolderName == '' ? "without name" : cardHolderName,
@@ -39,7 +38,7 @@ class MoyasarPaymentService {
 
       PayModel res = await MoyasarPayment().creditCard(
         description: "Order #$orderDescription",
-        amount: coupon?.actualTotal ?? price,
+        amount: price,
         publishableKey: publishableKey,
         cardHolderName: cardHolderName == '' ? "without name" : cardHolderName,
         cardNumber: cardNumber.replaceAll(' ', ''),
