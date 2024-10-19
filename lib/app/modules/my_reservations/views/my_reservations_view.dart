@@ -22,8 +22,7 @@ class MyReservationsView extends GetView<MyReservationsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderComponent(
-        isBack: false,
-        prefixWidget: Text(
+        actionWidget: Text(
           StringsAssetsConstants.myReservations,
           style: TextStyles.largeLabelTextStyle(context),
         ),

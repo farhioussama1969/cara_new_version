@@ -46,10 +46,10 @@ class BottomNavigationBarComponent extends StatelessWidget {
               isEnabled: selectedIndex == 2,
             ),
             BottomNavigationCarItemComponent(
-              enabledIconPath: IconsAssetsConstants.myReservationsEnabledIcon,
-              disabledIconPath: IconsAssetsConstants.myReservationsDisableIcon,
+              enabledIconPath: IconsAssetsConstants.ticketBoldIcon,
+              disabledIconPath: IconsAssetsConstants.ticketIcon,
               onTap: () => onIndexSelected(3),
-              title: StringsAssetsConstants.myReservations,
+              title: StringsAssetsConstants.subscriptions,
               isEnabled: selectedIndex == 3,
             ),
             BottomNavigationCarItemComponent(

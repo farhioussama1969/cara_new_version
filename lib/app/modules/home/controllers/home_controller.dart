@@ -690,6 +690,9 @@ class HomeController extends GetxController {
     )
         .then((value) {
       if (value != null) {
+        print(
+            'value: http://demo.cara-wash.com/orders/${value.id}/payment/callback');
+
         MoyasarPaymentService.creditCardPayment(
           cardHolderName: holderName ?? '',
           cardNumber: number,

@@ -8,6 +8,7 @@ import 'package:solvodev_mobile_structure/app/modules/main/views/components/bott
 import 'package:solvodev_mobile_structure/app/modules/my_account/views/my_account_view.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_cars/views/my_cars_view.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_reservations/views/my_reservations_view.dart';
+import 'package:solvodev_mobile_structure/app/modules/subscriptions/views/subscriptions_view.dart';
 
 import '../controllers/main_controller.dart';
 
@@ -26,7 +27,7 @@ class MainView extends GetView<MainController> {
                 HomeView(),
                 MyCarsView(),
                 GiftsView(),
-                MyReservationsView(),
+                SubscriptionsView(),
                 MyAccountView(),
               ],
             );

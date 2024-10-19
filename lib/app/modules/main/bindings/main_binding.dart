@@ -4,6 +4,7 @@ import 'package:solvodev_mobile_structure/app/modules/home/controllers/home_cont
 import 'package:solvodev_mobile_structure/app/modules/my_account/controllers/my_account_controller.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_cars/controllers/my_cars_controller.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_reservations/controllers/my_reservations_controller.dart';
+import 'package:solvodev_mobile_structure/app/modules/subscriptions/controllers/subscriptions_controller.dart';
 
 import '../controllers/main_controller.dart';
 
@@ -23,8 +24,8 @@ class MainBinding extends Bindings {
     Get.lazyPut<GiftsController>(
       () => GiftsController(),
     );
-    Get.lazyPut<MyReservationsController>(
-      () => MyReservationsController(),
+    Get.lazyPut<SubscriptionsController>(
+      () => SubscriptionsController(),
     );
     Get.lazyPut<MyAccountController>(
       () => MyAccountController(),

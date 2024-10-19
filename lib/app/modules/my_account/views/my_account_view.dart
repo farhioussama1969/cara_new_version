@@ -137,6 +137,16 @@ class MyAccountView extends GetView<MyAccountController> {
                     ),
                     SizedBox(height: 10.h),
                     AccountItemCardComponent(
+                      iconPath: IconsAssetsConstants.calanderBoldIcon,
+                      title: StringsAssetsConstants.myReservations,
+                      onTap: () => Get.toNamed(Routes.MY_RESERVATIONS),
+                    ),
+                    SizedBox(height: 10.h),
+                    Divider(
+                      color: MainColors.textColor(context)!.withOpacity(0.2),
+                    ),
+                    SizedBox(height: 10.h),
+                    AccountItemCardComponent(
                       iconPath: IconsAssetsConstants.notificationsIcon,
                       title: StringsAssetsConstants.notifications,
                       onTap: () => Get.toNamed(Routes.NOTIFICATIONS),

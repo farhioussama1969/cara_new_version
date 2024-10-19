@@ -27,8 +27,8 @@ class SubscriptionsView extends GetView<SubscriptionsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderComponent(
-        isBack: true,
-        actionWidget: Text(
+        isBack: false,
+        prefixWidget: Text(
           StringsAssetsConstants.subscriptions,
           style: TextStyles.largeLabelTextStyle(context),
         ),
