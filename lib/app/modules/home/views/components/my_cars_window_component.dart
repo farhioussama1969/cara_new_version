@@ -109,7 +109,7 @@ class MyCarsWindowComponent extends StatelessWidget {
                                                     carsList[index].id,
                                               ),
                                             )
-                                                .animate(delay: (index * 50).ms)
+                                                .animate(delay: (index * 10).ms)
                                                 .fadeIn(
                                                     duration: 900.ms,
                                                     delay: 300.ms)
@@ -139,7 +139,7 @@ class MyCarsWindowComponent extends StatelessWidget {
                         text: StringsAssetsConstants.confirm,
                         width: 0.7.sw,
                       )
-                          .animate(delay: (150).ms)
+                          .animate(delay: (10).ms)
                           .fadeIn(duration: 900.ms, delay: 300.ms)
                           .move(
                             begin: const Offset(200, 0),

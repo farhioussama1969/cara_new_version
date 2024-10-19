@@ -154,7 +154,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                         ),
                                       ],
                                     )
-                                        .animate(delay: (100).ms)
+                                        .animate(delay: (10).ms)
                                         .fadeIn(duration: 900.ms, delay: 300.ms)
                                         .move(
                                           begin: const Offset(-200, 0),
@@ -184,7 +184,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                               )),
                                         ],
                                       )
-                                          .animate(delay: (100).ms)
+                                          .animate(delay: (10).ms)
                                           .fadeIn(
                                               duration: 900.ms, delay: 300.ms)
                                           .move(
@@ -213,7 +213,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                             )),
                                       ],
                                     )
-                                        .animate(delay: (100).ms)
+                                        .animate(delay: (10).ms)
                                         .fadeIn(duration: 900.ms, delay: 300.ms)
                                         .move(
                                           begin: const Offset(-200, 0),
@@ -320,7 +320,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -413,7 +413,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -455,7 +455,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                     ),
                                   ],
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -494,7 +494,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                     },
                                   ),
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -518,7 +518,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -557,7 +557,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                     ),
                                   ],
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -653,7 +653,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -709,7 +709,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                       MainColors.textColor(context),
                                   isLoading: applePaymentLoading,
                                 )
-                                    .animate(delay: (100).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 100),
@@ -742,7 +742,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                   ),
                                 ],
                               )
-                                  .animate(delay: (100).ms)
+                                  .animate(delay: (10).ms)
                                   .fadeIn(duration: 900.ms, delay: 300.ms)
                                   .move(
                                     begin: const Offset(0, 100),
@@ -783,7 +783,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                               '${StringsAssetsConstants.check} ${StringsAssetsConstants.couponCode}'),
                                 ),
                               )
-                                  .animate(delay: (100).ms)
+                                  .animate(delay: (10).ms)
                                   .fadeIn(duration: 900.ms, delay: 300.ms)
                                   .move(
                                     begin: const Offset(0, 100),
@@ -802,7 +802,7 @@ class PaymentWindowComponent extends StatelessWidget {
                                       freeWashesPaymentLoading ||
                                       subscriptionPaymentLoading,
                                 )
-                                    .animate(delay: (150).ms)
+                                    .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)
                                     .move(
                                       begin: const Offset(0, 200),

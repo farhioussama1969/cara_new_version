@@ -117,7 +117,7 @@ class WorkingHoursWindowComponent extends StatelessWidget {
                                         isSelected:
                                             selectedDay == daysList[index],
                                       )
-                                          .animate(delay: (index * 100).ms)
+                                          .animate(delay: (index * 10).ms)
                                           .fadeIn(
                                               duration: 900.ms, delay: 300.ms)
                                           .move(
@@ -169,7 +169,7 @@ class WorkingHoursWindowComponent extends StatelessWidget {
                                             timesList[index].value,
                                       ),
                                     )
-                                        .animate(delay: (index * 100).ms)
+                                        .animate(delay: (index * 10).ms)
                                         .fadeIn(duration: 900.ms, delay: 300.ms)
                                         .move(
                                           begin: const Offset(100, 0),
@@ -194,7 +194,7 @@ class WorkingHoursWindowComponent extends StatelessWidget {
                                       text: StringsAssetsConstants.confirm,
                                       width: 0.7.sw,
                                     )
-                                        .animate(delay: (150).ms)
+                                        .animate(delay: (10).ms)
                                         .fadeIn(duration: 900.ms, delay: 300.ms)
                                         .move(
                                           begin: const Offset(200, 0),

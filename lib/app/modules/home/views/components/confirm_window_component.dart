@@ -167,7 +167,7 @@ class ConfirmWindowComponent extends StatelessWidget {
                     ),
                   ),
                 )
-                    .animate(delay: (150).ms)
+                    .animate(delay: (10).ms)
                     .fadeIn(duration: 900.ms, delay: 300.ms)
                     .move(
                       begin: const Offset(0, -200),
@@ -232,7 +232,7 @@ class ConfirmWindowComponent extends StatelessWidget {
                         ),
                       ),
                     )
-                        .animate(delay: (150).ms)
+                        .animate(delay: (10).ms)
                         .fadeIn(duration: 900.ms, delay: 300.ms)
                         .move(
                           begin: const Offset(200, 0),
@@ -295,7 +295,7 @@ class ConfirmWindowComponent extends StatelessWidget {
                         ),
                       ),
                     )
-                        .animate(delay: (150).ms)
+                        .animate(delay: (10).ms)
                         .fadeIn(duration: 900.ms, delay: 300.ms)
                         .move(
                           begin: const Offset(-200, 0),
@@ -309,7 +309,7 @@ class ConfirmWindowComponent extends StatelessWidget {
                   text: StringsAssetsConstants.confirm,
                   width: 0.7.sw,
                 )
-                    .animate(delay: (150).ms)
+                    .animate(delay: (10).ms)
                     .fadeIn(duration: 900.ms, delay: 300.ms)
                     .move(
                       begin: const Offset(0, 200),
