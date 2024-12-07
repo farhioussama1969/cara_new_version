@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,7 @@ import 'package:solvodev_mobile_structure/app/core/components/buttons/icon_butto
 import 'package:solvodev_mobile_structure/app/core/components/cards/tag_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/others/webview_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/pop_ups/bottom_sheet_component.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/windows/credit_card_form_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/components/windows/progress_status_window_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/fonts_family_assets_constants.dart';
@@ -525,21 +527,25 @@ class HomeView extends GetView<HomeController> {
         url: url,
         title: StringsAssetsConstants.paymentConfirmation,
         onExitWebView: () {},
-        onPageFinished: (url) {
-          if (url.contains('demo.cara-wash.com')) {
-            var link = Uri.dataFromString(url);
-            Map<String, String> params = link.queryParameters;
-            if (params['status'] == 'paid') {
-              controller.resetData();
-              Get.back();
-              Get.back();
-              const HomeView().showCreateOrderStatusWindow(true);
-            } else {
-              Get.back();
-              Get.back();
-              const HomeView().showCreateOrderStatusWindow(false);
-            }
-          }
+        onPageFinished: (url) async {
+          await Clipboard.setData(ClipboardData(text: url));
+          await Clipboard.setData(ClipboardData(text: url));
+          ToastComponent.showErrorToast(Get.context!, text: url);
+
+          // if (url.contains('demo.cara-wash.com')) {
+          //   var link = Uri.dataFromString(url);
+          //   Map<String, String> params = link.queryParameters;
+          //   if (params['status'] == 'paid') {
+          //     controller.resetData();
+          //     Get.back();
+          //     Get.back();
+          //     const HomeView().showCreateOrderStatusWindow(true);
+          //   } else {
+          //     Get.back();
+          //     Get.back();
+          //     const HomeView().showCreateOrderStatusWindow(false);
+          //   }
+          // }
         },
       ),
     );
