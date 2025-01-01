@@ -82,6 +82,49 @@ class SubscriptionsController extends GetxController {
     update([GetBuildersIdsConstants.subscriptionsPaymentWindow]);
   }
 
+  void applePayment(SubscriptionPlanModel? gift) {
+    MoyasarPaymentService.applePayPayment(
+      coupon: null,
+      orderDescription: '',
+      price: gift?.price ?? 0,
+      publishableKey: Get.find<HomeController>()
+              .checkServiceAvailabilityResponse
+              ?.branch
+              ?.moyasarPublishableApiKey ??
+          FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
+      merchantId: Get.find<HomeController>()
+              .checkServiceAvailabilityResponse
+              ?.branch
+              ?.moyasarMerchantId ??
+          FlutterConfig.get('MOYASAR_PAYMENT_MERCHANET_ID'),
+      onLoading: () => changeApplePaymentLoading(true),
+      onFinal: () => changeApplePaymentLoading(false),
+      onError: () {},
+    ).then((paymentRes) {
+      if (paymentRes != null) {
+        SubscriptionProvider()
+            .subscription(
+          branchId: Get.find<HomeController>()
+              .checkServiceAvailabilityResponse
+              ?.branch
+              ?.id,
+          subscriptionId: gift?.id,
+          paymentMethod: "Apple pay",
+          paymentId: paymentRes.id,
+          onLoading: () => changeApplePaymentLoading(true),
+          onFinal: () => changeApplePaymentLoading(false),
+        )
+            .then((value) {
+          if (value != null) {
+            const SubscriptionsView().showCreateGiftStatusWindow(true);
+          } else {
+            const SubscriptionsView().showCreateGiftStatusWindow(false);
+          }
+        });
+      }
+    });
+  }
+
   bool walletPaymentLoading = false;
   void changeWalletPaymentLoading(bool value) {
     walletPaymentLoading = value;

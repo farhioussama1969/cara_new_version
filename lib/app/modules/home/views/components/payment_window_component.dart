@@ -708,6 +708,8 @@ class PaymentWindowComponent extends StatelessWidget {
                                   backgroundColor:
                                       MainColors.textColor(context),
                                   isLoading: applePaymentLoading,
+                                  loadingColor:
+                                      MainColors.backgroundColor(context),
                                 )
                                     .animate(delay: (10).ms)
                                     .fadeIn(duration: 900.ms, delay: 300.ms)

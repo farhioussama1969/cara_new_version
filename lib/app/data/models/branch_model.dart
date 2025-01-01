@@ -17,7 +17,7 @@ class BranchModel {
     name = json['name'];
     moyasarPublishableApiKey = json['moyasar_publishable_api_key'];
     moyasarSecretKey = json['moyasar_secret_key'];
-    moyasarMerchantId = json['moyasar_merchant_id'];
+    moyasarMerchantId = json['merchantIdentifier'];
   }
 
   Map<String, dynamic> toJson() {

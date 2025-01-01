@@ -488,6 +488,8 @@ class HomeController extends GetxController {
   }
 
   void applePayment() {
+    print(
+        'apple payment::: ${checkServiceAvailabilityResponse?.branch?.moyasarMerchantId}');
     MoyasarPaymentService.applePayPayment(
       coupon: coupon,
       orderDescription: '',

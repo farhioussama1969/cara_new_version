@@ -384,7 +384,7 @@ class SendGiftsView extends GetView<SendGiftsController> {
               getWalletAmountLoading: logic.getWalletAmountLoading,
               walletAmount: logic.walletAmount,
               applePaymentLoading: logic.applePaymentLoading,
-              onApplePayment: () {},
+              onApplePayment: () => logic.applePayment(gift),
               walletPaymentLoading: logic.walletPaymentLoading,
               onConfirm: () {
                 if (logic.selectedPaymentMethod == 1) {

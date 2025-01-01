@@ -356,9 +356,14 @@ class PaymentWindowComponent extends StatelessWidget {
                               if (Platform.isIOS) SizedBox(height: 15.h),
                               if (Platform.isIOS)
                                 PrimaryButtonComponent(
-                                  onTap: () {},
+                                  onTap: () => onApplePayment(),
                                   text: StringsAssetsConstants.payWithApplePay,
                                   iconPath: IconsAssetsConstants.appleIcon,
+                                  loadingColor:
+                                      MainColors.backgroundColor(context),
+                                  isLoading: applePaymentLoading,
+                                  textColor:
+                                      MainColors.backgroundColor(context),
                                   iconColor:
                                       MainColors.backgroundColor(context),
                                   backgroundColor:

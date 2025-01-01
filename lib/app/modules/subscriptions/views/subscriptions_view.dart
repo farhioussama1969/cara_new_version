@@ -145,7 +145,7 @@ class SubscriptionsView extends GetView<SubscriptionsController> {
               getWalletAmountLoading: logic.getWalletAmountLoading,
               walletAmount: logic.walletAmount,
               applePaymentLoading: logic.applePaymentLoading,
-              onApplePayment: () {},
+              onApplePayment: () => logic.applePayment(subscription),
               walletPaymentLoading: logic.walletPaymentLoading,
               onConfirm: () {
                 if (logic.selectedPaymentMethod == 1) {

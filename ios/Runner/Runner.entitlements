@@ -5,6 +5,9 @@
 	<key>aps-environment</key>
 	<string>development</string>
 	<key>com.apple.developer.in-app-payments</key>
-	<array/>
+	<array>
+		<string>merchant.com.hoskadev.carawash.1</string>
+		<string>merchant.com.hoskadev.carawash.2</string>
+	</array>
 </dict>
 </plist>

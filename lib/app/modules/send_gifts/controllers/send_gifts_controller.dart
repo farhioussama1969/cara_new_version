@@ -19,6 +19,7 @@ import 'package:solvodev_mobile_structure/app/core/styles/text_styles.dart';
 import 'package:solvodev_mobile_structure/app/data/models/gift_coupon_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/pagination_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/gift_provider.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/order_provider.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/wallet_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/home/controllers/home_controller.dart';
 import 'package:solvodev_mobile_structure/app/modules/send_gifts/views/send_gifts_view.dart';
@@ -280,6 +281,46 @@ class SendGiftsController extends GetxController {
       } else {
         ToastComponent.showErrorToast(Get.context!,
             text: StringsAssetsConstants.createOrderError);
+      }
+    });
+  }
+
+  void applePayment(GiftModel? gift) {
+    MoyasarPaymentService.applePayPayment(
+      coupon: null,
+      orderDescription: '',
+      price: gift?.amount ?? 0,
+      publishableKey: Get.find<HomeController>()
+              .checkServiceAvailabilityResponse
+              ?.branch
+              ?.moyasarPublishableApiKey ??
+          FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
+      merchantId: Get.find<HomeController>()
+              .checkServiceAvailabilityResponse
+              ?.branch
+              ?.moyasarMerchantId ??
+          FlutterConfig.get('MOYASAR_PAYMENT_MERCHANET_ID'),
+      onLoading: () => changeApplePaymentLoading(true),
+      onFinal: () => changeApplePaymentLoading(false),
+      onError: () {},
+    ).then((paymentRes) {
+      if (paymentRes != null) {
+        GiftProvider()
+            .buyGift(
+          giftId: gift?.id,
+          title: '/',
+          paymentMethod: "Apple pay",
+          paymentId: paymentRes.id,
+          onLoading: () => changeApplePaymentLoading(true),
+          onFinal: () => changeApplePaymentLoading(false),
+        )
+            .then((value) {
+          if (value != null) {
+            const SendGiftsView().showCreateGiftStatusWindow(true, value);
+          } else {
+            const SendGiftsView().showCreateGiftStatusWindow(false, null);
+          }
+        });
       }
     });
   }
