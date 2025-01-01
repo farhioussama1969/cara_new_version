@@ -528,24 +528,20 @@ class HomeView extends GetView<HomeController> {
         title: StringsAssetsConstants.paymentConfirmation,
         onExitWebView: () {},
         onPageFinished: (url) async {
-          await Clipboard.setData(ClipboardData(text: url));
-          await Clipboard.setData(ClipboardData(text: url));
-          ToastComponent.showErrorToast(Get.context!, text: url);
-
-          // if (url.contains('demo.cara-wash.com')) {
-          //   var link = Uri.dataFromString(url);
-          //   Map<String, String> params = link.queryParameters;
-          //   if (params['status'] == 'paid') {
-          //     controller.resetData();
-          //     Get.back();
-          //     Get.back();
-          //     const HomeView().showCreateOrderStatusWindow(true);
-          //   } else {
-          //     Get.back();
-          //     Get.back();
-          //     const HomeView().showCreateOrderStatusWindow(false);
-          //   }
-          // }
+          if (url.contains('demo.cara-wash.com')) {
+            var link = Uri.dataFromString(url);
+            Map<String, String> params = link.queryParameters;
+            if (params['status'] == 'paid') {
+              controller.resetData();
+              Get.back();
+              Get.back();
+              const HomeView().showCreateOrderStatusWindow(true);
+            } else {
+              Get.back();
+              Get.back();
+              const HomeView().showCreateOrderStatusWindow(false);
+            }
+          }
         },
       ),
     );
