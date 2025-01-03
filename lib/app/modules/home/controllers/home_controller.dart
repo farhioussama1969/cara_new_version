@@ -509,14 +509,13 @@ class HomeController extends GetxController {
     ).then((paymentRes) {
       if (paymentRes != null) {
         OrderProvider()
-            .createNewOrder(
+            .createNewOrderForApplePay(
           lat: currentLatitude,
           lng: currentLongitude,
           washingTypeId: selectedWashingTypeId,
           carId: selectedCarId,
           date: selectedDay!,
           time: selectedTime!,
-          paymentMethod: "Apple pay",
           couponId: coupon?.couponId,
           price: coupon?.actualTotal ?? 0,
           paymentId: paymentRes.id,

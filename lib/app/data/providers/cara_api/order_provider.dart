@@ -111,6 +111,45 @@ class OrderProvider {
     return null;
   }
 
+  Future<OrderModel?> createNewOrderForApplePay({
+    required double? lat,
+    required double? lng,
+    required int? washingTypeId,
+    required int? couponId,
+    required int? carId,
+    required String date,
+    required String time,
+    required double? price,
+    String? paymentId,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.orders,
+      requestType: HttpRequestTypes.post,
+      data: {
+        "lng": lng,
+        "lat": lat,
+        "washing_type_id": washingTypeId,
+        "car_id": carId,
+        "order_date": date,
+        "order_time": time.replaceAll('H', ''),
+        "payment_method": "Apple pay",
+        "payment_id": "${paymentId}",
+        "coupon_id": couponId,
+        "price": price ?? 0,
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      if (response?.body['data'] != null) {
+        return OrderModel.fromJson(response?.body['data']);
+      }
+    }
+    return null;
+  }
+
   Future<OrderModel?> ratingOrder({
     required int? orderId,
     required double rating,
