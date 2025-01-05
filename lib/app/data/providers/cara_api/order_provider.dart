@@ -125,7 +125,7 @@ class OrderProvider {
     required Function onFinal,
   }) async {
     ApiResponse? response = await HttpClientService.sendRequest(
-      endPoint: EndPointsConstants.orders,
+      endPoint: EndPointsConstants.orderApplePay,
       requestType: HttpRequestTypes.post,
       data: {
         "lng": lng,
