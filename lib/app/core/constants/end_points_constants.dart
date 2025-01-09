@@ -1,5 +1,5 @@
 class EndPointsConstants {
-  static const String baseUrl = 'https://demo.cara-wash.com/api/';
+  static const String baseUrl = 'https://app.cara-wash.com/api/';
 
   //config provider
   static const String checkUser = 'check';

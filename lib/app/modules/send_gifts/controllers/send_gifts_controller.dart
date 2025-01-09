@@ -265,7 +265,7 @@ class SendGiftsController extends GetxController {
                   ?.moyasarPublishableApiKey ??
               FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
           callBackUrl:
-              "http://demo.cara-wash.com/gifts/coupons/${value.id}/payment/callback",
+              "http://app.cara-wash.com/gifts/coupons/${value.id}/payment/callback",
           onLoading: () => changeCreditCardPaymentLoading(true),
           onFinal: () => changeCreditCardPaymentLoading(false),
           onError: () {

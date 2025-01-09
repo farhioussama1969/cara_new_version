@@ -83,6 +83,9 @@ class SubscriptionsController extends GetxController {
   }
 
   void applePayment(SubscriptionPlanModel? gift) {
+    print(
+        '${Get.find<HomeController>().checkServiceAvailabilityResponse?.branch?.moyasarMerchantId}');
+
     MoyasarPaymentService.applePayPayment(
       coupon: null,
       orderDescription: '',
@@ -192,7 +195,7 @@ class SubscriptionsController extends GetxController {
                   ?.moyasarPublishableApiKey ??
               FlutterConfig.get('MOYASAR_PAYMENT_API_KEY'),
           callBackUrl:
-              "http://demo.cara-wash.com/subscriptions/userSubscriptions/${value.id}/payment/callback",
+              "http://app.cara-wash.com/subscriptions/userSubscriptions/${value.id}/payment/callback",
           onLoading: () => changeCreditCardPaymentLoading(true),
           onFinal: () => changeCreditCardPaymentLoading(false),
           onError: () {
