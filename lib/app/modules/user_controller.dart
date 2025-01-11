@@ -19,7 +19,26 @@ class UserController extends GetxController {
   UserModel? user;
 
   initialize({bool? skipUpdateChecker}) async {
-    // String currentAppVersion = Get.find<ConfigController>().appVersion ?? '1.0.0';
+    String currentAppVersion =
+        Get.find<ConfigController>().appVersion ?? '1.0.0';
+    if (Get.find<ConfigController>().appVersionCheckerModel != null &&
+        skipUpdateChecker != true) {
+      Get.offAllNamed(Routes.NEW_UPDATE, arguments: {
+        'versionData': Get.find<ConfigController>().appVersionCheckerModel
+      });
+    } else {
+      if (await LocalStorageService.loadData(
+              key: StorageKeysConstants.serverApiToken,
+              type: DataTypes.string) !=
+          null) {
+        log(await LocalStorageService.loadData(
+            key: StorageKeysConstants.serverApiToken, type: DataTypes.string));
+        await getUserData();
+      } else {
+        Get.offAllNamed(Routes.GET_STARTED);
+      }
+    }
+
     // String lastRequiredAppVersion = Platform.isAndroid
     //     ? Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.required ?? '1.0.0'
     //     : Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.required ?? '1.0.0';
@@ -33,16 +52,7 @@ class UserController extends GetxController {
     //     skipUpdateChecker != true) {
     //   Get.offAllNamed(Routes.NEW_UPDATE);
     // } else {
-    if (await LocalStorageService.loadData(
-            key: StorageKeysConstants.serverApiToken, type: DataTypes.string) !=
-        null) {
-      log(await LocalStorageService.loadData(
-          key: StorageKeysConstants.serverApiToken, type: DataTypes.string));
-      await getUserData();
-      // });
-    } else {
-      Get.offAllNamed(Routes.GET_STARTED);
-    }
+
     //}
   }
 

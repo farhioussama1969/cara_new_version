@@ -50,12 +50,16 @@ class OrderProvider {
   }
 
   Future<List<WashingTypeModel>?> getWashingTypes({
+    required int? branchId,
     required Function onLoading,
     required Function onFinal,
   }) async {
     ApiResponse? response = await HttpClientService.sendRequest(
       endPoint: EndPointsConstants.washingTypes,
       requestType: HttpRequestTypes.get,
+      queryParameters: {
+        'branch_id': branchId,
+      },
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),
     );

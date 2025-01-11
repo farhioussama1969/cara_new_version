@@ -219,4 +219,10 @@ static String get passwordConfirmation{return "password confirmation".tr;}
 static String get paymentError{return "payment error".tr;}
 static String get createOrderError{return "create order error".tr;}
 static String get paymentConfirmation{return "payment confirmation".tr;}
+static String get resetPassword{return "reset password".tr;}
+static String get resetPasswordDescription{return "reset password description".tr;}
+static String get otpCode{return "otp code".tr;}
+static String get changePassword{return "change password".tr;}
+static String get changePasswordDescription{return "change password description".tr;}
+static String get changePasswordSuccess{return "change password success".tr;}
 }

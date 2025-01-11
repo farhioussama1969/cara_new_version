@@ -328,29 +328,29 @@ class GetStartedView extends GetView<GetStartedController> {
                                             duration: 500.ms,
                                           ),
                                       SizedBox(height: 40.h),
-                                      // Center(
-                                      //   child: InkWell(
-                                      //     // onTap: () => Get.toNamed(
-                                      //     //     Routes.REMIND_PASSWORD),
-                                      //     child: Text(
-                                      //       StringsAssetsConstants
-                                      //           .forgotPassword,
-                                      //       style:
-                                      //           TextStyles.largeBodyTextStyle(
-                                      //                   context)
-                                      //               .copyWith(
-                                      //         color: MainColors.primaryColor,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // )
-                                      //     .animate(delay: (350).ms)
-                                      //     .fadeIn(
-                                      //         duration: 900.ms, delay: 300.ms)
-                                      //     .move(
-                                      //       begin: const Offset(200, 0),
-                                      //       duration: 500.ms,
-                                      //     ),
+                                      Center(
+                                        child: InkWell(
+                                          onTap: () => Get.toNamed(
+                                              Routes.REMIND_PASSWORD),
+                                          child: Text(
+                                            StringsAssetsConstants
+                                                .forgotPassword,
+                                            style:
+                                                TextStyles.largeBodyTextStyle(
+                                                        context)
+                                                    .copyWith(
+                                              color: MainColors.primaryColor,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                          .animate(delay: (350).ms)
+                                          .fadeIn(
+                                              duration: 900.ms, delay: 300.ms)
+                                          .move(
+                                            begin: const Offset(200, 0),
+                                            duration: 500.ms,
+                                          ),
                                       SizedBox(height: 40.h),
                                     ],
                                   ),

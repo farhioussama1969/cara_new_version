@@ -8,6 +8,7 @@ class EndPointsConstants {
   static const String login = 'login';
   static const String updateProfile = 'users';
   static const String remindPassword = 'password/remind';
+  static const String checkOtp = 'code/check';
   static const String checkCityService = 'orders/checkCityService';
   static const String resetPassword = 'password/reset';
   static const String cars = 'cars';
@@ -32,4 +33,5 @@ class EndPointsConstants {
   static const String policyAndPrivacy = 'caraWash/privacyPolicy';
   static const String about = 'caraWash/about';
   static const String whatsapp = 'whatsapp';
+  static const String checkVersion = 'version';
 }

@@ -58,4 +58,6 @@ class GetBuildersIdsConstants {
   static const String sendGiftCreditCardWindow = 'send_gift_credit_card_window';
   static const String subscriptionsCreditCardWindow =
       'subscriptions_credit_card_window';
+  static const String resetPasswordButton = 'reset_password_button';
+  static const String otpVerificationWindow = 'otp_verification_window';
 }

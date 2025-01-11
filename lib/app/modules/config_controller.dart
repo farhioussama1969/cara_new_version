@@ -2,7 +2,10 @@ import 'package:get/get.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
 import 'package:solvodev_mobile_structure/app/core/services/app_version_info_service.dart';
 import 'package:solvodev_mobile_structure/app/core/utils/translation_util.dart';
+import 'package:solvodev_mobile_structure/app/data/models/app_version_checker_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/general_settings_model.dart';
+import 'package:solvodev_mobile_structure/app/data/providers/cara_api/config_provider.dart';
+
 class ConfigController extends GetxController {
   String? appVersion;
 
@@ -13,8 +16,13 @@ class ConfigController extends GetxController {
 
   GeneralSettingsModel? generalSettingsData;
 
-  Future<void> getGeneralSettingsData() async {
+  AppVersionCheckerModel? appVersionCheckerModel;
 
+  Future<void> getGeneralSettingsData() async {
+    try {
+      appVersionCheckerModel = await ConfigProvider()
+          .checkAppVersion(onLoading: () {}, onFinal: () {});
+    } catch (e) {}
   }
 
   initialize() async {

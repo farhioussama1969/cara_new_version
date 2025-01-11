@@ -207,6 +207,7 @@ class HomeController extends GetxController {
     changeWashingTypes([]);
     OrderProvider()
         .getWashingTypes(
+      branchId: checkServiceAvailabilityResponse?.branch?.id,
       onLoading: () => changeGetWashingTypesLoading(true),
       onFinal: () => changeGetWashingTypesLoading(false),
     )

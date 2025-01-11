@@ -287,7 +287,17 @@
   "payment error": "حدث خطأ أثناء عملية الدفع، يرجى المحاولة مرة أخرى",
   "create order error": "حدث خطأ أثناء إنشاء الطلب، يرجى المحاولة مرة أخرى",
 
-  "payment confirmation": "تأكيد الدفع"
+  "payment confirmation": "تأكيد الدفع",
+
+  "reset password": "إعادة تعيين كلمة المرور",
+  "reset password description": "أدخل رقم الهاتف الخاص بك لإعادة تعيين كلمة المرور",
+  "otp code": "رمز التحقق",
+
+
+  "change password": "تغيير كلمة المرور",
+  "change password description": "أدخل كلمة المرور الجديدة",
+
+  "change password success": "تم تغيير كلمة المرور بنجاح"
 
 
 

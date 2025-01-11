@@ -101,6 +101,27 @@ class AuthProvider {
     return null;
   }
 
+  Future<bool?> checkOtp({
+    required String phone,
+    required String otp,
+    required Function onLoading,
+    required Function onFinal,
+  }) async {
+    ApiResponse? response = await HttpClientService.sendRequest(
+      endPoint: EndPointsConstants.checkOtp,
+      requestType: HttpRequestTypes.get,
+      data: {
+        {"code_reset": otp, "phone": phone}
+      },
+      onLoading: () => onLoading(),
+      onFinal: () => onFinal(),
+    );
+    if (response?.body != null) {
+      return response?.body['success'];
+    }
+    return null;
+  }
+
   Future<bool?> resetPassword({
     required String otp,
     required String phone,

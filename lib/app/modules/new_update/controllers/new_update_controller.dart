@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/data/models/app_version_checker_model.dart';
 import 'package:solvodev_mobile_structure/app/modules/config_controller.dart';
 
 class NewUpdateController extends GetxController {
-  String currentVersion = Get.find<ConfigController>().appVersion ?? '';
-  String lastRequiredVersion = Platform.isAndroid
-      ? Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.required ?? ''
-      : Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.required ?? '';
-  String lastOptionalAppVersion = Platform.isAndroid
-      ? Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.optional ?? ''
-      : Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.optional ?? '';
+  AppVersionCheckerModel? versionData;
 
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      if (Get.arguments['versionData'] != null) {
+        versionData = Get.arguments['versionData'];
+      }
+    }
     super.onInit();
   }
 

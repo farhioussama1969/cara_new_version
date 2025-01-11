@@ -37,7 +37,7 @@ class NewUpdateView extends GetView<NewUpdateController> {
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Center(
                 child: Text(
-                  '${StringsAssetsConstants.newUpdate} (${(AppVersionInfoService.getExtendedVersionNumber(controller.currentVersion) < AppVersionInfoService.getExtendedVersionNumber(controller.lastRequiredVersion)) ? StringsAssetsConstants.required : StringsAssetsConstants.optional})',
+                  '${StringsAssetsConstants.newUpdate} (${controller.versionData?.priority == true ? StringsAssetsConstants.required : StringsAssetsConstants.optional})',
                   style: TextStyles.mediumLabelTextStyle(context).copyWith(
                     fontSize: 24.sp,
                   ),
@@ -49,8 +49,7 @@ class NewUpdateView extends GetView<NewUpdateController> {
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Center(
                 child: Text(
-                  (AppVersionInfoService.getExtendedVersionNumber(controller.currentVersion) <
-                          AppVersionInfoService.getExtendedVersionNumber(controller.lastRequiredVersion))
+                  (controller.versionData?.priority == true)
                       ? StringsAssetsConstants.requiredUpdateDescription
                       : StringsAssetsConstants.optionalUpdateDescription,
                   style: TextStyles.largeBodyTextStyle(context).copyWith(
@@ -65,20 +64,19 @@ class NewUpdateView extends GetView<NewUpdateController> {
               padding: EdgeInsets.symmetric(horizontal: 40.w),
               child: PrimaryButtonComponent(
                 onTap: () => UrlLauncherService.openLink(
-                    link: Platform.isAndroid
-                        ? '${Get.find<ConfigController>().generalSettingsData?.androidAppVersion?.appUrl}'
-                        : '${Get.find<ConfigController>().generalSettingsData?.iosAppVersion?.appUrl}'),
+                  link: '${controller.versionData?.link}',
+                ),
                 text: StringsAssetsConstants.update,
               ),
             ),
             SizedBox(height: 40.h),
-            if (!(AppVersionInfoService.getExtendedVersionNumber(controller.currentVersion) <
-                AppVersionInfoService.getExtendedVersionNumber(controller.lastRequiredVersion)))
+            if (controller.versionData?.priority != true)
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Center(
                   child: InkWell(
-                    onTap: () => Get.find<UserController>().initialize(skipUpdateChecker: true),
+                    onTap: () => Get.find<UserController>()
+                        .initialize(skipUpdateChecker: true),
                     child: Text(
                       StringsAssetsConstants.updateLater,
                       style: TextStyles.largeBodyTextStyle(context).copyWith(
