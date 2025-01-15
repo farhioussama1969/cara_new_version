@@ -13,6 +13,7 @@ import flutter_config
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
 
+
                 FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
                               GeneratedPluginRegistrant.register(with: registry)
                           }
@@ -31,6 +32,9 @@ import flutter_config
 
      override func application(_ application: UIApplication,
                 didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+
+                let firebaseAuth = Auth.auth()
+                        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.unknown)
 
                  Messaging.messaging().apnsToken = deviceToken
                  print("Token: \(deviceToken)")
