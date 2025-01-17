@@ -297,7 +297,9 @@
   "change password": "تغيير كلمة المرور",
   "change password description": "أدخل كلمة المرور الجديدة",
 
-  "change password success": "تم تغيير كلمة المرور بنجاح"
+  "change password success": "تم تغيير كلمة المرور بنجاح",
+
+  "you can not delete this car": "لا يمكنك حذف هذه السيارة، لأنها مرتبطة بموعد غسيل"
 
 
 

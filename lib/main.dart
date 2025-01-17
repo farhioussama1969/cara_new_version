@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -41,6 +43,10 @@ Future<void> requestAndRegisterNotification() async {
           value: token);
       _messaging.subscribeToTopic(FirebaseMessagingTobicsConstants.allClients);
     });
+  } else {
+    print(
+      'token::${await LocalStorageService.loadData(key: StorageKeysConstants.fcmToken, type: DataTypes.string)}',
+    );
   }
 
   NotificationSettings settings = await _messaging.requestPermission(

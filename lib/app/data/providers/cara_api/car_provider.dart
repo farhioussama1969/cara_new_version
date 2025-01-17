@@ -108,7 +108,7 @@ class CarProvider {
     return null;
   }
 
-  Future<bool?> deleteCar({
+  Future<String?> deleteCar({
     required int? carId,
     required Function onLoading,
     required Function onFinal,
@@ -116,9 +116,10 @@ class CarProvider {
     ApiResponse? response = await HttpClientService.sendRequest(
       endPoint: '${EndPointsConstants.cars}/$carId',
       requestType: HttpRequestTypes.delete,
+      showSuccessToast: false,
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),
     );
-    return response?.statusCode == 200;
+    return response?.message;
   }
 }

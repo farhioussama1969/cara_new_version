@@ -92,12 +92,12 @@ class UserController extends GetxController {
   }
 
   Future<void> clearUser({bool? withoutLogout}) async {
-    if (withoutLogout != true) {
-      await AuthProvider().logout(
-        onLoading: () => changeLogoutLoading(true),
-        onFinal: () => changeLogoutLoading(false),
-      );
-    }
+    // if (withoutLogout != true) {
+    //   await AuthProvider().logout(
+    //     onLoading: () => changeLogoutLoading(true),
+    //     onFinal: () => changeLogoutLoading(false),
+    //   );
+    // }
     await LocalStorageService.deleteData(key: StorageKeysConstants.userData);
     await LocalStorageService.deleteData(
         key: StorageKeysConstants.serverApiToken);
@@ -112,10 +112,6 @@ class UserController extends GetxController {
           key: StorageKeysConstants.fcmToken,
           type: DataTypes.string,
           value: token);
-      FirebaseMessaging.instance.subscribeToTopic(
-          FirebaseMessagingTobicsConstants.clientsNotRegistered);
-      FirebaseMessaging.instance
-          .subscribeToTopic(FirebaseMessagingTobicsConstants.allClients);
     });
   }
 }

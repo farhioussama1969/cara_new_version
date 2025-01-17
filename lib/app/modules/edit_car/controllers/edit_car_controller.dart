@@ -7,6 +7,7 @@ import 'package:solvodev_mobile_structure/app/data/models/car_brand_model.dart';
 import 'package:solvodev_mobile_structure/app/data/models/car_model.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/car_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/my_cars/controllers/my_cars_controller.dart';
+import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
 
 class EditCarController extends GetxController {
   CarModel? carModel;
@@ -150,15 +151,15 @@ class EditCarController extends GetxController {
       onFinal: () => changeDeleteCarLoading(false),
     )
         .then((value) {
-      if (value != null) {
+      if (value == 'تمت عملية حدف السيارة بنجاح') {
         Get.back();
         Get.back();
         Get.find<MyCarsController>().refreshMyCars();
-        ToastComponent.showSuccessToast(Get.context!,
-            text: StringsAssetsConstants.carDeletedSuccessfully);
+        // ToastComponent.showSuccessToast(Get.context!,
+        //     text: StringsAssetsConstants.carDeletedSuccessfully);
       } else {
         ToastComponent.showErrorToast(Get.context!,
-            text: StringsAssetsConstants.generalErrorMessage);
+            text: StringsAssetsConstants.youCanNotDeleteThisCar);
       }
     });
   }

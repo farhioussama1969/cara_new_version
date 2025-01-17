@@ -225,4 +225,5 @@ static String get otpCode{return "otp code".tr;}
 static String get changePassword{return "change password".tr;}
 static String get changePasswordDescription{return "change password description".tr;}
 static String get changePasswordSuccess{return "change password success".tr;}
+static String get youCanNotDeleteThisCar{return "you can not delete this car".tr;}
 }
