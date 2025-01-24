@@ -109,10 +109,8 @@ class AuthProvider {
   }) async {
     ApiResponse? response = await HttpClientService.sendRequest(
       endPoint: EndPointsConstants.checkOtp,
-      requestType: HttpRequestTypes.get,
-      data: {
-        {"code_reset": otp, "phone": phone}
-      },
+      requestType: HttpRequestTypes.post,
+      data: {"code_reset": otp, "phone": phone},
       onLoading: () => onLoading(),
       onFinal: () => onFinal(),
     );

@@ -65,10 +65,9 @@ class OtpVerificationWindowComponent extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30.h),
-                  TextInputComponent(
+                  OtpInputComponent(
                     controller: otpController,
-                    hint:
-                        "${StringsAssetsConstants.enter} ${StringsAssetsConstants.otpCode}...",
+                    length: 6,
                   ),
                   SizedBox(height: 15.h),
                   Padding(

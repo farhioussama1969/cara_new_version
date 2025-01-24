@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solvodev_mobile_structure/app/core/components/pop_ups/toast_component.dart';
 import 'package:solvodev_mobile_structure/app/core/constants/get_builders_ids_constants.dart';
+import 'package:solvodev_mobile_structure/app/core/constants/strings_assets_constants.dart';
 import 'package:solvodev_mobile_structure/app/data/providers/cara_api/auth_provider.dart';
 import 'package:solvodev_mobile_structure/app/modules/remind_password/views/remind_password_view.dart';
 import 'package:solvodev_mobile_structure/app/routes/app_pages.dart';
@@ -41,6 +43,11 @@ class RemindPasswordController extends GetxController {
 
   void verifyOtp() {
     if (verifyOtpLoading) return;
+    if (otpController.text.length != 6) {
+      ToastComponent.showErrorToast(Get.context!,
+          text: StringsAssetsConstants.otpInputValidationText);
+      return;
+    }
     AuthProvider()
         .checkOtp(
       otp: otpController.text,
@@ -54,6 +61,9 @@ class RemindPasswordController extends GetxController {
           'otp': otpController.text,
           'phone': phoneController.text
         });
+      } else {
+        ToastComponent.showErrorToast(Get.context!,
+            text: StringsAssetsConstants.wrongOtp);
       }
     });
   }

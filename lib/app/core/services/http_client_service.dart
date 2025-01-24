@@ -160,6 +160,9 @@ class HttpClientService {
       return _buildOut(response);
     } catch (_error) {
       dio.DioError error = _error as dio.DioError;
+
+      print('message::: ${error?.message}');
+
       if (error.response == null) {
         return _errorNoResponse(error);
       } else {
